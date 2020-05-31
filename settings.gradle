@@ -1,0 +1,2 @@
+rootProject.name='MatZip_EXE'
+include ':app'
