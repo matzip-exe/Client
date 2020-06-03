@@ -1,4 +1,4 @@
-package com.example.matzip_exe.Utils
+package com.example.matzip_exe.receivers
 
 import android.app.Activity
 import android.content.BroadcastReceiver
@@ -8,10 +8,9 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Handler
 import android.widget.Toast
-import androidx.core.os.HandlerCompat.postDelayed
-import com.example.matzip_exe.MainActivity
+import com.example.matzip_exe.activities.MainActivity
 
-class NetworkReceiver : BroadcastReceiver() {
+class LogoNetWorkReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
         val conn = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo: NetworkInfo? = conn.activeNetworkInfo

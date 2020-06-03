@@ -1,26 +1,31 @@
 package com.example.matzip_exe.splash
 
-import android.content.IntentFilter
-import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.matzip_exe.R
-import com.example.matzip_exe.Utils.NetworkReceiver
+import com.example.matzip_exe.receivers.LogoNetWorkReceiver
+import com.example.matzip_exe.utils.DetectNetWorkConnected
 
 class Splash : AppCompatActivity() {
-    private lateinit var receiver: NetworkReceiver
+    private val receiver = DetectNetWorkConnected()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-        receiver = NetworkReceiver()
-        this.registerReceiver(receiver, filter)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStart() {
+        super.onStart()
 
-        this.unregisterReceiver(receiver)
+        receiver.setContext(this)
+        receiver.setReceiver(LogoNetWorkReceiver())
+        receiver.register()
     }
+
+    override fun onStop() {
+        super.onStop()
+
+        receiver.unregister()
+    }
+
 }
