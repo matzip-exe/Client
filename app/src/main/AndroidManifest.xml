@@ -12,14 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.CheckNetWork"></activity>
-
         <receiver
-            android:name=".receivers.MonitorNetWorkReceiver"
-            android:enabled="true"
-            android:exported="true" />
-        <receiver
-            android:name=".receivers.LogoNetWorkReceiver"
+            android:name=".receivers.NetworkReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -27,7 +21,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".splash.Splash">
+        <activity android:name=".activities.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

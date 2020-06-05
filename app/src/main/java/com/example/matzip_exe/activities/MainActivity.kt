@@ -1,49 +1,64 @@
 package com.example.matzip_exe.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.example.matzip_exe.R
 import com.example.matzip_exe.fragments.FragmentButton
 import com.example.matzip_exe.fragments.FragmentMap
-import com.example.matzip_exe.receivers.MonitorNetWorkReceiver
-import com.example.matzip_exe.utils.DetectNetWorkConnected
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.android.material.tabs.TabLayout
 
-class MainActivity : AppCompatActivity() {
-    private val receiver = DetectNetWorkConnected()
+private const val NUM_PAGES = 2
+
+class MainActivity : FragmentActivity() {
+    private lateinit var mPager: ViewPager
+    private lateinit var mTabs: TabLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportFragmentManager.beginTransaction().add(R.id.main_frame, FragmentMap()).commit()
+        init()
 
-        bnav_main.setOnNavigationItemSelectedListener {item ->
-            when(item.itemId){
-                R.id.main_mapSwitch ->{
-                    supportFragmentManager.beginTransaction().replace(R.id.main_frame, FragmentMap()).commit()
-                    true
+    }
+
+    private fun init(){
+        setViewPager()
+        setTabs()
+    }
+
+    private fun setViewPager(){
+        mPager = findViewById(R.id.viewpager_main)
+
+        val pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager)
+        mPager.adapter = pagerAdapter
+    }
+
+    private fun setTabs(){
+        mTabs = findViewById(R.id.tabs_main)
+        mTabs.setupWithViewPager(mPager)
+        mTabs.getTabAt(0)!!.setIcon(R.drawable.ic_horizontal_rule_24px)
+        mTabs.getTabAt(1)!!.setIcon(R.drawable.ic_horizontal_rule_24px)
+    }
+
+    private inner class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm){
+        override fun getItem(position: Int): Fragment{
+            when(position){
+                0->{
+                    return FragmentMap()
                 }
-                R.id.main_buttonSwitch ->{
-                    supportFragmentManager.beginTransaction().replace(R.id.main_frame, FragmentButton()).commit()
-                    true
+                1->{
+                    return FragmentButton()
                 }
-                else -> false
             }
+
+            return FragmentMap()
         }
-    }
 
-    override fun onStart() {
-        super.onStart()
+        override fun getCount(): Int = NUM_PAGES
 
-        receiver.setContext(this)
-        receiver.setReceiver(MonitorNetWorkReceiver())
-        receiver.register()
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        receiver.unregister()
     }
 }
