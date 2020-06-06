@@ -17,7 +17,10 @@ class NetworkReceiver : BroadcastReceiver() {
         val networkInfo: NetworkInfo? = conn.activeNetworkInfo
 
         when (networkInfo?.type) {
-            ConnectivityManager.TYPE_WIFI or ConnectivityManager.TYPE_MOBILE-> {
+            ConnectivityManager.TYPE_WIFI  ->{
+                networkListener.isConnected()
+            }
+            ConnectivityManager.TYPE_MOBILE ->{
                 networkListener.isConnected()
             }
             else -> {
