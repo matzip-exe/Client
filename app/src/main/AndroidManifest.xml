@@ -12,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="po5b4vwawx"/>
         <receiver
             android:name=".receivers.NetworkReceiver"
             android:enabled="true"
