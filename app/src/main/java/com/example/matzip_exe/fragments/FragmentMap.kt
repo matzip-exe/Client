@@ -11,6 +11,7 @@ import com.example.matzip_exe.R
 import com.example.matzip_exe.model.ModelPolygon
 import com.example.matzip_exe.utils.ParsingPolygon
 import com.naver.maps.geometry.LatLng
+import com.naver.maps.geometry.LatLngBounds
 import com.naver.maps.map.CameraPosition
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
@@ -72,7 +73,7 @@ class FragmentMap: Fragment(), OnMapReadyCallback {
         val polygon = PolygonOverlay()
 
         polygon.coords = data
-        polygon.color = Color.alpha(0)
+//        polygon.color = Color.alpha(0)
         polygon.outlineWidth = 5
         polygon.outlineColor = Color.RED
 
