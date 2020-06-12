@@ -68,10 +68,19 @@ class Splash : AppCompatActivity(), NetworkConnectedListener {
     }
 
     private fun checkPermission(){
+        //ContextCompat.checkSelfPermission은 앱에 사용 가능한 권한을 요청했는지 여부를 확인하는데 사용된다.
+        //ActivityCompat.checkSelfPermission은 권한을 요청하는데 사용된다.
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            //권한이 없을 경우 최초 권한 요청 또는 사용자에 의한 재요청 확인
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) &&
+                    ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)){
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), GPS_CODE)
+            }
+            else{
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), GPS_CODE)
+            }
 
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), GPS_CODE)
         }
         else{
             this.registerReceiver(receiver, receiver.getFilter())
