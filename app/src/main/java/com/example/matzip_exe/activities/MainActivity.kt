@@ -1,6 +1,7 @@
 package com.example.matzip_exe.activities
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -9,13 +10,21 @@ import androidx.viewpager.widget.ViewPager
 import com.example.matzip_exe.R
 import com.example.matzip_exe.fragments.FragmentButton
 import com.example.matzip_exe.fragments.FragmentMap
+import com.example.matzip_exe.http.MyRetrofit
+import com.example.matzip_exe.model.ModelCheckRegion
 import com.google.android.material.tabs.TabLayout
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.lang.Exception
 
 private const val NUM_PAGES = 2
 
 class MainActivity : FragmentActivity() {
     private lateinit var mPager: ViewPager
     private lateinit var mTabs: TabLayout
+    private lateinit var mCheckRegion: ModelCheckRegion
+    private val myRetrofit = MyRetrofit()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +37,7 @@ class MainActivity : FragmentActivity() {
     private fun init(){
         setViewPager()
         setTabs()
+        getRegion()
     }
 
     private fun setViewPager(){
@@ -60,5 +70,31 @@ class MainActivity : FragmentActivity() {
 
         override fun getCount(): Int = NUM_PAGES
 
+    }
+
+    private fun getRegion(){
+        val Region = myRetrofit.makeService().checkRegion()
+
+        Region.enqueue(object :Callback<ModelCheckRegion>{
+            override fun onResponse(
+                call: Call<ModelCheckRegion>,
+                response: Response<ModelCheckRegion>
+            ) {
+                try{
+                    mCheckRegion = response.body()!!
+
+                    println(mCheckRegion.items[0].region)
+                }
+                catch (e: Exception){
+                    e.printStackTrace()
+                }
+
+            }
+
+            override fun onFailure(call: Call<ModelCheckRegion>, t: Throwable) {
+                Log.i("ERROR", t.message!!)
+            }
+
+        })
     }
 }

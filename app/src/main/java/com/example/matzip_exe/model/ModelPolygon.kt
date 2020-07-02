@@ -9,7 +9,6 @@ data class ModelPolygon(
     inner class PolygonItems(
         @SerializedName("Division")val Division: String,
         @SerializedName("Position")val Position: List<List<Double>>
-    ){
+    )
 
-    }
 }
