@@ -20,13 +20,13 @@
             android:fitsSystemWindows="false"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="@color/colorMain">
-
-            <ImageView
-                android:id="@+id/detail_toolbarimage"
+            
+            <fragment
+                android:id="@+id/detail_map"
+                android:name="com.naver.maps.map.MapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="250dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/seola"
                 app:layout_collapseMode="parallax"/>
 
             <androidx.appcompat.widget.Toolbar
