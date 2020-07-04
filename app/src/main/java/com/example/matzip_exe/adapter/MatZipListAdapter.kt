@@ -1,12 +1,15 @@
 package com.example.matzip_exe.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.matzip_exe.R
+import com.example.matzip_exe.activities.Detail
 import com.example.matzip_exe.model.ModelMatZipList
 
 class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>):RecyclerView.Adapter<MatZipListAdapter.ViewHolder>() {
@@ -18,10 +21,27 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>):Recycl
         val text_matziplist_distance = v.findViewById<TextView>(R.id.text_matziplist_distance)
         val text_matziplist_visitcount = v.findViewById<TextView>(R.id.text_matziplist_visitcount)
         val img_matziplist_grade = v.findViewById<ImageView>(R.id.img_matziplist_grade)
+        val matziplist_wrapper = v.findViewById<LinearLayout>(R.id.matziplist_wrapper)
+        val locatex: Double = 37.1285309
+        val locatey: Double = 127.3213892
+
+        init {
+            matziplist_wrapper.setOnClickListener {
+                val intent = Intent(v.context, Detail::class.java)
+                intent.putExtra("visitcount", text_matziplist_visitcount.text)
+                intent.putExtra("name", text_matziplist_name.text)
+                intent.putExtra("type", text_matziplist_type.text)
+                intent.putExtra("locatex", locatex)
+                intent.putExtra("locatey", locatey)
+
+                v.context.startActivity(intent)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recycle_matziplist_view, parent, false)
+
         return ViewHolder(view)
     }
 

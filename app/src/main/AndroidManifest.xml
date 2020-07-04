@@ -16,6 +16,8 @@
         android:theme="@style/AppTheme" >
         <activity android:name=".activities.MatzipList" >
         </activity>
+        <activity android:name=".activities.Detail">
+        </activity>
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
@@ -38,6 +40,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.MainActivity" />
+
+
     </application>
 
 </manifest>
