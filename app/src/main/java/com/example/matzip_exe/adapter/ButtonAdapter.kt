@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.matzip_exe.R
 import com.example.matzip_exe.activities.MatzipList
 import com.example.matzip_exe.model.ModelButton
+import org.json.JSONObject
 
-class ButtonAdapter(private val itemList: ArrayList<ModelButton>):RecyclerView.Adapter<ButtonAdapter.ViewHolder>() {
+class ButtonAdapter(private val itemList: ArrayList<ModelButton>, private val regionJson: JSONObject):RecyclerView.Adapter<ButtonAdapter.ViewHolder>() {
 
     inner class ViewHolder(v: View):RecyclerView.ViewHolder(v){
         val btn_recyclebutton: Button = v.findViewById<Button>(R.id.btn_recyclebutton)
@@ -19,7 +20,8 @@ class ButtonAdapter(private val itemList: ArrayList<ModelButton>):RecyclerView.A
 
             btn_recyclebutton.setOnClickListener {
                 val intent = Intent(v.context, MatzipList::class.java)
-                intent.putExtra("area", btn_recyclebutton.text)
+                intent.putExtra("region", regionJson.getString(btn_recyclebutton.text.toString()))
+                intent.putExtra("area", btn_recyclebutton.text.toString())
                 v.context.startActivity(intent)
             }
         }

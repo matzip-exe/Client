@@ -34,8 +34,9 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>):Recycl
         //타입은 업종 종류 정해져야 정할 수 있을 듯
         holder.text_matziplist_name.text = itemList[position].name
         //거리도 gps 값이 있을 때 없을 때 나눠야할 듯
-//        holder.text_matziplist_distance.text = itemList[position].distance
-        holder.text_matziplist_visitcount.text = itemList[position].visitcount
+        holder.text_matziplist_distance.text = itemList[position].distance.toString() + "km"
+        holder.text_matziplist_type.text = "한정식"
+        holder.text_matziplist_visitcount.text = itemList[position].visitcount.toString()
         //등수는 seq 따라간다
     }
 }

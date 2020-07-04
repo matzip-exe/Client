@@ -13,7 +13,7 @@ interface InterfaceRetrofit {
     fun checkRegion(): Call<ModelCheckRegion>
 
     @GET("getBizList")
-    fun getBizList(/*파라미터 추가해야함*/): Call<ModelBizList>
+    fun getBizList(@Query("region") region: String, @Query("filter") filter: String, @Query("since") since: Int, @Query("step") step: Int, @Query("lat") lat: Double?, @Query("lng") lng: Double?): Call<ModelBizList>
 
     @GET("getBizDetail")
     fun getBizDetail(/*파라미터 추가해야함*/): Call<ModelBizDetail>

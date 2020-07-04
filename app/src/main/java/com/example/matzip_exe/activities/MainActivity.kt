@@ -13,6 +13,8 @@ import com.example.matzip_exe.fragments.FragmentMap
 import com.example.matzip_exe.http.MyRetrofit
 import com.example.matzip_exe.model.ModelCheckRegion
 import com.google.android.material.tabs.TabLayout
+import com.google.gson.Gson
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,6 +27,7 @@ class MainActivity : FragmentActivity() {
     private lateinit var mTabs: TabLayout
     private lateinit var mCheckRegion: ModelCheckRegion
     private val myRetrofit = MyRetrofit()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,4 +100,6 @@ class MainActivity : FragmentActivity() {
 
         })
     }
+
+
 }
