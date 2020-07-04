@@ -29,15 +29,25 @@ class CheckLocation(val context: Context)/*: LocationListener*/{
             //getLastKnownLocation 사용할려면 권한이 있는지 확인해야함
             if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+
+
                 if(GPS){
                     location = userLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
                     Log.i("GPS", location.toString())
+                    Toast.makeText(context, "GPS : ${location.toString()}", Toast.LENGTH_LONG).show()
                 }
 
-                if (NetWork){
+                if (NetWork && location == null){
                     location = userLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
                     Log.i("NetWork", location.toString())
+                    Toast.makeText(context, "NetWork ${location.toString()}", Toast.LENGTH_LONG).show()
+
                 }
+
+
+
+
 //                userLocation.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             }
             else{
