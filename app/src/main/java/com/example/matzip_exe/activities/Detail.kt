@@ -21,6 +21,8 @@ class Detail: AppCompatActivity() {
     private lateinit var visitcount: String
     private lateinit var name: String
     private lateinit var type: String
+    private var locatex: Double = 0.0
+    private var locatey: Double = 0.0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,13 +32,15 @@ class Detail: AppCompatActivity() {
         visitcount = intent.getStringExtra("visitcount")!!
         name = intent.getStringExtra("name")!!
         type = intent.getStringExtra("type")!!
+        locatex = intent.getDoubleExtra("locatex", 0.0)!!
+        locatey = intent.getDoubleExtra("locatey", 0.0)!!
 
         init()
     }
 
     private fun init() {
         initTempTexts()
-        FragmentDetail()
+        fragmentDetail(name, locatex, locatey)
     }
 
     private fun initTempTexts() {
@@ -47,6 +51,10 @@ class Detail: AppCompatActivity() {
         tvVisitcount.text = visitcount
         tvName.text = name
         tvType.text = type
+    }
+
+    private fun fragmentDetail(name: String, locatex: Double, locatey: Double){
+        supportFragmentManager.beginTransaction().add(R.id.detail_map_layout, FragmentDetail(name, locatex, locatey)).commit()
     }
 
 }

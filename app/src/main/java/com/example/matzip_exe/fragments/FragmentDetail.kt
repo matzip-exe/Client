@@ -1,5 +1,6 @@
 package com.example.matzip_exe.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,16 +12,25 @@ import com.naver.maps.map.CameraPosition
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
+import com.naver.maps.map.overlay.Align
+import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
+import com.naver.maps.map.style.light.Position
+import com.naver.maps.map.util.MarkerIcons
 
-class FragmentDetail: Fragment(), OnMapReadyCallback {
+class FragmentDetail(name: String, locatex: Double, locatey: Double): Fragment(), OnMapReadyCallback {
     private lateinit var naverMap: NaverMap
+    private lateinit var marker: Marker
+    private var name = name
+    private var locatex = locatex
+    private var locatey = locatey
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.activity_detail, container, false)
+        return inflater.inflate(R.layout.fragment_detail_map, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,11 +39,18 @@ class FragmentDetail: Fragment(), OnMapReadyCallback {
         initMap()
     }
 
-
     override fun onMapReady(p0: NaverMap) {
         naverMap = p0
+        marker = Marker(LatLng(locatex, locatey), MarkerIcons.BLACK)
+        marker.captionText = name
+        marker.captionTextSize = 16F
+        marker.setCaptionAligns(Align.Top)
+        marker.iconTintColor = Color.rgb(249, 223, 111)
 
-        naverMap.cameraPosition = CameraPosition(LatLng(37.5642135, 127.0016985), 9.0)
+        naverMap.cameraPosition = CameraPosition(LatLng(locatex, locatey), 15.0)
+        marker.map = naverMap
+//        marker.position = LatLng(36.5642135, 127.0016985)
+
     }
 
     private fun initMap() {
