@@ -10,24 +10,36 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.matzip_exe.R
 import com.example.matzip_exe.adapter.MatZipListAdapter
+import com.example.matzip_exe.http.MyRetrofit
+import com.example.matzip_exe.model.ModelBizList
 import com.example.matzip_exe.model.ModelMatZipList
 import com.example.matzip_exe.utils.CheckLocation
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_matzip_list.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.lang.Exception
 
 class MatzipList : AppCompatActivity() {
     private lateinit var area: String
+    private lateinit var region: String
     private lateinit var manager: LinearLayoutManager
     private lateinit var adaptermatziplist: MatZipListAdapter
     private val item = ArrayList<ModelMatZipList>()
     private var userLocation: Location? = null
     private lateinit var checkLocation: CheckLocation
+    private var filterPosition = 0
+    private var callCount = 0
+    private lateinit var modelBizList: ModelBizList
+    private val myretrofit = MyRetrofit()
+    private val AVG_COST = "avg_cost"
+    private val VISITCOUNT = "visit_count"
+    private val DISTANCE = "distance"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_matzip_list)
-
-        area = intent.getStringExtra("area")!!
 
         init()
     }
@@ -35,16 +47,23 @@ class MatzipList : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        for (i in 1..10){
-            item.add(ModelMatZipList("1", 1, "가나다라마바", "12.123km", "40"))
-        }
+//        for (i in 1..10){
+//            item.add(ModelMatZipList("1", 1, "가나다라마바", "12.123km", "40"))
+//        }
     }
 
     private fun init(){
+        initIntent()
         initToolbars()
         initRecycle()
         initTabs()
         initLocation()
+        requetToServer()
+    }
+
+    private fun initIntent(){
+        area = intent.getStringExtra("area")!!
+        region = intent.getStringExtra("region")!!
     }
 
     private fun initRecycle(){
@@ -63,17 +82,22 @@ class MatzipList : AppCompatActivity() {
 
 
 //                if문에서 데이터를 받아오면서도 부드럽게 움직일 수 있는 값을 한 번 찾아보는 것이 좋을 듯 하다
-                if (itemSize - lastViewPosition <= 5){
-                    for (i in 1..5){
-                        item.add(ModelMatZipList("2", 1, "고노도로모보", "12.123km", "40"))
-                        //리스너 등록해서 notifyDataSetChanged해야할까?
-                        recyclerView.adapter!!.notifyDataSetChanged()
-                    }
+                if (itemSize - lastViewPosition <= 3){
+                    callCount ++
+
+                    requetToServer()
+//                    for (i in 1..5){
+//                        item.add(ModelMatZipList("2", 1, "고노도로모보", "12.123km", "40"))
+//                        //리스너 등록해서 notifyDataSetChanged해야할까?
+//                        recyclerView.adapter!!.notifyDataSetChanged()
+//                    }
                 }
 
             }
         })
     }
+
+
 
     private fun initToolbars(){
         setSupportActionBar(toolbar_matziplist)
@@ -86,12 +110,27 @@ class MatzipList : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab!!.position){
                     0->{
+                        item.clear()
+                        adaptermatziplist.notifyDataSetChanged()
+                        callCount = 0
+                        filterPosition = 0
+                        requetToServer()
                         //방문순 정렬 default
                     }
                     1->{
+                        item.clear()
+                        adaptermatziplist.notifyDataSetChanged()
+                        callCount = 0
+                        filterPosition = 1
+                        requetToServer()
                         //거리순 정렬
                     }
                     2->{
+                        item.clear()
+                        adaptermatziplist.notifyDataSetChanged()
+                        callCount = 0
+                        filterPosition = 2
+                        requetToServer()
                         //금액순 정렬
                     }
                 }
@@ -126,6 +165,40 @@ class MatzipList : AppCompatActivity() {
     }
 
     private fun requetToServer(){
+        val filter = when(filterPosition){
+            0 -> VISITCOUNT
+            1 -> DISTANCE
+            2 -> AVG_COST
+
+            else -> VISITCOUNT
+        }
+
+        val bizList = myretrofit.makeService().getBizList(region, filter, callCount*10, 10,
+            userLocation?.latitude, userLocation?.longitude)
+
+        bizList.enqueue(object : Callback<ModelBizList>{
+            override fun onFailure(call: Call<ModelBizList>, t: Throwable) {
+                Log.i("ERROR", t.message!!)
+            }
+
+            override fun onResponse(call: Call<ModelBizList>, response: Response<ModelBizList>) {
+                try{
+                    modelBizList = response.body()!!
+
+                    for (i in modelBizList.items.indices){
+                        item.add(ModelMatZipList((i+1).toString(), 0, modelBizList.items[i].bizName, modelBizList.items[i].distace, modelBizList.items[i].visitCount))
+                    }
+
+                    adaptermatziplist.notifyDataSetChanged()
+
+                    println("bizName${modelBizList.items[0].bizName}")
+                }
+                catch (e: Exception){
+                    e.printStackTrace()
+                }
+            }
+        })
+
 
     }
 }
