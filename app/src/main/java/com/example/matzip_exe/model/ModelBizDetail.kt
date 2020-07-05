@@ -9,6 +9,6 @@ data class ModelBizDetail(
         @SerializedName("telNum")val telNum: String,
         @SerializedName("address")val address: String,
         @SerializedName("roadAddress")val roadAddress: String,
-        @SerializedName("MonthlyVisits")val monthlyVisits: List<String>
+        @SerializedName("MonthlyVisits")val monthlyVisits: List<List<String>>
     )
 }

@@ -70,7 +70,7 @@ class MatzipList : AppCompatActivity() {
         recycle_matziplist.setHasFixedSize(true)
         manager = LinearLayoutManager(this)
         recycle_matziplist.layoutManager = manager
-        adaptermatziplist = MatZipListAdapter(item)
+        adaptermatziplist = MatZipListAdapter(item, area, region)
         recycle_matziplist.adapter = adaptermatziplist
 
         recycle_matziplist.addOnScrollListener(object: RecyclerView.OnScrollListener(){

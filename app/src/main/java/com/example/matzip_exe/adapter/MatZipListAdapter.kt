@@ -12,7 +12,9 @@ import com.example.matzip_exe.R
 import com.example.matzip_exe.activities.Detail
 import com.example.matzip_exe.model.ModelMatZipList
 
-class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>):RecyclerView.Adapter<MatZipListAdapter.ViewHolder>() {
+class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>, area: String, region: String):RecyclerView.Adapter<MatZipListAdapter.ViewHolder>() {
+    private var area: String = area
+    private var region: String = region
     inner class ViewHolder(v:View):RecyclerView.ViewHolder(v){
         val text_matziplist_seq = v.findViewById<TextView>(R.id.text_matziplist_seq)
         val img_matziplist_type = v.findViewById<ImageView>(R.id.img_matziplist_type)
@@ -33,6 +35,8 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>):Recycl
                 intent.putExtra("type", text_matziplist_type.text)
                 intent.putExtra("locatex", locatex)
                 intent.putExtra("locatey", locatey)
+                intent.putExtra("area", area)
+                intent.putExtra("region", region)
 
                 v.context.startActivity(intent)
             }
