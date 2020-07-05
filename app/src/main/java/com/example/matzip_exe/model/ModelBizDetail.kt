@@ -8,6 +8,7 @@ data class ModelBizDetail(
     inner class BizDetailItems(
         @SerializedName("telNum")val telNum: String,
         @SerializedName("address")val address: String,
-        @SerializedName("roadAddress")val roadAddress: String
+        @SerializedName("roadAddress")val roadAddress: String,
+        @SerializedName("MonthlyVisits")val monthlyVisits: List<String>
     )
 }
