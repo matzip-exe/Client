@@ -7,7 +7,7 @@ data class ModelBizList(
 ) {
     inner class BizListItems(
         @SerializedName("bizName")val bizName: String,
-        @SerializedName("bizType")val isExist: String,
+        @SerializedName("bizType")val bizType: String,
         @SerializedName("avgCost")val avgCost: Int,
         @SerializedName("distance")val distace: Double,
         @SerializedName("visitCount")val visitCount: Int
