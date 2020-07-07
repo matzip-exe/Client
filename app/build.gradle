@@ -16,6 +16,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    dataBinding{
+        //noinspection DataBindingWithoutKapt
+        enabled = true
+    }
+
     buildTypes {
         release {
             minifyEnabled false

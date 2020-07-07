@@ -8,19 +8,17 @@ import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.example.matzip_exe.R
 import com.example.matzip_exe.activities.MatzipList
-import com.example.matzip_exe.model.ModelButton
-import org.json.JSONObject
+import com.example.matzip_exe.model.ModelRecycleMain
 
-class ButtonAdapter(private val itemList: ArrayList<ModelButton>, private val regionJson: JSONObject):RecyclerView.Adapter<ButtonAdapter.ViewHolder>() {
+class RecycleMainAdapter(private val itemList: ArrayList<ModelRecycleMain>):RecyclerView.Adapter<RecycleMainAdapter.ViewHolder>() {
 
     inner class ViewHolder(v: View):RecyclerView.ViewHolder(v){
         val btn_recyclebutton: Button = v.findViewById<Button>(R.id.btn_recyclebutton)
 
         init {
-
             btn_recyclebutton.setOnClickListener {
                 val intent = Intent(v.context, MatzipList::class.java)
-                intent.putExtra("region", regionJson.getString(btn_recyclebutton.text.toString()))
+                intent.putExtra("region", itemList[adapterPosition].SendKey)
                 intent.putExtra("area", btn_recyclebutton.text.toString())
                 v.context.startActivity(intent)
             }
@@ -28,7 +26,7 @@ class ButtonAdapter(private val itemList: ArrayList<ModelButton>, private val re
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycle_button_view, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycle_main_view, parent, false)
         return ViewHolder(view)
     }
 
@@ -39,6 +37,5 @@ class ButtonAdapter(private val itemList: ArrayList<ModelButton>, private val re
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.btn_recyclebutton.text = itemList[position].Name
         holder.btn_recyclebutton.isEnabled = itemList[position].Enable
-
     }
 }
