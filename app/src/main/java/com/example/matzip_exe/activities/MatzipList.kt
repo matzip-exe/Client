@@ -185,7 +185,7 @@ class MatzipList : AppCompatActivity() {
                     modelBizList = response.body()!!
 
                     for (i in modelBizList.items.indices){
-                        item.add(ModelMatZipList((i+1).toString(), 0, modelBizList.items[i].bizName, modelBizList.items[i].distance, modelBizList.items[i].visitCount))
+                        item.add(ModelMatZipList((i+1).toString(), 0, modelBizList.items[i].bizName, modelBizList.items[i].latlng, modelBizList.items[i].distance, modelBizList.items[i].visitCount))
                     }
 
                     adaptermatziplist.notifyDataSetChanged()

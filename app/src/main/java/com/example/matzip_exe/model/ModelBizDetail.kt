@@ -13,6 +13,6 @@ data class ModelBizDetail(
     )
     inner class MonthlyVisitsItems(
         @SerializedName("date")val date: String,
-        @SerializedName("count")val count: String
+        @SerializedName("count")val count: Int
     )
 }
