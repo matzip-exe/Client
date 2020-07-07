@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.matzip_exe.R
@@ -186,7 +185,7 @@ class MatzipList : AppCompatActivity() {
                     modelBizList = response.body()!!
 
                     for (i in modelBizList.items.indices){
-                        item.add(ModelMatZipList((i+1).toString(), 0, modelBizList.items[i].bizName, modelBizList.items[i].distace, modelBizList.items[i].visitCount))
+                        item.add(ModelMatZipList((i+1).toString(), 0, modelBizList.items[i].bizName, modelBizList.items[i].distance, modelBizList.items[i].visitCount))
                     }
 
                     adaptermatziplist.notifyDataSetChanged()

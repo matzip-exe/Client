@@ -36,7 +36,7 @@ class Detail: AppCompatActivity() {
     private var locatey: Double = 0.0
     private lateinit var modelBizDetail: ModelBizDetail
     private val myRetrofit = MyRetrofit()
-    private val item = ArrayList<ModelDetailList>()
+    private lateinit var item: ModelDetailList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,36 +55,26 @@ class Detail: AppCompatActivity() {
 
     private fun init() {
         requestToServer()
-        initTempTexts()
         fragmentDetail(name, locatex, locatey)
     }
 
     private fun requestToServer() {
         val bizDetail = myRetrofit.makeService().getBizDetail(region = region, bizName = name)
-        println("$region, $name")
         bizDetail.enqueue(object: Callback<ModelBizDetail> {
             override fun onFailure(call: Call<ModelBizDetail>, t: Throwable) {
                 Log.i("Detail Error", t.message!!)
             }
 
-            override fun onResponse(
-                call: Call<ModelBizDetail>,
-                response: Response<ModelBizDetail>
-            ) {
+            override fun onResponse(call: Call<ModelBizDetail>, response: Response<ModelBizDetail>) {
                 try {
-                    println("Detail try")
                     modelBizDetail = response.body()!!
-                    for (i in modelBizDetail.items.indices) {
-                        item.add(ModelDetailList(modelBizDetail.items[i].telNum, modelBizDetail.items[i].address, modelBizDetail.items[i].roadAddress, modelBizDetail.items[i].monthlyVisits))
-                    }
-                    println("Detail${modelBizDetail.items[0].roadAddress}")
-                    println("Detail Success!")
+                    item = ModelDetailList(modelBizDetail.items.telNum, modelBizDetail.items.address, modelBizDetail.items.roadAddress, modelBizDetail.items.monthlyVisits)
+                    initTempTexts()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
         })
-
     }
 
     private fun initTempTexts() {
@@ -96,7 +86,7 @@ class Detail: AppCompatActivity() {
         tvVisitcount.text = visitcount
         tvName.text = name
         tvType.text = type
-        tvRoadAddress.text = item[0].roadAddress
+        tvRoadAddress.text = item.roadAddress
     }
 
     private fun fragmentDetail(name: String, locatex: Double, locatey: Double){

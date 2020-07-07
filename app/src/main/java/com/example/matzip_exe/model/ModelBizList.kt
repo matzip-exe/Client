@@ -9,7 +9,7 @@ data class ModelBizList(
         @SerializedName("bizName")val bizName: String,
         @SerializedName("bizType")val isExist: String,
         @SerializedName("avgCost")val avgCost: Int,
-        @SerializedName("distance")val distace: Double,
+        @SerializedName("distance")val distance: Double,
         @SerializedName("visitCount")val visitCount: Int
     )
 }
