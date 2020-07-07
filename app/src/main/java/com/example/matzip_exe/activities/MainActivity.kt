@@ -1,105 +1,71 @@
 package com.example.matzip_exe.activities
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.viewpager.widget.ViewPager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.matzip_exe.R
-import com.example.matzip_exe.fragments.FragmentButton
-import com.example.matzip_exe.fragments.FragmentMap
-import com.example.matzip_exe.http.MyRetrofit
+import com.example.matzip_exe.adapter.RecycleMainAdapter
+import com.example.matzip_exe.databinding.ActivityMainBinding
 import com.example.matzip_exe.model.ModelCheckRegion
-import com.google.android.material.tabs.TabLayout
-import com.google.gson.Gson
+import com.example.matzip_exe.model.ModelRecycleMain
+import com.example.matzip_exe.utils.DataSynchronized
 import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.lang.Exception
 
-private const val NUM_PAGES = 2
+class MainActivity : AppCompatActivity() {
+    private lateinit var activityMainBinding: ActivityMainBinding
+    private lateinit var regionJson: JSONObject
 
-class MainActivity : FragmentActivity() {
-    private lateinit var mPager: ViewPager
-    private lateinit var mTabs: TabLayout
-    private lateinit var mCheckRegion: ModelCheckRegion
-    private val myRetrofit = MyRetrofit()
+    private val item = ArrayList<ModelRecycleMain>()
+    private lateinit var adapterRecycleMain: RecycleMainAdapter
+    private lateinit var manager: GridLayoutManager
 
+    private var modelCheckRegion: ModelCheckRegion? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         init()
-
     }
 
     private fun init(){
-        setViewPager()
-        setTabs()
+        getRegionJson()
         getRegion()
+        recycleInit()
     }
 
-    private fun setViewPager(){
-        mPager = findViewById(R.id.viewpager_main)
-
-        val pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager)
-        mPager.adapter = pagerAdapter
-    }
-
-    private fun setTabs(){
-        mTabs = findViewById(R.id.tabs_main)
-        mTabs.setupWithViewPager(mPager)
-        mTabs.getTabAt(0)!!.setIcon(R.drawable.ic_horizontal_rule_24px)
-        mTabs.getTabAt(1)!!.setIcon(R.drawable.ic_horizontal_rule_24px)
-    }
-
-    private inner class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm){
-        override fun getItem(position: Int): Fragment{
-            when(position){
-                0->{
-                    return FragmentMap()
-                }
-                1->{
-                    return FragmentButton()
-                }
+    private fun recycleInit(){
+        activityMainBinding.recycleMain.setHasFixedSize(true)
+        manager = GridLayoutManager(this, 3)
+        activityMainBinding.recycleMain.layoutManager = manager
+        if(modelCheckRegion != null){
+            for (i in modelCheckRegion!!.items.indices){
+                item.add(ModelRecycleMain(regionJson.getString(modelCheckRegion!!.items[i].region),
+                    modelCheckRegion!!.items[i].isExist,
+                    modelCheckRegion!!.items[i].region))
             }
-
-            return FragmentMap()
         }
 
-        override fun getCount(): Int = NUM_PAGES
+        adapterRecycleMain = RecycleMainAdapter(item)
+        activityMainBinding.recycleMain.adapter = adapterRecycleMain
+    }
 
+    private fun getRegionJson(){
+        try{
+
+            val inputStream = this.assets.open("json/Region.json")
+            val json = inputStream.bufferedReader().use {
+                it.readText()
+            }
+
+            regionJson = JSONObject(json)
+        }
+        catch (e: Exception){
+            e.printStackTrace()
+        }
     }
 
     private fun getRegion(){
-        val Region = myRetrofit.makeService().checkRegion()
-
-        Region.enqueue(object :Callback<ModelCheckRegion>{
-            override fun onResponse(
-                call: Call<ModelCheckRegion>,
-                response: Response<ModelCheckRegion>
-            ) {
-                try{
-                    mCheckRegion = response.body()!!
-
-                    println(mCheckRegion.items[0].region)
-                }
-                catch (e: Exception){
-                    e.printStackTrace()
-                }
-
-            }
-
-            override fun onFailure(call: Call<ModelCheckRegion>, t: Throwable) {
-                Log.i("ERROR", t.message!!)
-            }
-
-        })
+        modelCheckRegion = DataSynchronized().getRegion() as ModelCheckRegion?
     }
-
-
 }
