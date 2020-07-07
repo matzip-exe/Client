@@ -41,13 +41,13 @@ class FragmentDetail(name: String, locatex: Double, locatey: Double): Fragment()
 
     override fun onMapReady(p0: NaverMap) {
         naverMap = p0
-        marker = Marker(LatLng(locatex, locatey), MarkerIcons.BLACK)
+        marker = Marker(LatLng(locatey, locatex), MarkerIcons.BLACK)
         marker.captionText = name
         marker.captionTextSize = 16F
         marker.setCaptionAligns(Align.Top)
         marker.iconTintColor = Color.rgb(249, 223, 111)
 
-        naverMap.cameraPosition = CameraPosition(LatLng(locatex, locatey), 15.0)
+        naverMap.cameraPosition = CameraPosition(LatLng(locatey, locatex), 15.0)
         marker.map = naverMap
 //        marker.position = LatLng(36.5642135, 127.0016985)
 

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.matzip_exe.R
@@ -58,7 +57,7 @@ class MatzipList : AppCompatActivity() {
         initRecycle()
         initTabs()
         initLocation()
-        requetToServer()
+        requestToServer()
     }
 
     private fun initIntent(){
@@ -70,7 +69,7 @@ class MatzipList : AppCompatActivity() {
         recycle_matziplist.setHasFixedSize(true)
         manager = LinearLayoutManager(this)
         recycle_matziplist.layoutManager = manager
-        adaptermatziplist = MatZipListAdapter(item)
+        adaptermatziplist = MatZipListAdapter(item, area, region)
         recycle_matziplist.adapter = adaptermatziplist
 
         recycle_matziplist.addOnScrollListener(object: RecyclerView.OnScrollListener(){
@@ -85,7 +84,7 @@ class MatzipList : AppCompatActivity() {
                 if (itemSize - lastViewPosition <= 3){
                     callCount ++
 
-                    requetToServer()
+                    requestToServer()
 //                    for (i in 1..5){
 //                        item.add(ModelMatZipList("2", 1, "고노도로모보", "12.123km", "40"))
 //                        //리스너 등록해서 notifyDataSetChanged해야할까?
@@ -114,7 +113,7 @@ class MatzipList : AppCompatActivity() {
                         adaptermatziplist.notifyDataSetChanged()
                         callCount = 0
                         filterPosition = 0
-                        requetToServer()
+                        requestToServer()
                         //방문순 정렬 default
                     }
                     1->{
@@ -122,7 +121,7 @@ class MatzipList : AppCompatActivity() {
                         adaptermatziplist.notifyDataSetChanged()
                         callCount = 0
                         filterPosition = 1
-                        requetToServer()
+                        requestToServer()
                         //거리순 정렬
                     }
                     2->{
@@ -130,7 +129,7 @@ class MatzipList : AppCompatActivity() {
                         adaptermatziplist.notifyDataSetChanged()
                         callCount = 0
                         filterPosition = 2
-                        requetToServer()
+                        requestToServer()
                         //금액순 정렬
                     }
                 }
@@ -164,7 +163,7 @@ class MatzipList : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun requetToServer(){
+    private fun requestToServer(){
         val filter = when(filterPosition){
             0 -> VISITCOUNT
             1 -> DISTANCE
@@ -186,7 +185,7 @@ class MatzipList : AppCompatActivity() {
                     modelBizList = response.body()!!
 
                     for (i in modelBizList.items.indices){
-                        item.add(ModelMatZipList((i+1).toString(), 0, modelBizList.items[i].bizName, modelBizList.items[i].distace, modelBizList.items[i].visitCount))
+                        item.add(ModelMatZipList((i+1).toString(), 0, modelBizList.items[i].bizName, modelBizList.items[i].latlng, modelBizList.items[i].distance, modelBizList.items[i].visitCount))
                     }
 
                     adaptermatziplist.notifyDataSetChanged()

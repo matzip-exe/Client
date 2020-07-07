@@ -12,7 +12,9 @@ import com.example.matzip_exe.R
 import com.example.matzip_exe.activities.Detail
 import com.example.matzip_exe.model.ModelMatZipList
 
-class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>):RecyclerView.Adapter<MatZipListAdapter.ViewHolder>() {
+class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>, area: String, region: String):RecyclerView.Adapter<MatZipListAdapter.ViewHolder>() {
+    private var area: String = area
+    private var region: String = region
     inner class ViewHolder(v:View):RecyclerView.ViewHolder(v){
         val text_matziplist_seq = v.findViewById<TextView>(R.id.text_matziplist_seq)
         val img_matziplist_type = v.findViewById<ImageView>(R.id.img_matziplist_type)
@@ -22,8 +24,8 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>):Recycl
         val text_matziplist_visitcount = v.findViewById<TextView>(R.id.text_matziplist_visitcount)
         val img_matziplist_grade = v.findViewById<ImageView>(R.id.img_matziplist_grade)
         val matziplist_wrapper = v.findViewById<LinearLayout>(R.id.matziplist_wrapper)
-        val locatex: Double = 37.1285309
-        val locatey: Double = 127.3213892
+        var locatex: Double = 37.0185309
+        var locatey: Double = 127.3213892
 
         init {
             matziplist_wrapper.setOnClickListener {
@@ -33,6 +35,8 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>):Recycl
                 intent.putExtra("type", text_matziplist_type.text)
                 intent.putExtra("locatex", locatex)
                 intent.putExtra("locatey", locatey)
+                intent.putExtra("area", area)
+                intent.putExtra("region", region)
 
                 v.context.startActivity(intent)
             }
@@ -58,5 +62,7 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>):Recycl
         holder.text_matziplist_type.text = "한정식"
         holder.text_matziplist_visitcount.text = itemList[position].visitcount.toString()
         //등수는 seq 따라간다
+        holder.locatex = itemList[position].latlng.x
+        holder.locatey = itemList[position].latlng.y
     }
 }
