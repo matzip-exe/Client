@@ -30,12 +30,9 @@ class CheckLocation(val context: Context)/*: LocationListener*/{
             if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-
-
                 if(GPS){
                     location = userLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
                     Log.i("GPS", location.toString())
-                    Toast.makeText(context, "GPS : ${location.toString()}", Toast.LENGTH_LONG).show()
                 }
 
                 if (NetWork && location == null){
@@ -44,20 +41,11 @@ class CheckLocation(val context: Context)/*: LocationListener*/{
                     Toast.makeText(context, "NetWork ${location.toString()}", Toast.LENGTH_LONG).show()
 
                 }
-
-
-
-
-//                userLocation.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             }
             else{
                 //팝업으로 0. 거리계산 용도임을 알려줌 1. 권한을 주었는지 2. 설정에서 위치를 활성화 했는지 알려주기
                 location = null
             }
-
-//            userLocation.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-
-
         }
         catch (e:Exception){
             Log.i("error", e.message)
