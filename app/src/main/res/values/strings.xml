@@ -3,4 +3,5 @@
     <string name="order_of_distance">거리순</string>
     <string name="order_of_visit">방문순</string>
     <string name="order_of_money">금액순</string>
+    <string name="no_distacne">거리 ? km</string>
 </resources>
