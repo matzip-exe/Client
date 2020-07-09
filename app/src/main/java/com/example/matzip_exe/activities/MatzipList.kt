@@ -150,7 +150,7 @@ class MatzipList : AppCompatActivity(), GetDataListener {
 
     override fun getData(data: Any?) {
         modelBizList = data as ModelBizList?
-
+        println("modelBizList ${modelBizList}")
         if (modelBizList != null){
             for (i in modelBizList!!.items.indices){
                 item.add(ModelMatZipList((activityMatzipListBinding.recycleMatziplist.adapter!!.itemCount + 1).toString(),
