@@ -31,8 +31,8 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>,
                 intent.putExtra("visitcount", text_matziplist_visitcount.text)
                 intent.putExtra("name", text_matziplist_name.text)
                 intent.putExtra("type", text_matziplist_type.text)
-                intent.putExtra("locatex", itemList[adapterPosition].latlng.x)
-                intent.putExtra("locatey", itemList[adapterPosition].latlng.y)
+                intent.putExtra("locatex", itemList[adapterPosition].latlng?.x)
+                intent.putExtra("locatey", itemList[adapterPosition].latlng?.y)
                 intent.putExtra("area", area)
                 intent.putExtra("region", region)
 
@@ -54,29 +54,29 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.text_matziplist_seq.text = itemList[position].seq
         //타입 이미지
-        when(CheckType(itemList[position].type)){
-            0->{
-                //한식
-            }
-            1->{
-                //일식
-            }
-            2->{
-                //중식
-            }
-            3->{
-                //양식
-            }
-            4->{
-                //카페,디저트
-            }
-            5->{
-                //분식
-            }
-            6->{
-                //기타
-            }
-        }
+//        when(CheckType(itemList[position].type)){
+//            0->{
+//                //한식
+//            }
+//            1->{
+//                //일식
+//            }
+//            2->{
+//                //중식
+//            }
+//            3->{
+//                //양식
+//            }
+//            4->{
+//                //카페,디저트
+//            }
+//            5->{
+//                //분식
+//            }
+//            6->{
+//                //기타
+//            }
+//        }
         holder.text_matziplist_name.text = itemList[position].name
         //거리도 gps 값이 있을 때 없을 때 나눠야할 듯
         if (itemList[position].distance != null){
