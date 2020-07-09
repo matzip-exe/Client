@@ -12,9 +12,9 @@ import com.example.matzip_exe.R
 import com.example.matzip_exe.activities.Detail
 import com.example.matzip_exe.model.ModelMatZipList
 
-class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>, area: String, region: String):RecyclerView.Adapter<MatZipListAdapter.ViewHolder>() {
-    private var area: String = area
-    private var region: String = region
+class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>,
+                        private var area: String, private var region: String
+):RecyclerView.Adapter<MatZipListAdapter.ViewHolder>() {
     inner class ViewHolder(v:View):RecyclerView.ViewHolder(v){
         val text_matziplist_seq = v.findViewById<TextView>(R.id.text_matziplist_seq)
         val img_matziplist_type = v.findViewById<ImageView>(R.id.img_matziplist_type)
@@ -24,8 +24,6 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>, area: 
         val text_matziplist_visitcount = v.findViewById<TextView>(R.id.text_matziplist_visitcount)
         val img_matziplist_grade = v.findViewById<ImageView>(R.id.img_matziplist_grade)
         val matziplist_wrapper = v.findViewById<LinearLayout>(R.id.matziplist_wrapper)
-        var locatex: Double = 37.0185309
-        var locatey: Double = 127.3213892
 
         init {
             matziplist_wrapper.setOnClickListener {
@@ -33,8 +31,8 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>, area: 
                 intent.putExtra("visitcount", text_matziplist_visitcount.text)
                 intent.putExtra("name", text_matziplist_name.text)
                 intent.putExtra("type", text_matziplist_type.text)
-                intent.putExtra("locatex", locatex)
-                intent.putExtra("locatey", locatey)
+                intent.putExtra("locatex", itemList[adapterPosition].latlng.x)
+                intent.putExtra("locatey", itemList[adapterPosition].latlng.y)
                 intent.putExtra("area", area)
                 intent.putExtra("region", region)
 
@@ -55,14 +53,69 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>, area: 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.text_matziplist_seq.text = itemList[position].seq
-        //타입은 업종 종류 정해져야 정할 수 있을 듯
+        //타입 이미지
+        when(CheckType(itemList[position].type)){
+            0->{
+                //한식
+            }
+            1->{
+                //일식
+            }
+            2->{
+                //중식
+            }
+            3->{
+                //양식
+            }
+            4->{
+                //카페,디저트
+            }
+            5->{
+                //분식
+            }
+            6->{
+                //기타
+            }
+        }
         holder.text_matziplist_name.text = itemList[position].name
         //거리도 gps 값이 있을 때 없을 때 나눠야할 듯
-        holder.text_matziplist_distance.text = itemList[position].distance.toString() + "km"
-        holder.text_matziplist_type.text = "한정식"
+        if (itemList[position].distance != null){
+            holder.text_matziplist_distance.text = itemList[position].distance.toString() + "km"
+        }
+        else{
+            holder.text_matziplist_distance.text = holder.itemView.context.getString(R.string.no_distacne)
+        }
+
+        holder.text_matziplist_type.text = itemList[position].type
         holder.text_matziplist_visitcount.text = itemList[position].visitcount.toString()
         //등수는 seq 따라간다
-        holder.locatex = itemList[position].latlng.x
-        holder.locatey = itemList[position].latlng.y
+        when(itemList[position].seq.toInt()){
+            1->{
+                holder.img_matziplist_grade.setImageResource(R.drawable.ic_horizontal_rule_24px)
+            }
+            2->{
+                holder.img_matziplist_grade.setImageResource(R.drawable.ic_horizontal_rule_24px)
+            }
+            3->{
+                holder.img_matziplist_grade.setImageResource(R.drawable.ic_horizontal_rule_24px)
+            }
+            else->{
+                holder.img_matziplist_grade.setImageDrawable(null)
+            }
+        }
+    }
+
+    private fun CheckType(type: String): Int{
+        val CheckList = arrayOf("한식", "일식", "중식", "양식", "카페,디저트", "분식")
+        var result = 6
+
+        for (i in CheckList.indices){
+            if (type.contains(CheckList[i], true)){
+                result = i
+                break
+            }
+        }
+
+        return result
     }
 }
