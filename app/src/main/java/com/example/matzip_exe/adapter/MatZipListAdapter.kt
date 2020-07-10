@@ -7,15 +7,20 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.matzip_exe.R
 import com.example.matzip_exe.activities.Detail
+import com.example.matzip_exe.interfaces.NetworkConnectedListener
 import com.example.matzip_exe.model.ModelMatZipList
+import com.example.matzip_exe.receivers.NetworkReceiver
 
 class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>,
                         private var area: String, private var region: String
 ):RecyclerView.Adapter<MatZipListAdapter.ViewHolder>() {
-    inner class ViewHolder(v:View):RecyclerView.ViewHolder(v){
+    inner class ViewHolder(private val v:View):RecyclerView.ViewHolder(v), NetworkConnectedListener{
+        private val networkReceiver = NetworkReceiver()
+
         val text_matziplist_seq = v.findViewById<TextView>(R.id.text_matziplist_seq)
         val img_matziplist_type = v.findViewById<ImageView>(R.id.img_matziplist_type)
         val text_matziplist_name = v.findViewById<TextView>(R.id.text_matziplist_name)
@@ -27,17 +32,29 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>,
 
         init {
             matziplist_wrapper.setOnClickListener {
-                val intent = Intent(v.context, Detail::class.java)
-                intent.putExtra("visitcount", text_matziplist_visitcount.text)
-                intent.putExtra("name", text_matziplist_name.text)
-                intent.putExtra("type", text_matziplist_type.text)
-                intent.putExtra("locatex", itemList[adapterPosition].latlng?.x)
-                intent.putExtra("locatey", itemList[adapterPosition].latlng?.y)
-                intent.putExtra("area", area)
-                intent.putExtra("region", region)
-
-                v.context.startActivity(intent)
+                networkReceiver.setOnNetworkListener(this)
+                v.context.registerReceiver(networkReceiver, networkReceiver.getFilter())
             }
+        }
+
+        override fun isConnected() {
+            val intent = Intent(v.context, Detail::class.java)
+            intent.putExtra("visitcount", text_matziplist_visitcount.text)
+            intent.putExtra("name", text_matziplist_name.text)
+            intent.putExtra("type", text_matziplist_type.text)
+            intent.putExtra("locatex", itemList[adapterPosition].latlng?.x)
+            intent.putExtra("locatey", itemList[adapterPosition].latlng?.y)
+            intent.putExtra("area", area)
+            intent.putExtra("region", region)
+
+            v.context.startActivity(intent)
+
+            v.context.unregisterReceiver(networkReceiver)
+        }
+
+        override fun isNotConnected() {
+            Toast.makeText(v.context, "네트워크 연결을 확인해주세요.", Toast.LENGTH_SHORT).show()
+            v.context.unregisterReceiver(networkReceiver)
         }
     }
 
