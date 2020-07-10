@@ -5,23 +5,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.matzip_exe.R
 import com.example.matzip_exe.activities.MatzipList
+import com.example.matzip_exe.interfaces.NetworkConnectedListener
 import com.example.matzip_exe.model.ModelRecycleMain
+import com.example.matzip_exe.receivers.NetworkReceiver
 
 class RecycleMainAdapter(private val itemList: ArrayList<ModelRecycleMain>):RecyclerView.Adapter<RecycleMainAdapter.ViewHolder>() {
 
-    inner class ViewHolder(v: View):RecyclerView.ViewHolder(v){
+    inner class ViewHolder(private val v: View):RecyclerView.ViewHolder(v), NetworkConnectedListener{
+        private val networkReceiver = NetworkReceiver()
         val btn_recyclebutton: Button = v.findViewById<Button>(R.id.btn_recyclebutton)
 
         init {
             btn_recyclebutton.setOnClickListener {
-                val intent = Intent(v.context, MatzipList::class.java)
-                intent.putExtra("region", itemList[adapterPosition].SendKey)
-                intent.putExtra("area", btn_recyclebutton.text.toString())
-                v.context.startActivity(intent)
+                networkReceiver.setOnNetworkListener(this)
+                v.context.registerReceiver(networkReceiver, networkReceiver.getFilter())
             }
+        }
+
+        override fun isConnected() {
+            val intent = Intent(v.context, MatzipList::class.java)
+            intent.putExtra("region", itemList[adapterPosition].SendKey)
+            intent.putExtra("area", btn_recyclebutton.text.toString())
+
+            v.context.startActivity(intent)
+
+            v.context.unregisterReceiver(networkReceiver)
+        }
+
+        override fun isNotConnected() {
+            Toast.makeText(v.context, "네트워크 연결을 확인해주세요.", Toast.LENGTH_SHORT).show()
+            v.context.unregisterReceiver(networkReceiver)
         }
     }
 

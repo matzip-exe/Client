@@ -83,12 +83,16 @@ class MatzipList : AppCompatActivity(), GetDataListener {
                 val lastViewPosition = tempManager.findLastCompletelyVisibleItemPosition()
                 val itemSize = recyclerView.adapter!!.itemCount
 
-                recyclerView.post(Runnable {
-                    if (itemSize - lastViewPosition <= 3){
-                        callCount++
-                        getBizList()
-                    }
-                })
+                //서버가 빈 배열을 끝내면 요청을 멈춘다
+                if (modelBizList?.items!!.isNotEmpty()){
+                    recyclerView.post(Runnable {
+                        if (itemSize - lastViewPosition <= 3){
+                            callCount++
+                            getBizList()
+                        }
+                    })
+                }
+
             }
         })
     }
