@@ -1,6 +1,11 @@
 package com.example.matzip_exe.activities
 
+import android.content.DialogInterface
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
@@ -31,10 +36,15 @@ class MainActivity : AppCompatActivity(), GetDataListener {
     }
 
     private fun init(){
+        toolbarInit()
         getRegionJson()
         recycleInit()
         setDataListener()
         getRegion()
+    }
+
+    private fun toolbarInit(){
+        setSupportActionBar(activityMainBinding.toolbarMain)
     }
 
     private fun recycleInit(){
@@ -80,5 +90,47 @@ class MainActivity : AppCompatActivity(), GetDataListener {
         }
 
         adapterRecycleMain.notifyDataSetChanged()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val itemMain = menuInflater
+        itemMain.inflate(R.menu.main_switch, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.main_info ->{
+                infoAlertDialog()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun infoAlertDialog(){
+        val builder = AlertDialog.Builder(this)
+
+        builder.setItems(R.array.Info, object : DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                when(which){
+                    0->{
+                        Toast.makeText(applicationContext, "About us", Toast.LENGTH_SHORT).show()
+                    }
+                    1->{
+                        Toast.makeText(applicationContext, "오픈소스 라이선스", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        })
+
+        builder.setNegativeButton(getString(R.string.cancel), object : DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                dialog!!.dismiss()
+            }
+        })
+
+        val mainAlertDialog = builder.create()
+        mainAlertDialog.show()
+
     }
 }
