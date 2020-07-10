@@ -4,4 +4,10 @@
     <string name="order_of_visit">방문순</string>
     <string name="order_of_money">금액순</string>
     <string name="no_distacne">거리 ? km</string>
+    <string name="cancel">취소</string>
+
+    <string-array name="Info">
+        <item>About Us</item>
+        <item>오픈소스 라이선스</item>
+    </string-array>
 </resources>
