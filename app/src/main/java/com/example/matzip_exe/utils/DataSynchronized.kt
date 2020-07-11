@@ -19,10 +19,10 @@ class DataSynchronized() {
     fun getBizList(region: String, filter: String, since: Int, step: Int, lat: Double?, lng: Double?){
         dataThread(runBizList(region, filter, since, step, lat, lng))
     }
-//
-//    fun getBizDetail(): Any?{
-//
-//    }
+
+    fun getBizDetail(region: String, bizName: String){
+        dataThread(runBizDetail(region, bizName))
+    }
 
     private fun dataThread(type: Runnable){
         val thread = Thread(type)
@@ -46,5 +46,13 @@ class DataSynchronized() {
             mData = callBizList.execute().body()
         }
     }
+
+    private inner class runBizDetail(private val region: String, private val bizName: String): Runnable {
+        override fun run() {
+            val callBizDetail = myRetrofit.makeService().getBizDetail(region, bizName)
+            mData = callBizDetail.execute().body()
+        }
+    }
+//    Detail 부분 inner class 로 추가
 
 }

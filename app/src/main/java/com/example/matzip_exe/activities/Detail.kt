@@ -9,15 +9,19 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.matzip_exe.R
 import com.example.matzip_exe.fragments.FragmentDetail
 import com.example.matzip_exe.http.MyRetrofit
+import com.example.matzip_exe.interfaces.GetDataListener
 import com.example.matzip_exe.model.ModelBizDetail
+import com.example.matzip_exe.model.ModelCheckRegion
 import com.example.matzip_exe.model.ModelDetailList
 import com.example.matzip_exe.model.ModelMatZipList
+import com.example.matzip_exe.utils.DataSynchronized
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.geometry.LatLngBounds
@@ -35,7 +39,7 @@ import retrofit2.Response
 import java.lang.Exception
 
 
-class Detail: AppCompatActivity() {
+class Detail: AppCompatActivity(), GetDataListener {
     private lateinit var visitcount: String
     private lateinit var name: String
     private lateinit var type: String
@@ -46,6 +50,8 @@ class Detail: AppCompatActivity() {
     private lateinit var modelBizDetail: ModelBizDetail
     private val myRetrofit = MyRetrofit()
     private lateinit var item: ModelDetailList
+
+    private val AdminData = DataSynchronized()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +69,8 @@ class Detail: AppCompatActivity() {
     }
 
     private fun init() {
-        requestToServer()
+        setDataListener()
+        getBizDetail()
         fragmentDetail(name, locatex, locatey)
         initChart()
     }
@@ -87,16 +94,32 @@ class Detail: AppCompatActivity() {
         })
     }
 
+    private fun setDataListener() {
+        AdminData.setOnGetDataListener(this)
+    }
+
+    private fun getBizDetail() {
+        AdminData.getBizDetail(region, name)
+    }
+
+    override fun getData(data: Any?) {
+        modelBizDetail = data as ModelBizDetail
+        item = ModelDetailList(modelBizDetail.items.telNum, modelBizDetail.items.address, modelBizDetail.items.roadAddress, modelBizDetail.items.monthlyVisits)
+        initTempTexts()
+    }
+
     private fun initTempTexts() {
         val tvVisitcount = findViewById<TextView>(R.id.detail_visitcount)
         val tvName = findViewById<TextView>(R.id.detail_name)
         val tvType = findViewById<TextView>(R.id.detail_type)
 //        val tvRoadAddress = findViewById<TextView>(R.id.detail_roadAddress)
+        val tvList = findViewById<TextView>(R.id.detail_countList)
 
         tvVisitcount.text = visitcount+"회"
         tvName.text = name
         tvType.text = type
 //        tvRoadAddress.text = item.roadAddress
+        tvList.text ="${item.monthlyVisits[0].date}, ${item.monthlyVisits[0].count}"
     }
 
     private fun fragmentDetail(name: String, locatex: Double, locatey: Double){
@@ -111,8 +134,8 @@ class Detail: AppCompatActivity() {
             textSize = 10f
             setDrawGridLines(false)
             granularity = 1f
-            axisMinimum = 2f
-            isGranularityEnabled = true
+            axisMinimum = 0f
+            isGranularityEnabled = false
         }
         detail_chart.apply {
             axisRight.isEnabled = false
@@ -135,20 +158,23 @@ class Detail: AppCompatActivity() {
 
         data.let {
             var set: ILineDataSet? = data.getDataSetByIndex(0)
-            if (set == null) {
+//            if (set == null) {
                 set = createSet()
                 data.addDataSet(set)
-            }
-            data.addEntry(Entry(set.entryCount.toFloat(), 10f), 0)
+//            }
+            data.addEntry(Entry(set.entryCount.toFloat(), 22f), 0)
+            data.addEntry(Entry(set.entryCount.toFloat(), 47f), 0)
+            data.addEntry(Entry(set.entryCount.toFloat(), 31f), 0)
+            data.addEntry(Entry(set.entryCount.toFloat(), 50f), 0)
             data.notifyDataChanged()
             detail_chart.apply {
                 notifyDataSetChanged()
-                moveViewToX(data.entryCount.toFloat())
+//                moveViewToX(data.entryCount.toFloat())
                 setVisibleXRangeMaximum(12f)
                 setPinchZoom(false)
                 isDoubleTapToZoomEnabled = false
-                description.text = "Month"
-                setBackgroundColor(resources.getColor(R.color.material_on_background_disabled))
+                description.text = ""
+//                setBackgroundColor(resources.getColor(R.color.material_on_background_disabled))
                 description.textSize = 14f
                 setExtraOffsets(2f, 2f, 2f, 2f)
             }
@@ -156,14 +182,14 @@ class Detail: AppCompatActivity() {
     }
 
     private fun createSet(): LineDataSet {
-        val set = LineDataSet(null, "Count")
+        val set = LineDataSet(null, "count") //label: count
         set.apply {
             axisDependency = YAxis.AxisDependency.LEFT
             color = resources.getColor(R.color.colorMain)
             setCircleColor(resources.getColor(R.color.colorMain))
-            valueTextSize = 10f
-            lineWidth = 2f
-            circleRadius = 3f
+            valueTextSize = 12f
+            lineWidth = 3f
+            circleRadius = 0f
             fillAlpha = 0
             fillColor = resources.getColor(R.color.colorMain)
             highLightColor = Color.BLACK
