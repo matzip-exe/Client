@@ -33,6 +33,7 @@ import com.naver.maps.map.overlay.PolygonOverlay
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_matzip_list.*
 import org.json.JSONObject.NULL
+import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -114,13 +115,19 @@ class Detail: AppCompatActivity(), GetDataListener {
         val tvName = findViewById<TextView>(R.id.detail_name)
         val tvType = findViewById<TextView>(R.id.detail_type)
 //        val tvRoadAddress = findViewById<TextView>(R.id.detail_roadAddress)
-        val tvList = findViewById<TextView>(R.id.detail_countList)
+//        val tvList = findViewById<TextView>(R.id.detail_countList)
+        val tvRoadAddress = findViewById<TextView>(R.id.detail_roadAddress)
+        val tvAddress = findViewById<TextView>(R.id.detail_address)
+        val tvTelNum = findViewById<TextView>(R.id.detail_telNum)
 
         tvVisitcount.text = visitcount+"회"
         tvName.text = name
         tvType.text = type
 //        tvRoadAddress.text = item.roadAddress
-        tvList.text ="${item.monthlyVisits[0].date}, ${item.monthlyVisits[0].count}"
+//        tvList.text ="${item.monthlyVisits[0].date}, ${item.monthlyVisits[0].count}"
+        tvRoadAddress.text = item.roadAddress
+        tvAddress.text = "지번: "+item.address
+        tvTelNum.text = item.telNum
     }
 
     private fun fragmentDetail(name: String, locatex: Double, locatey: Double){
