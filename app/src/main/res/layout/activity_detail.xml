@@ -73,10 +73,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
-                    android:text="Name"
+                    android:fontFamily="@font/nanumsquareaceb"
+                    android:text="가게상호명"
                     android:textAlignment="center"
                     android:textSize="26sp"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,7 +85,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:text="Count"
+                    android:fontFamily="@font/nanumsquareacr"
+                    android:text="0회"
                     android:textAlignment="textEnd"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +98,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="2dp"
-                    android:text="Type"
+                    android:fontFamily="@font/nanumsquareacr"
+                    android:text="업종명"
                     android:textAlignment="center"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -116,13 +118,39 @@
 
             <Space
                 android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <TextView
+                android:id="@+id/detail_roadAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/nanumsquareacb"
+                android:text="도로명주소"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/detail_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/nanumsquareacr"
+                android:layout_marginTop="2dp"
+                android:text="주소"
+                android:textSize="12sp" />
+
+            <Space
+                android:layout_width="match_parent"
                 android:layout_height="20dp" />
 
             <TextView
-                android:id="@+id/detail_countList"
+                android:id="@+id/detail_telNum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/nanumsquareacb"
+                android:text="02-000-0000"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
