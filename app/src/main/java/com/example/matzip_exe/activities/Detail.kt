@@ -86,6 +86,7 @@ class Detail: AppCompatActivity(), GetDataListener {
                 try {
                     modelBizDetail = response.body()!!
                     item = ModelDetailList(modelBizDetail.items.telNum, modelBizDetail.items.address, modelBizDetail.items.roadAddress, modelBizDetail.items.monthlyVisits)
+
                     initTempTexts()
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -139,7 +140,7 @@ class Detail: AppCompatActivity(), GetDataListener {
         }
         detail_chart.apply {
             axisRight.isEnabled = false
-            axisLeft.axisMaximum = 60f
+            axisLeft.axisMaximum = 20f
             legend.apply {
                 textSize = 14f
                 verticalAlignment = Legend.LegendVerticalAlignment.TOP
@@ -162,10 +163,10 @@ class Detail: AppCompatActivity(), GetDataListener {
                 set = createSet()
                 data.addDataSet(set)
 //            }
-            data.addEntry(Entry(set.entryCount.toFloat(), 22f), 0)
-            data.addEntry(Entry(set.entryCount.toFloat(), 47f), 0)
-            data.addEntry(Entry(set.entryCount.toFloat(), 31f), 0)
-            data.addEntry(Entry(set.entryCount.toFloat(), 50f), 0)
+
+            for (i in item.monthlyVisits.indices) {
+                data.addEntry(Entry(set.entryCount.toFloat(), item.monthlyVisits[i].count.toFloat()), 0)
+            }
             data.notifyDataChanged()
             detail_chart.apply {
                 notifyDataSetChanged()
@@ -189,7 +190,7 @@ class Detail: AppCompatActivity(), GetDataListener {
             setCircleColor(resources.getColor(R.color.colorMain))
             valueTextSize = 12f
             lineWidth = 3f
-            circleRadius = 0f
+            circleRadius = 2f
             fillAlpha = 0
             fillColor = resources.getColor(R.color.colorMain)
             highLightColor = Color.BLACK
