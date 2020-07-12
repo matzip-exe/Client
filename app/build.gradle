@@ -16,7 +16,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    dataBinding{
+    dataBinding {
         //noinspection DataBindingWithoutKapt
         enabled = true
     }

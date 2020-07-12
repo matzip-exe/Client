@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="5dp">
+
+    <TextView
+        android:id="@+id/oss_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:textSize="18sp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/oss_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        android:autoLink="web"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/oss_copyright"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/oss_license"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:layout_weight="1"/>
+</LinearLayout>

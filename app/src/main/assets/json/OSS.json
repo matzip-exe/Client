@@ -1,0 +1,91 @@
+{
+    "Item":[
+        {
+            "Name":"Retrofit",
+            "Link":"https://square.github.io/retrofit/",
+            "Copyright":"Copyright 2013 Square, Inc.",
+            "License":"Apache License 2.0"
+        },
+        {
+            "Name":"Gson Converter",
+            "Link":"https://github.com/square/retrofit/tree/master/retrofit-converters/gson",
+            "Copyright":"Copyright 2013 Square, Inc.",
+            "License":"Apache License 2.0"
+        },
+        {
+            "Name":"Google Gson",
+            "Link":"https://github.com/google/gson",
+            "Copyright":"Copyright 2008 Google Inc.",
+            "License":"Apache License 2.0"
+        },
+        {
+            "Name":"Kotlin",
+            "Link":"https://github.com/JetBrains/kotlin",
+            "Copyright":"Copyright 2010-2017 JetBrains s.r.o.",
+            "License":"Apache License 2.0"
+        },
+        {
+            "Name":"MPAndroidChart",
+            "Link":"https://github.com/PhilJay/MPAndroidChart",
+            "Copyright":"Copyright 2020 Philipp Jahoda",
+            "License":"Apache License 2.0"
+        },
+        {
+            "Name":"NAVER Map Android SDK",
+            "Link":"https://github.com/navermaps/android-map-sdk",
+            "Copyright":"Copyright (c) 2018-2020 NAVER Corp.",
+            "License":"Apache License 2.0"
+        },
+        {
+            "Name":"Android Source",
+            "Link":"https://source.android.com/",
+            "Copyright":"Copyright (c) 2006 Android Open Source Project",
+            "License":"Apache License 2.0"
+        },
+        {
+            "Name":"Android SDK",
+            "Link":"https://developer.android.com/",
+            "Copyright":"Copyright (C) 2007 The Android Open Source Project",
+            "License":"Apache License 2.0"
+        }
+    ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

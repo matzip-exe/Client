@@ -1,6 +1,7 @@
 package com.example.matzip_exe.activities
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -129,7 +130,8 @@ class MainActivity : AppCompatActivity(), GetDataListener {
                         Toast.makeText(applicationContext, "About us", Toast.LENGTH_SHORT).show()
                     }
                     1->{
-                        Toast.makeText(applicationContext, "오픈소스 라이선스", Toast.LENGTH_SHORT).show()
+                        val goToOSS = Intent(applicationContext, OSS::class.java)
+                        startActivity(goToOSS)
                     }
                 }
             }
