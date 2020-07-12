@@ -3,6 +3,7 @@ package com.example.matzip_exe.activities
 import android.location.Location
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -155,15 +156,30 @@ class MatzipList : AppCompatActivity(), GetDataListener {
     override fun getData(data: Any?) {
         modelBizList = data as ModelBizList?
         println("modelBizList ${modelBizList}")
-        if (modelBizList != null){
-            for (i in modelBizList!!.items.indices){
-                item.add(ModelMatZipList((activityMatzipListBinding.recycleMatziplist.adapter!!.itemCount + 1).toString(),
-                    modelBizList!!.items[i].bizType, modelBizList!!.items[i].bizName,
-                    modelBizList!!.items[i].latlng, modelBizList!!.items[i].distance, modelBizList!!.items[i].visitCount,
-                    modelBizList!!.items[i].avgCost))
+        //빈 데이터 반환은 무조건 빈배열
+        //서버 문제일 때는 null
+        when {
+            modelBizList == null ->{
+                Toast.makeText(this, "잠시 후 다시 시도해 주십시오.", Toast.LENGTH_SHORT).show()
+            }
+            modelBizList?.items == null -> {
+                Toast.makeText(this, "잠시 후 다시 시도해 주십시오.", Toast.LENGTH_SHORT).show()
+            }
+            modelBizList?.items!!.isEmpty() -> {
+                Toast.makeText(this, "잠시 후 다시 시도해 주십시오.", Toast.LENGTH_SHORT).show()
+            }
+            modelBizList?.items != null -> {
+                for (i in modelBizList!!.items.indices){
+                    item.add(ModelMatZipList((activityMatzipListBinding.recycleMatziplist.adapter!!.itemCount + 1).toString(),
+                        modelBizList!!.items[i].bizType, modelBizList!!.items[i].bizName,
+                        modelBizList!!.items[i].latlng, modelBizList!!.items[i].distance, modelBizList!!.items[i].visitCount,
+                        modelBizList!!.items[i].avgCost))
+                }
+
+                adapterMatzipList.notifyDataSetChanged()
             }
 
-            adapterMatzipList.notifyDataSetChanged()
+
         }
     }
 

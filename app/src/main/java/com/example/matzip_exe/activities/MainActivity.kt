@@ -79,13 +79,25 @@ class MainActivity : AppCompatActivity(), GetDataListener {
     }
 
     override fun getData(data: Any?) {
-        modelCheckRegion = data as ModelCheckRegion
+        modelCheckRegion = data as ModelCheckRegion?
 
-        if(modelCheckRegion != null){
-            for (i in modelCheckRegion!!.items.indices){
-                item.add(ModelRecycleMain(regionJson.getString(modelCheckRegion!!.items[i].region),
-                    modelCheckRegion!!.items[i].isExist,
-                    modelCheckRegion!!.items[i].region))
+        when {
+            modelCheckRegion == null ->{
+                Toast.makeText(this, "잠시 후 다시 시도해 주십시오.", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+            modelCheckRegion?.items == null -> {
+                Toast.makeText(this, "잠시 후 다시 시도해 주십시오.", Toast.LENGTH_SHORT).show()
+            }
+            modelCheckRegion?.items!!.isEmpty() -> {
+                Toast.makeText(this, "잠시 후 다시 시도해 주십시오.", Toast.LENGTH_SHORT).show()
+            }
+            modelCheckRegion?.items != null -> {
+                for (i in modelCheckRegion!!.items.indices){
+                    item.add(ModelRecycleMain(regionJson.getString(modelCheckRegion!!.items[i].region),
+                        modelCheckRegion!!.items[i].isExist,
+                        modelCheckRegion!!.items[i].region))
+                }
             }
         }
 
