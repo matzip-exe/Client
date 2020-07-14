@@ -127,7 +127,8 @@ class MainActivity : AppCompatActivity(), GetDataListener {
             override fun onClick(dialog: DialogInterface?, which: Int) {
                 when(which){
                     0->{
-                        Toast.makeText(applicationContext, "About us", Toast.LENGTH_SHORT).show()
+                        val goToAboutUs = Intent(applicationContext, AboutUs::class.java)
+                        startActivity(goToAboutUs)
                     }
                     1->{
                         val goToOSS = Intent(applicationContext, OSS::class.java)

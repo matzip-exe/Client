@@ -15,9 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.OSS"></activity>
-        <activity android:name=".activities.MatzipList"></activity>
-        <activity android:name=".activities.Detail"></activity>
+        <activity android:name=".activities.AboutUs"></activity>
+        <activity android:name=".activities.OSS" />
+        <activity android:name=".activities.MatzipList" />
+        <activity android:name=".activities.Detail" />
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
