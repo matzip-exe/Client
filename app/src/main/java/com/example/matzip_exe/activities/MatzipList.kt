@@ -166,7 +166,7 @@ class MatzipList : AppCompatActivity(), GetDataListener {
                 Toast.makeText(this, "잠시 후 다시 시도해 주십시오.", Toast.LENGTH_SHORT).show()
             }
             modelBizList?.items!!.isEmpty() -> {
-                Toast.makeText(this, "잠시 후 다시 시도해 주십시오.", Toast.LENGTH_SHORT).show()
+
             }
             modelBizList?.items != null -> {
                 for (i in modelBizList!!.items.indices){
