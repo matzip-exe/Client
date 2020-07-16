@@ -1,9 +1,9 @@
 package com.example.matzip_exe.activities
 
 import android.graphics.Color
-import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.util.Log
+import android.webkit.WebView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.matzip_exe.R
@@ -11,9 +11,7 @@ import com.example.matzip_exe.fragments.FragmentDetail
 import com.example.matzip_exe.http.MyRetrofit
 import com.example.matzip_exe.interfaces.GetDataListener
 import com.example.matzip_exe.model.ModelBizDetail
-import com.example.matzip_exe.model.ModelCheckRegion
 import com.example.matzip_exe.model.ModelDetailList
-import com.example.matzip_exe.model.ModelMatZipList
 import com.example.matzip_exe.utils.DataSynchronized
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
@@ -23,21 +21,10 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import com.naver.maps.geometry.LatLng
-import com.naver.maps.geometry.LatLngBounds
-import com.naver.maps.map.CameraPosition
-import com.naver.maps.map.MapFragment
-import com.naver.maps.map.NaverMap
-import com.naver.maps.map.OnMapReadyCallback
-import com.naver.maps.map.overlay.PolygonOverlay
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.activity_matzip_list.*
-import org.json.JSONObject.NULL
-import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.Exception
 
 
 class Detail: AppCompatActivity(), GetDataListener {
@@ -51,8 +38,9 @@ class Detail: AppCompatActivity(), GetDataListener {
     private lateinit var modelBizDetail: ModelBizDetail
     private val myRetrofit = MyRetrofit()
     private lateinit var item: ModelDetailList
-
     private val AdminData = DataSynchronized()
+    private lateinit var webView: WebView
+    private var avgCost: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +53,8 @@ class Detail: AppCompatActivity(), GetDataListener {
         region = intent.getStringExtra("region")!!
         locatex = intent.getDoubleExtra("locatex", 0.0)
         locatey = intent.getDoubleExtra("locatey", 0.0)
+        avgCost = intent.getIntExtra("avgCost", 0)
+
 
         init()
     }
@@ -74,6 +64,7 @@ class Detail: AppCompatActivity(), GetDataListener {
         getBizDetail()
         fragmentDetail(name, locatex, locatey)
         initChart()
+//        setGraph()
     }
 
     private fun requestToServer() {
@@ -114,21 +105,40 @@ class Detail: AppCompatActivity(), GetDataListener {
         val tvVisitcount = findViewById<TextView>(R.id.detail_visitcount)
         val tvName = findViewById<TextView>(R.id.detail_name)
         val tvType = findViewById<TextView>(R.id.detail_type)
-//        val tvRoadAddress = findViewById<TextView>(R.id.detail_roadAddress)
-//        val tvList = findViewById<TextView>(R.id.detail_countList)
         val tvRoadAddress = findViewById<TextView>(R.id.detail_roadAddress)
         val tvAddress = findViewById<TextView>(R.id.detail_address)
         val tvTelNum = findViewById<TextView>(R.id.detail_telNum)
+        val tvAvgCost = findViewById<TextView>(R.id.detail_avgCost)
 
         tvVisitcount.text = visitcount+"회"
         tvName.text = name
         tvType.text = type
-//        tvRoadAddress.text = item.roadAddress
-//        tvList.text ="${item.monthlyVisits[0].date}, ${item.monthlyVisits[0].count}"
         tvRoadAddress.text = item.roadAddress
         tvAddress.text = "지번: "+item.address
         tvTelNum.text = item.telNum
+        tvAvgCost.text = "1인당 평균 "+avgCost.toString()+"원"
     }
+
+//    @SuppressLint("SetJavaScriptEnabled")
+//    private fun setGraph() {
+//        var htmlContent: String = ""
+//        webView = findViewById(R.id.detail_webView)
+//        val webSettings: WebSettings = webView.settings
+//        webSettings.javaScriptEnabled = true
+//        webView.settings.javaScriptCanOpenWindowsAutomatically = true
+//
+//        try{
+//            val inputStream = this.assets.open("html/graph.html")
+//            htmlContent = inputStream.bufferedReader().use {
+//                it.readText()
+//            }
+//        }
+//        catch (e: Exception){
+//            e.printStackTrace()
+//        }
+//
+//        webView.loadDataWithBaseURL("file:///android_asset/", htmlContent, "text/html", "utf-8", null)
+//    }
 
     private fun fragmentDetail(name: String, locatex: Double, locatey: Double){
         supportFragmentManager.beginTransaction().add(R.id.detail_map_layout, FragmentDetail(name, locatex, locatey)).commit()
@@ -164,12 +174,11 @@ class Detail: AppCompatActivity(), GetDataListener {
     private fun fillChart() {
         val data: LineData = detail_chart.data
 
+
         data.let {
             var set: ILineDataSet? = data.getDataSetByIndex(0)
-//            if (set == null) {
                 set = createSet()
                 data.addDataSet(set)
-//            }
 
             for (i in item.monthlyVisits.indices) {
                 data.addEntry(Entry(set.entryCount.toFloat(), item.monthlyVisits[i].count.toFloat()), 0)
@@ -177,16 +186,22 @@ class Detail: AppCompatActivity(), GetDataListener {
             data.notifyDataChanged()
             detail_chart.apply {
                 notifyDataSetChanged()
-//                moveViewToX(data.entryCount.toFloat())
                 setVisibleXRangeMaximum(12f)
                 setPinchZoom(false)
                 isDoubleTapToZoomEnabled = false
                 description.text = ""
-//                setBackgroundColor(resources.getColor(R.color.material_on_background_disabled))
                 description.textSize = 14f
                 setExtraOffsets(2f, 2f, 2f, 2f)
             }
         }
+        val vf: ValueFormatter =
+            object : ValueFormatter() {
+                //value format here, here is the overridden method
+                override fun getFormattedValue(value: Float): String {
+                    return "" + value.toInt()
+                }
+            }
+        data.setValueFormatter(vf)
     }
 
     private fun createSet(): LineDataSet {
@@ -205,4 +220,6 @@ class Detail: AppCompatActivity(), GetDataListener {
         }
         return set
     }
+
+
 }

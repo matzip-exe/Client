@@ -116,6 +116,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp" />
 
+<!--            <WebView-->
+<!--                android:id="@+id/detail_webView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content" />-->
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="30dp" />
@@ -144,12 +149,21 @@
                 android:layout_height="20dp" />
 
             <TextView
-                android:id="@+id/detail_telNum"
+            android:id="@+id/detail_telNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/nanumsquareacb"
+            android:text="02-000-0000"
+            android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/detail_avgCost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:fontFamily="@font/nanumsquareacb"
-                android:text="02-000-0000"
+                android:text="0"
                 android:textSize="16sp" />
 
         </LinearLayout>
