@@ -46,6 +46,7 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>,
             intent.putExtra("locatey", itemList[adapterPosition].latlng?.y)
             intent.putExtra("area", area)
             intent.putExtra("region", region)
+            intent.putExtra("avgCost", itemList[adapterPosition].avgcost)
 
             v.context.startActivity(intent)
 
