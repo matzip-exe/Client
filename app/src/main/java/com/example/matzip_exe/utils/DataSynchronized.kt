@@ -1,7 +1,15 @@
 package com.example.matzip_exe.utils
 
+import android.util.Log
 import com.example.matzip_exe.http.MyRetrofit
 import com.example.matzip_exe.interfaces.GetDataListener
+import com.example.matzip_exe.model.ModelCheckRegion
+import com.example.matzip_exe.model.ModelToken
+import com.google.gson.Gson
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.lang.Exception
 
 class DataSynchronized() {
@@ -11,6 +19,10 @@ class DataSynchronized() {
 
     fun setOnGetDataListener(listener: GetDataListener){
         this.getDataListener = listener
+    }
+
+    fun initToken(){
+        dataThread(runToken())
     }
 
     fun getRegion(){
@@ -32,11 +44,29 @@ class DataSynchronized() {
         getDataListener.getData(mData)
     }
 
+    private inner class runToken: Runnable{
+        override fun run() {
+            val callToken = myRetrofit.makeService().initAuth(Auth.userAgent)
+            try{
+                val response = callToken.execute()
+                Auth.token = response.body()!!.token
+            }
+            catch (e: Exception){
+                e.printStackTrace()
+            }
+        }
+    }
+
     private inner class runRegion: Runnable{
         override fun run() {
-            val callRegion = myRetrofit.makeService().checkRegion()
+            val callRegion = myRetrofit.makeService().checkRegion(Auth.userAgent, Auth.token)
             try {
-                mData = callRegion.execute().body()
+                val response = callRegion.execute()
+                mData = response.body()
+                if (response.headers().get("x-access-token") != null){
+                    Auth.token = response.headers().get("x-access-token")!!
+                    Log.i("Header", response.headers().toString())
+                }
             }
             catch (e: Exception){
                 e.printStackTrace()
@@ -49,9 +79,14 @@ class DataSynchronized() {
                                    private val since: Int, private val step: Int,
                                    private val lat: Double?, private val lng: Double?): Runnable{
         override fun run() {
-            val callBizList = myRetrofit.makeService().getBizList(region, filter, since, step, lat, lng)
+            val callBizList = myRetrofit.makeService().getBizList(Auth.userAgent, Auth.token, region, filter, since, step, lat, lng)
             try {
-                mData = callBizList.execute().body()
+                val response = callBizList.execute()
+                mData = response.body()
+
+                if (response.headers().get("x-access-token") != null){
+                    Auth.token = response.headers().get("x-access-token")!!
+                }
             }
             catch (e: Exception){
                 e.printStackTrace()

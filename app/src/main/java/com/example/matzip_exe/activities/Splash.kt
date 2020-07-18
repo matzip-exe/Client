@@ -5,35 +5,60 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.matzip_exe.R
+import com.example.matzip_exe.interfaces.GetDataListener
 import com.example.matzip_exe.interfaces.NetworkConnectedListener
+import com.example.matzip_exe.model.ModelToken
 import com.example.matzip_exe.receivers.NetworkReceiver
+import com.example.matzip_exe.utils.Auth
+import com.example.matzip_exe.utils.DataSynchronized
 
-class Splash : AppCompatActivity(), NetworkConnectedListener {
+class Splash : AppCompatActivity(), NetworkConnectedListener, GetDataListener {
     private val receiver = NetworkReceiver()
     private val GPS_CODE = 3173
+
+    private val AdminData = DataSynchronized()
+    private var modelToken: ModelToken? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        init()
+    }
+
+    private fun init(){
+        setDataListener()
+        initToken()
         checkPermission()
         receiver.setOnNetworkListener(this)
     }
 
-    override fun onStart() {
-        super.onStart()
-//        this.registerReceiver(receiver, receiver.getFilter())
+    private fun setDataListener(){
+        AdminData.setOnGetDataListener(this)
+    }
+
+    private fun initToken(){
+        AdminData.initToken()
     }
 
     override fun onStop() {
         super.onStop()
 
         this.unregisterReceiver(receiver)
+    }
+
+    override fun getData(data: Any?) {
+        modelToken = data as ModelToken?
+
+        if (modelToken?.token != null){
+            Auth.token = modelToken!!.token
+        }
     }
 
     override fun isConnected() {
