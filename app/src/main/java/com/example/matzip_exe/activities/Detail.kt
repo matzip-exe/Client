@@ -1,5 +1,6 @@
 package com.example.matzip_exe.activities
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -101,6 +102,7 @@ class Detail: AppCompatActivity(), GetDataListener {
         initTempTexts()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initTempTexts() {
         val tvVisitcount = findViewById<TextView>(R.id.detail_visitcount)
         val tvName = findViewById<TextView>(R.id.detail_name)
@@ -115,7 +117,7 @@ class Detail: AppCompatActivity(), GetDataListener {
         tvType.text = type
         tvRoadAddress.text = item.roadAddress
         tvAddress.text = "지번: "+item.address
-        tvTelNum.text = item.telNum
+        tvTelNum.text = "전화번호"+item.telNum
         tvAvgCost.text = "1인당 평균 "+avgCost.toString()+"원"
     }
 
