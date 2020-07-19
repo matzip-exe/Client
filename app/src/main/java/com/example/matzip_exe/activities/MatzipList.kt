@@ -173,7 +173,7 @@ class MatzipList : AppCompatActivity(), GetDataListener {
                     item.add(ModelMatZipList((activityMatzipListBinding.recycleMatziplist.adapter!!.itemCount + 1).toString(),
                         modelBizList!!.items[i].bizType, modelBizList!!.items[i].bizName,
                         modelBizList!!.items[i].latlng, modelBizList!!.items[i].distance, modelBizList!!.items[i].visitCount,
-                        modelBizList!!.items[i].avgCost))
+                        modelBizList!!.items[i].avgCost, filterPosition))
                 }
 
                 adapterMatzipList.notifyDataSetChanged()

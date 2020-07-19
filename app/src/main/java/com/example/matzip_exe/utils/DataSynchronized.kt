@@ -3,14 +3,6 @@ package com.example.matzip_exe.utils
 import android.util.Log
 import com.example.matzip_exe.http.MyRetrofit
 import com.example.matzip_exe.interfaces.GetDataListener
-import com.example.matzip_exe.model.ModelCheckRegion
-import com.example.matzip_exe.model.ModelToken
-import com.google.gson.Gson
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.lang.Exception
 
 class DataSynchronized() {
     private val myRetrofit = MyRetrofit()
@@ -65,7 +57,6 @@ class DataSynchronized() {
                 mData = response.body()
                 if (response.headers().get("x-access-token") != null){
                     Auth.token = response.headers().get("x-access-token")!!
-                    Log.i("Header", response.headers().toString())
                 }
             }
             catch (e: Exception){
@@ -83,7 +74,6 @@ class DataSynchronized() {
             try {
                 val response = callBizList.execute()
                 mData = response.body()
-
                 if (response.headers().get("x-access-token") != null){
                     Auth.token = response.headers().get("x-access-token")!!
                 }
