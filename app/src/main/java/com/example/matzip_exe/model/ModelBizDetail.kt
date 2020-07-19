@@ -9,7 +9,8 @@ data class ModelBizDetail(
         @SerializedName("telNum")val telNum: String,
         @SerializedName("address")val address: String,
         @SerializedName("roadAddress")val roadAddress: String,
-        @SerializedName("monthlyVisits")val monthlyVisits: List<MonthlyVisitsItems>
+        @SerializedName("monthlyVisits")val monthlyVisits: List<MonthlyVisitsItems>,
+        @SerializedName("bizHour")val bizHour: String
     )
     inner class MonthlyVisitsItems(
         @SerializedName("date")val date: String,

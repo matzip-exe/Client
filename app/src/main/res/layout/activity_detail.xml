@@ -114,7 +114,9 @@
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/detail_chart"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="200dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
 
 <!--            <WebView-->
 <!--                android:id="@+id/detail_webView"-->
@@ -164,6 +166,24 @@
                 android:layout_marginStart="12dp"
                 android:fontFamily="@font/nanumsquareacb"
                 android:text="0"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/detail_bizHour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/nanumsquareacb"
+                android:text="영업시간"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/detail_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/nanumsquareacb"
+                android:text="날짜"
                 android:textSize="16sp" />
 
         </LinearLayout>

@@ -25,6 +25,6 @@ interface InterfaceRetrofit {
 
     @Headers("User-Agent: Team No?Yes!")
     @GET("getBizDetail")
-    fun getBizDetail(@Query("region") region: String, @Query("bizName") bizName: String): Call<ModelBizDetail>
+    fun getBizDetail(@Header("User-Agent") userAgent: String, @Header("x-access-token") token: String, @Query("region") region: String, @Query("bizName") bizName: String): Call<ModelBizDetail>
 
 }
