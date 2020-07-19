@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.renderscript.Sampler
 import android.util.Log
+import android.view.View
 import android.webkit.WebView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -114,17 +115,31 @@ class Detail: AppCompatActivity(), GetDataListener {
         val tvTelNum = findViewById<TextView>(R.id.detail_telNum)
         val tvAvgCost = findViewById<TextView>(R.id.detail_avgCost)
         val tvBizHour = findViewById<TextView>(R.id.detail_bizHour)
-        val tvTemp = findViewById<TextView>(R.id.detail_temp)
 
         tvVisitcount.text = visitcount+"회"
         tvName.text = name
         tvType.text = type
-        tvRoadAddress.text = item.roadAddress
-        tvAddress.text = "지번: "+item.address
-        tvTelNum.text = "전화번호"+item.telNum
-        tvAvgCost.text = "1인당 평균 "+avgCost.toString()+"원"
-        tvBizHour.text = item.bizHour
-        tvTemp.text = "${date[0]}년 ${date[1]}월"
+        if (item.roadAddress != null) {
+            tvRoadAddress.text = item.roadAddress
+        } else {
+            tvRoadAddress.visibility = View.GONE
+        }
+        if (item.address != null) {
+            tvAddress.text = "지번: "+item.address
+        } else {
+            tvAddress.visibility = View.GONE
+        }
+        if (item.telNum != null) {
+            tvTelNum.text = "전화번호: "+item.telNum
+        } else {
+            tvTelNum.visibility = View.GONE
+        }
+        tvAvgCost.text = "1인당 평균 "+avgCost.toString()+"원 사용"
+        if (item.bizHour != null) {
+            tvBizHour.text = "영업시간: "+item.bizHour
+        } else {
+            tvBizHour.visibility = View.GONE
+        }
     }
 
 //    @SuppressLint("SetJavaScriptEnabled")
@@ -173,7 +188,7 @@ class Detail: AppCompatActivity(), GetDataListener {
 //            setDrawGridLines(false)
             granularity = 1f
             axisMinimum = 0f
-            isGranularityEnabled = false
+            isGranularityEnabled = true
         }
         detail_chart.apply {
             axisRight.isEnabled = false
@@ -237,7 +252,7 @@ class Detail: AppCompatActivity(), GetDataListener {
             println(dateString)
             dateList.add(dateString)
         }
-
+        println(dateList.toString())
         val labels = dateList
         detail_chart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
 
