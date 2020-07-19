@@ -47,6 +47,12 @@
             "Link":"https://developer.android.com/",
             "Copyright":"Copyright (C) 2007 The Android Open Source Project",
             "License":"Apache License 2.0"
+        },
+        {
+            "Name": "play-services-location",
+            "Link": "https://github.com/google/play-services-plugins",
+            "Copyright": "Copyright (c) 2020 Google",
+            "License": "Apache License 2.0"
         }
     ]
 }

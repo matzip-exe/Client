@@ -38,7 +38,7 @@ class CheckLocation(val context: Context)/*: LocationListener*/{
                 if (NetWork && location == null){
                     location = userLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
                     Log.i("NetWork", location.toString())
-                    Toast.makeText(context, "NetWork ${location.toString()}", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(context, "NetWork ${location.toString()}", Toast.LENGTH_LONG).show()
 
                 }
             }

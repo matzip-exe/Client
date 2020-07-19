@@ -1,6 +1,7 @@
 package com.example.matzip_exe.activities
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -11,19 +12,29 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.matzip_exe.R
+import com.example.matzip_exe.interfaces.CheckLocationSettingListener
 import com.example.matzip_exe.interfaces.GetDataListener
 import com.example.matzip_exe.interfaces.NetworkConnectedListener
 import com.example.matzip_exe.model.ModelToken
 import com.example.matzip_exe.receivers.NetworkReceiver
 import com.example.matzip_exe.utils.Auth
 import com.example.matzip_exe.utils.DataSynchronized
+import com.example.matzip_exe.utils.RequestLocationSetting
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
+import com.google.android.gms.location.LocationSettingsStatusCodes
 
-class Splash : AppCompatActivity(), NetworkConnectedListener, GetDataListener {
+class Splash : AppCompatActivity(), NetworkConnectedListener, GetDataListener, CheckLocationSettingListener {
     private val receiver = NetworkReceiver()
     private val GPS_CODE = 3173
+    private val CODE_LOCATION = 707
 
     private val AdminData = DataSynchronized()
     private var modelToken: ModelToken? = null
+    private lateinit var requestLocationSetting: RequestLocationSetting
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,11 +47,17 @@ class Splash : AppCompatActivity(), NetworkConnectedListener, GetDataListener {
         setDataListener()
         initToken()
         checkPermission()
+        setCheckLocationSettingListener()
         receiver.setOnNetworkListener(this)
     }
 
     private fun setDataListener(){
         AdminData.setOnGetDataListener(this)
+    }
+
+    private fun setCheckLocationSettingListener(){
+        requestLocationSetting = RequestLocationSetting(this)
+        requestLocationSetting.setCheckLocationSettingListener(this)
     }
 
     private fun initToken(){
@@ -62,11 +79,7 @@ class Splash : AppCompatActivity(), NetworkConnectedListener, GetDataListener {
     }
 
     override fun isConnected() {
-        Handler().postDelayed(Runnable {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }, 1000)
+        requestLocationSetting.requestGpsSettingChange()
     }
 
     override fun isNotConnected() {
@@ -111,5 +124,35 @@ class Splash : AppCompatActivity(), NetworkConnectedListener, GetDataListener {
             this.registerReceiver(receiver, receiver.getFilter())
         }
 
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == CODE_LOCATION){
+            if(resultCode == Activity.RESULT_OK){
+                Handler().postDelayed(Runnable {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }, 1000)
+            }else {
+                Toast.makeText(this, "거리 계산을 할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                Handler().postDelayed(Runnable {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }, 1000)
+            }
+        }
+    }
+
+    override fun isSetted() {
+        Handler().postDelayed(Runnable {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }, 1000)
     }
 }
