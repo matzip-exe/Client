@@ -3,6 +3,7 @@ package com.example.matzip_exe.activities
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.renderscript.Sampler
 import android.util.Log
 import android.webkit.WebView
 import android.widget.TextView
@@ -20,9 +21,11 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import kotlinx.android.synthetic.main.activity_detail.*
+import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,7 +39,7 @@ class Detail: AppCompatActivity(), GetDataListener {
     private lateinit var region: String
     private var locatex: Double = 0.0
     private var locatey: Double = 0.0
-    private lateinit var modelBizDetail: ModelBizDetail
+    private var modelBizDetail: ModelBizDetail? = null
     private val myRetrofit = MyRetrofit()
     private lateinit var item: ModelDetailList
     private val AdminData = DataSynchronized()
@@ -56,7 +59,6 @@ class Detail: AppCompatActivity(), GetDataListener {
         locatey = intent.getDoubleExtra("locatey", 0.0)
         avgCost = intent.getIntExtra("avgCost", 0)
 
-
         init()
     }
 
@@ -65,28 +67,27 @@ class Detail: AppCompatActivity(), GetDataListener {
         getBizDetail()
         fragmentDetail(name, locatex, locatey)
         initChart()
-//        setGraph()
     }
 
-    private fun requestToServer() {
-        val bizDetail = myRetrofit.makeService().getBizDetail(region = region, bizName = name)
-        bizDetail.enqueue(object: Callback<ModelBizDetail> {
-            override fun onFailure(call: Call<ModelBizDetail>, t: Throwable) {
-                Log.i("Detail Error", t.message!!)
-            }
-
-            override fun onResponse(call: Call<ModelBizDetail>, response: Response<ModelBizDetail>) {
-                try {
-                    modelBizDetail = response.body()!!
-                    item = ModelDetailList(modelBizDetail.items.telNum, modelBizDetail.items.address, modelBizDetail.items.roadAddress, modelBizDetail.items.monthlyVisits)
-
-                    initTempTexts()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-        })
-    }
+//    private fun requestToServer() {
+//        val bizDetail = myRetrofit.makeService().getBizDetail(region = region, bizName = name)
+//        bizDetail.enqueue(object: Callback<ModelBizDetail> {
+//            override fun onFailure(call: Call<ModelBizDetail>, t: Throwable) {
+//                Log.i("Detail Error", t.message!!)
+//            }
+//
+//            override fun onResponse(call: Call<ModelBizDetail>, response: Response<ModelBizDetail>) {
+//                try {
+//                    modelBizDetail = response.body()!!
+//                    item = ModelDetailList(modelBizDetail.items.telNum, modelBizDetail.items.address, modelBizDetail.items.roadAddress, modelBizDetail.items.monthlyVisits)
+//
+//                    initTempTexts()
+//                } catch (e: Exception) {
+//                    e.printStackTrace()
+//                }
+//            }
+//        })
+//    }
 
     private fun setDataListener() {
         AdminData.setOnGetDataListener(this)
@@ -97,13 +98,14 @@ class Detail: AppCompatActivity(), GetDataListener {
     }
 
     override fun getData(data: Any?) {
-        modelBizDetail = data as ModelBizDetail
-        item = ModelDetailList(modelBizDetail.items.telNum, modelBizDetail.items.address, modelBizDetail.items.roadAddress, modelBizDetail.items.monthlyVisits)
-        initTempTexts()
+        modelBizDetail = data as ModelBizDetail?
+        item = ModelDetailList(modelBizDetail!!.items.telNum, modelBizDetail!!.items.address, modelBizDetail!!.items.roadAddress, modelBizDetail!!.items.monthlyVisits, modelBizDetail!!.items.bizHour)
+        initTexts()
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun initTempTexts() {
+    private fun initTexts() {
+        val date = item.monthlyVisits[0].date.split("-")
+
         val tvVisitcount = findViewById<TextView>(R.id.detail_visitcount)
         val tvName = findViewById<TextView>(R.id.detail_name)
         val tvType = findViewById<TextView>(R.id.detail_type)
@@ -111,6 +113,8 @@ class Detail: AppCompatActivity(), GetDataListener {
         val tvAddress = findViewById<TextView>(R.id.detail_address)
         val tvTelNum = findViewById<TextView>(R.id.detail_telNum)
         val tvAvgCost = findViewById<TextView>(R.id.detail_avgCost)
+        val tvBizHour = findViewById<TextView>(R.id.detail_bizHour)
+        val tvTemp = findViewById<TextView>(R.id.detail_temp)
 
         tvVisitcount.text = visitcount+"회"
         tvName.text = name
@@ -119,6 +123,8 @@ class Detail: AppCompatActivity(), GetDataListener {
         tvAddress.text = "지번: "+item.address
         tvTelNum.text = "전화번호"+item.telNum
         tvAvgCost.text = "1인당 평균 "+avgCost.toString()+"원"
+        tvBizHour.text = item.bizHour
+        tvTemp.text = "${date[0]}년 ${date[1]}월"
     }
 
 //    @SuppressLint("SetJavaScriptEnabled")
@@ -148,21 +154,36 @@ class Detail: AppCompatActivity(), GetDataListener {
 
     private fun initChart() {
         val xAxis: XAxis = detail_chart.xAxis
+        val max: Int? = item.monthlyVisits.maxBy{it.count}?.count
+
+
+        detail_chart.axisLeft.setDrawLabels(false)
+        detail_chart.xAxis.setDrawGridLines(false)
+        detail_chart.axisLeft.setDrawGridLines(false)
+        detail_chart.axisLeft.setDrawAxisLine(false)
+        detail_chart.axisRight.setDrawGridLines(false)
+//        detail_chart.xAxis.setDrawLabels(false)
+        detail_chart.xAxis.setDrawAxisLine(false)
+        detail_chart.setTouchEnabled(false)
 
         xAxis.apply {
+//            isEnabled = false
             position = XAxis.XAxisPosition.BOTTOM
             textSize = 10f
-            setDrawGridLines(false)
+//            setDrawGridLines(false)
             granularity = 1f
             axisMinimum = 0f
             isGranularityEnabled = false
         }
         detail_chart.apply {
             axisRight.isEnabled = false
-            axisLeft.axisMaximum = 20f
+            if (max != null) {
+                axisLeft.axisMaximum = max.toFloat() + 1
+            }
             legend.apply {
+                isEnabled = false
                 textSize = 14f
-                verticalAlignment = Legend.LegendVerticalAlignment.TOP
+                verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
                 horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
                 orientation = Legend.LegendOrientation.HORIZONTAL
                 setDrawInside(false)
@@ -183,6 +204,9 @@ class Detail: AppCompatActivity(), GetDataListener {
                 data.addDataSet(set)
 
             for (i in item.monthlyVisits.indices) {
+//                val date = item.monthlyVisits[i].date.split("-")
+//                val dateFloat = "${date[0]}.${date[1]}".toFloat()
+//                println(dateFloat)
                 data.addEntry(Entry(set.entryCount.toFloat(), item.monthlyVisits[i].count.toFloat()), 0)
             }
             data.notifyDataChanged()
@@ -196,6 +220,7 @@ class Detail: AppCompatActivity(), GetDataListener {
                 setExtraOffsets(2f, 2f, 2f, 2f)
             }
         }
+
         val vf: ValueFormatter =
             object : ValueFormatter() {
                 //value format here, here is the overridden method
@@ -204,10 +229,22 @@ class Detail: AppCompatActivity(), GetDataListener {
                 }
             }
         data.setValueFormatter(vf)
+
+        val dateList = mutableListOf<String>()
+        for (i in item.monthlyVisits.indices) {
+            val date = item.monthlyVisits[i].date.split("-")
+            val dateString = "${date[0].substring(2)}.${date[1]}"
+            println(dateString)
+            dateList.add(dateString)
+        }
+
+        val labels = dateList
+        detail_chart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+
     }
 
     private fun createSet(): LineDataSet {
-        val set = LineDataSet(null, "count") //label: count
+        val set = LineDataSet(null, "월별 방문회수") //label: count
         set.apply {
             axisDependency = YAxis.AxisDependency.LEFT
             color = resources.getColor(R.color.colorMain)

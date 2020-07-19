@@ -96,7 +96,7 @@ class DataSynchronized() {
 
     private inner class runBizDetail(private val region: String, private val bizName: String): Runnable {
         override fun run() {
-            val callBizDetail = myRetrofit.makeService().getBizDetail(region, bizName)
+            val callBizDetail = myRetrofit.makeService().getBizDetail(Auth.userAgent, Auth.token, region, bizName)
             try {
                 mData = callBizDetail.execute().body()
             }
