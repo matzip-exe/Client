@@ -111,12 +111,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
 
+            <TextView
+                android:id="@+id/detail_graphName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/nanumsquareacb"
+                android:textSize="16sp"
+                android:text="월별 방문횟수" />
+
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/detail_chart"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp" />
 
 <!--            <WebView-->
 <!--                android:id="@+id/detail_webView"-->
@@ -126,6 +135,19 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="30dp" />
+
+            <TextView
+                android:id="@+id/detail_avgCost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/nanumsquareacb"
+                android:text="평균가격"
+                android:textSize="16sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
 
             <TextView
                 android:id="@+id/detail_roadAddress"
@@ -146,6 +168,7 @@
                 android:text="주소"
                 android:textSize="12sp" />
 
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
@@ -160,15 +183,6 @@
             android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/detail_avgCost"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:fontFamily="@font/nanumsquareacb"
-                android:text="0"
-                android:textSize="16sp" />
-
-            <TextView
                 android:id="@+id/detail_bizHour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -177,14 +191,6 @@
                 android:text="영업시간"
                 android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/detail_temp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:fontFamily="@font/nanumsquareacb"
-                android:text="날짜"
-                android:textSize="16sp" />
 
         </LinearLayout>
 
