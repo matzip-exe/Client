@@ -31,6 +31,7 @@ class Splash : AppCompatActivity(), NetworkConnectedListener, GetDataListener, C
     private val receiver = NetworkReceiver()
     private val GPS_CODE = 3173
     private val CODE_LOCATION = 707
+    private var GPScheck = false
 
     private val AdminData = DataSynchronized()
     private var modelToken: ModelToken? = null
@@ -79,7 +80,12 @@ class Splash : AppCompatActivity(), NetworkConnectedListener, GetDataListener, C
     }
 
     override fun isConnected() {
-        requestLocationSetting.requestGpsSettingChange()
+        if (GPScheck){
+            requestLocationSetting.requestGpsSettingChange()
+        }
+        else{
+            moveToMain()
+        }
     }
 
     override fun isNotConnected() {
@@ -130,25 +136,27 @@ class Splash : AppCompatActivity(), NetworkConnectedListener, GetDataListener, C
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == CODE_LOCATION){
-            if(resultCode == Activity.RESULT_OK){
-                Handler().postDelayed(Runnable {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }, 1000)
-            }else {
-                Toast.makeText(this, "거리 계산을 할 수 없습니다.", Toast.LENGTH_SHORT).show()
-                Handler().postDelayed(Runnable {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }, 1000)
+        when(requestCode){
+            GPS_CODE->{
+                GPScheck = resultCode == Activity.RESULT_OK
             }
+            CODE_LOCATION->{
+                if(resultCode == Activity.RESULT_OK){
+                    moveToMain()
+                }else {
+                    Toast.makeText(this, "거리 계산을 할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                    moveToMain()
+                }
+            }
+
         }
     }
 
     override fun isSetted() {
+        moveToMain()
+    }
+
+    private fun moveToMain(){
         Handler().postDelayed(Runnable {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
