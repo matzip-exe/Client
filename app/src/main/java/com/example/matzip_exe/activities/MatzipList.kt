@@ -2,6 +2,7 @@ package com.example.matzip_exe.activities
 
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -57,6 +58,7 @@ class MatzipList : AppCompatActivity(), GetDataListener {
         initTabs()
         setDataListener()
         getBizList()
+        initSwipe()
     }
 
     private fun initIntent(){
@@ -153,9 +155,22 @@ class MatzipList : AppCompatActivity(), GetDataListener {
         AdminData.getBizList(region, filter, callCount*10, 10, userLocation?.latitude, userLocation?.longitude)
     }
 
+    private fun initSwipe(){
+        activityMatzipListBinding.swipeMatziplist.setOnRefreshListener {
+            item.clear()
+            callCount = 0
+            Log.i("swipeStart","Start")
+            initLocation()
+            Log.i("LocationStart","Location")
+            getBizList()
+            Log.i("getBizListStart","getBizList")
+            activityMatzipListBinding.swipeMatziplist.isRefreshing = false
+        }
+    }
+
     override fun getData(data: Any?) {
         modelBizList = data as ModelBizList?
-        println("modelBizList ${modelBizList}")
+        Log.i("getData","getData")
         //빈 데이터 반환은 무조건 빈배열
         //서버 문제일 때는 null
         when {
