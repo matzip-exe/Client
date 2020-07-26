@@ -6,11 +6,10 @@ data class ModelBizDetail(
     @SerializedName("item")val items: BizDetailItems
 ) {
     inner class BizDetailItems(
-        @SerializedName("telNum")val telNum: String,
         @SerializedName("address")val address: String,
         @SerializedName("roadAddress")val roadAddress: String,
         @SerializedName("monthlyVisits")val monthlyVisits: List<MonthlyVisitsItems>,
-        @SerializedName("bizHour")val bizHour: String
+        @SerializedName("detailUrl")val detailUrl: String
     )
     inner class MonthlyVisitsItems(
         @SerializedName("date")val date: String,

@@ -49,6 +49,7 @@ class FragmentDetail(name: String, locatex: Double, locatey: Double): Fragment()
 
         naverMap.cameraPosition = CameraPosition(LatLng(locatey, locatex), 16.0)
         marker.map = naverMap
+        println("onMapReadyFin")
     }
 
     private fun initMap() {
@@ -58,5 +59,6 @@ class FragmentDetail(name: String, locatex: Double, locatey: Double): Fragment()
                 fm.beginTransaction().add(R.id.detail_map, it).commit()
             }
         mapFragment.getMapAsync(this)
+        println("initMap Fin")
     }
 }
