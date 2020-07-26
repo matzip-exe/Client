@@ -1,6 +1,7 @@
 package com.example.matzip_exe.adapter
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +38,7 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>,
 
         override fun isConnected() {
             val intent = Intent(v.context, Detail::class.java)
-            intent.putExtra("visitcount", itemList[adapterPosition].visitcount)
+            intent.putExtra("visitcount", itemList[adapterPosition].visitcount.toString())
             intent.putExtra("name", text_matziplist_name.text)
             intent.putExtra("type", text_matziplist_type.text)
             intent.putExtra("locatex", itemList[adapterPosition].latlng?.x)
