@@ -7,6 +7,7 @@ import android.renderscript.Sampler
 import android.util.Log
 import android.view.View
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.matzip_exe.R
@@ -19,11 +20,10 @@ import com.example.matzip_exe.utils.DataSynchronized
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import kotlinx.android.synthetic.main.activity_detail.*
 import org.w3c.dom.Text
@@ -100,47 +100,58 @@ class Detail: AppCompatActivity(), GetDataListener {
 
     override fun getData(data: Any?) {
         modelBizDetail = data as ModelBizDetail?
-        item = ModelDetailList(modelBizDetail!!.items.telNum, modelBizDetail!!.items.address, modelBizDetail!!.items.roadAddress, modelBizDetail!!.items.monthlyVisits, modelBizDetail!!.items.bizHour)
+        item = ModelDetailList(modelBizDetail!!.items.address, modelBizDetail!!.items.roadAddress, modelBizDetail!!.items.monthlyVisits, modelBizDetail!!.items.detailUrl)
         initTexts()
     }
 
+//    @SuppressLint("SetTextI18n")
     private fun initTexts() {
-        val date = item.monthlyVisits[0].date.split("-")
+    val date = item.monthlyVisits[0].date.split("-")
 
-        val tvVisitcount = findViewById<TextView>(R.id.detail_visitcount)
-        val tvName = findViewById<TextView>(R.id.detail_name)
-        val tvType = findViewById<TextView>(R.id.detail_type)
-        val tvRoadAddress = findViewById<TextView>(R.id.detail_roadAddress)
-        val tvAddress = findViewById<TextView>(R.id.detail_address)
-        val tvTelNum = findViewById<TextView>(R.id.detail_telNum)
-        val tvAvgCost = findViewById<TextView>(R.id.detail_avgCost)
-        val tvBizHour = findViewById<TextView>(R.id.detail_bizHour)
+    val tvVisitcount = findViewById<TextView>(R.id.detail_visitcount)
+    val tvName = findViewById<TextView>(R.id.detail_name)
+    val tvType = findViewById<TextView>(R.id.detail_type)
+    val tvRoadAddress = findViewById<TextView>(R.id.detail_roadAddress)
+    val tvAddress = findViewById<TextView>(R.id.detail_address)
+    val tvAvgCost = findViewById<TextView>(R.id.detail_avgCost)
+    val wvWebView = findViewById<WebView>(R.id.detail_webview)
 
-        tvVisitcount.text = visitcount+"회"
-        tvName.text = name
-        tvType.text = type
-        if (item.roadAddress != null) {
-            tvRoadAddress.text = item.roadAddress
-        } else {
-            tvRoadAddress.visibility = View.GONE
-        }
-        if (item.address != null) {
-            tvAddress.text = "지번: "+item.address
-        } else {
-            tvAddress.visibility = View.GONE
-        }
-        if (item.telNum != null) {
-            tvTelNum.text = "전화번호: "+item.telNum
-        } else {
-            tvTelNum.visibility = View.GONE
-        }
-        tvAvgCost.text = "1인당 평균 "+avgCost.toString()+"원 사용"
-        if (item.bizHour != null) {
-            tvBizHour.text = "영업시간: "+item.bizHour
-        } else {
-            tvBizHour.visibility = View.GONE
-        }
+    tvVisitcount.text = visitcount + "회"
+    tvName.text = name
+    tvType.text = type
+    if (item.roadAddress != null) {
+        tvRoadAddress.text = item.roadAddress
+    } else {
+        tvRoadAddress.visibility = View.GONE
     }
+    if (item.address != null) {
+        tvAddress.text = "지번: " + item.address
+    } else {
+        tvAddress.visibility = View.GONE
+    }
+    tvAvgCost.text = "1인당 평균 " + avgCost.toString() + "원 사용"
+    wvWebView.apply {
+        settings.javaScriptEnabled = true
+        webViewClient = WebViewClient()
+    }
+    if (item.detailUrl != null) {
+        wvWebView.loadUrl(item.detailUrl)
+    } else {
+        wvWebView.visibility = View.GONE
+    }
+    }
+
+//        if (item.telNum != null) {
+//            tvTelNum.text = "전화번호: "+item.telNum
+//        } else {
+//            tvTelNum.visibility = View.GONE
+//        }
+//        if (item.bizHour != null) {
+//            tvBizHour.text = "영업시간: "+item.bizHour
+//        } else {
+//            tvBizHour.visibility = View.GONE
+//        }
+
 
 //    @SuppressLint("SetJavaScriptEnabled")
 //    private fun setGraph() {
@@ -184,7 +195,7 @@ class Detail: AppCompatActivity(), GetDataListener {
         xAxis.apply {
 //            isEnabled = false
             position = XAxis.XAxisPosition.BOTTOM
-            textSize = 10f
+            textSize = 9f
 //            setDrawGridLines(false)
             granularity = 1f
             axisMinimum = 0f
@@ -248,7 +259,7 @@ class Detail: AppCompatActivity(), GetDataListener {
         val dateList = mutableListOf<String>()
         for (i in item.monthlyVisits.indices) {
             val date = item.monthlyVisits[i].date.split("-")
-            val dateString = "${date[0].substring(2)}.${date[1]}"
+            val dateString = "${date[0].substring(2)}년${date[1]}월"
             println(dateString)
             dateList.add(dateString)
         }
@@ -274,6 +285,4 @@ class Detail: AppCompatActivity(), GetDataListener {
         }
         return set
     }
-
-
 }

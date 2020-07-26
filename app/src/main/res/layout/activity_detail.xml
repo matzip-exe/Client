@@ -132,6 +132,17 @@
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="wrap_content" />-->
 
+<!--            <Space-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="30dp" />-->
+
+<!--            <com.github.mikephil.charting.charts.BarChart-->
+<!--                android:id="@+id/detail_barchart"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="200dp"-->
+<!--                android:layout_marginLeft="12dp"-->
+<!--                android:layout_marginRight="12dp" />-->
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="30dp" />
@@ -168,28 +179,33 @@
                 android:text="주소"
                 android:textSize="12sp" />
 
-
-            <Space
+            <WebView
+                android:id="@+id/detail_webview"
                 android:layout_width="match_parent"
-                android:layout_height="20dp" />
+                android:layout_height="600dp" />
 
-            <TextView
-            android:id="@+id/detail_telNum"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:fontFamily="@font/nanumsquareacb"
-            android:text="02-000-0000"
-            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/detail_bizHour"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:fontFamily="@font/nanumsquareacb"
-                android:text="영업시간"
-                android:textSize="16sp" />
+            <!--            <Space-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="20dp" />-->
+
+<!--            <TextView-->
+<!--            android:id="@+id/detail_telNum"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="12dp"-->
+<!--            android:fontFamily="@font/nanumsquareacb"-->
+<!--            android:text="02-000-0000"-->
+<!--            android:textSize="16sp" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/detail_bizHour"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="12dp"-->
+<!--                android:fontFamily="@font/nanumsquareacb"-->
+<!--                android:text="영업시간"-->
+<!--                android:textSize="16sp" />-->
 
 
         </LinearLayout>
