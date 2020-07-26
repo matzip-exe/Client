@@ -1,10 +1,13 @@
 package com.example.matzip_exe.activities
 
+import android.content.DialogInterface
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -136,6 +139,9 @@ class MatzipList : AppCompatActivity(), GetDataListener {
             android.R.id.home->{
                 finish()
             }
+            R.id.matziplist_help->{
+                helpAlertDialog()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -159,11 +165,8 @@ class MatzipList : AppCompatActivity(), GetDataListener {
         activityMatzipListBinding.swipeMatziplist.setOnRefreshListener {
             item.clear()
             callCount = 0
-            Log.i("swipeStart","Start")
             initLocation()
-            Log.i("LocationStart","Location")
             getBizList()
-            Log.i("getBizListStart","getBizList")
             activityMatzipListBinding.swipeMatziplist.isRefreshing = false
         }
     }
@@ -204,5 +207,24 @@ class MatzipList : AppCompatActivity(), GetDataListener {
         filterPosition = pos
         getBizList()
         activityMatzipListBinding.recycleMatziplist.smoothScrollToPosition(0)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val itemMain = menuInflater
+        itemMain.inflate(R.menu.matziplist_help, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun helpAlertDialog(){
+        val builder = AlertDialog.Builder(this)
+
+        builder.setItems(R.array.matzipListHelp, object : DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+
+            }
+        })
+
+        val helpAlertDialog = builder.create()
+        helpAlertDialog.show()
     }
 }

@@ -149,7 +149,21 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>,
 
     private fun splitType(type: String?): String?{
         val splitTypes = type?.split(">")
+        var result = ""
+        if (splitTypes != null){
+            result = when(splitTypes.size){
+                1->{
+                    splitTypes[0]
+                }
+                2->{
+                    splitTypes[1]
+                }
+                else->{
+                    splitTypes[1]
+                }
+            }
+        }
 
-        return splitTypes?.get(1)
+        return result
     }
 }

@@ -213,4 +213,10 @@
         <item>About Us</item>
         <item>오픈소스 라이선스</item>
     </string-array>
+
+    <string-array name="matzipListHelp">
+        <item>방문순\n서울 내의 시장 및 구청장의 음식점 방문 수</item>
+        <item>거리순\n현재 자신의 위치에서 떨어진 거리</item>
+        <item>금액순\n해당 음식점에 사용한 전체 금액/방문한 전체 인원수</item>
+    </string-array>
 </resources>

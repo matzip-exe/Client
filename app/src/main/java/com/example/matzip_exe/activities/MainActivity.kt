@@ -138,12 +138,6 @@ class MainActivity : AppCompatActivity(), GetDataListener {
             }
         })
 
-        builder.setNegativeButton(getString(R.string.cancel), object : DialogInterface.OnClickListener{
-            override fun onClick(dialog: DialogInterface?, which: Int) {
-                dialog!!.dismiss()
-            }
-        })
-
         val mainAlertDialog = builder.create()
         mainAlertDialog.show()
 
