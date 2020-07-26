@@ -7,6 +7,7 @@ import android.renderscript.Sampler
 import android.util.Log
 import android.view.View
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.matzip_exe.R
@@ -129,7 +130,10 @@ class Detail: AppCompatActivity(), GetDataListener {
         tvAddress.visibility = View.GONE
     }
     tvAvgCost.text = "1인당 평균 " + avgCost.toString() + "원 사용"
-    wvWebView.settings.javaScriptEnabled = true
+    wvWebView.apply {
+        settings.javaScriptEnabled = true
+        webViewClient = WebViewClient()
+    }
     if (item.detailUrl != null) {
         wvWebView.loadUrl(item.detailUrl)
     } else {
