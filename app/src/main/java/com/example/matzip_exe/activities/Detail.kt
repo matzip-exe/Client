@@ -105,29 +105,38 @@ class Detail: AppCompatActivity(), GetDataListener {
 
 //    @SuppressLint("SetTextI18n")
     private fun initTexts() {
-        val date = item.monthlyVisits[0].date.split("-")
+    val date = item.monthlyVisits[0].date.split("-")
 
-        val tvVisitcount = findViewById<TextView>(R.id.detail_visitcount)
-        val tvName = findViewById<TextView>(R.id.detail_name)
-        val tvType = findViewById<TextView>(R.id.detail_type)
-        val tvRoadAddress = findViewById<TextView>(R.id.detail_roadAddress)
-        val tvAddress = findViewById<TextView>(R.id.detail_address)
-        val tvAvgCost = findViewById<TextView>(R.id.detail_avgCost)
+    val tvVisitcount = findViewById<TextView>(R.id.detail_visitcount)
+    val tvName = findViewById<TextView>(R.id.detail_name)
+    val tvType = findViewById<TextView>(R.id.detail_type)
+    val tvRoadAddress = findViewById<TextView>(R.id.detail_roadAddress)
+    val tvAddress = findViewById<TextView>(R.id.detail_address)
+    val tvAvgCost = findViewById<TextView>(R.id.detail_avgCost)
+    val wvWebView = findViewById<WebView>(R.id.detail_webview)
 
-        tvVisitcount.text = visitcount+"회"
-        tvName.text = name
-        tvType.text = type
-        if (item.roadAddress != null) {
-            tvRoadAddress.text = item.roadAddress
-        } else {
-            tvRoadAddress.visibility = View.GONE
-        }
-        if (item.address != null) {
-            tvAddress.text = "지번: "+item.address
-        } else {
-            tvAddress.visibility = View.GONE
-        }
-        tvAvgCost.text = "1인당 평균 "+avgCost.toString()+"원 사용"
+    tvVisitcount.text = visitcount + "회"
+    tvName.text = name
+    tvType.text = type
+    if (item.roadAddress != null) {
+        tvRoadAddress.text = item.roadAddress
+    } else {
+        tvRoadAddress.visibility = View.GONE
+    }
+    if (item.address != null) {
+        tvAddress.text = "지번: " + item.address
+    } else {
+        tvAddress.visibility = View.GONE
+    }
+    tvAvgCost.text = "1인당 평균 " + avgCost.toString() + "원 사용"
+    wvWebView.settings.javaScriptEnabled = true
+    if (item.detailUrl != null) {
+        wvWebView.loadUrl(item.detailUrl)
+    } else {
+        wvWebView.visibility = View.GONE
+    }
+    }
+
 //        if (item.telNum != null) {
 //            tvTelNum.text = "전화번호: "+item.telNum
 //        } else {
@@ -138,7 +147,7 @@ class Detail: AppCompatActivity(), GetDataListener {
 //        } else {
 //            tvBizHour.visibility = View.GONE
 //        }
-    }
+
 
 //    @SuppressLint("SetJavaScriptEnabled")
 //    private fun setGraph() {

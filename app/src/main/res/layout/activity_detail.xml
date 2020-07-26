@@ -179,8 +179,13 @@
                 android:text="주소"
                 android:textSize="12sp" />
 
+            <WebView
+                android:id="@+id/detail_webview"
+                android:layout_width="match_parent"
+                android:layout_height="600dp" />
 
-<!--            <Space-->
+
+            <!--            <Space-->
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="20dp" />-->
 
