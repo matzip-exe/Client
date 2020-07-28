@@ -45,7 +45,7 @@ class FragmentDetail(name: String, locatex: Double, locatey: Double): Fragment()
         marker.captionText = name
         marker.captionTextSize = 16F
         marker.setCaptionAligns(Align.Top)
-        marker.iconTintColor = Color.rgb(249, 223, 111)
+        marker.iconTintColor = Color.rgb(33, 83, 142)
 
         naverMap.cameraPosition = CameraPosition(LatLng(locatey, locatex), 16.0)
         marker.map = naverMap

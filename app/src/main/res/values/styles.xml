@@ -6,7 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="font">@color/fontDark</item>
+        <item name="font">@color/colorWhite</item>
+        <item name="actionMenuTextColor">@color/colorWhite</item>
     </style>
 
 </resources>

@@ -18,13 +18,14 @@
                 android:id="@+id/toolbar_matziplist"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:textColor="#FFFFFF"
                 app:layout_scrollFlags="scroll|enterAlways"></androidx.appcompat.widget.Toolbar>
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_matziplist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:background="@drawable/tab_background"
                 app:tabMode="fixed">
 
                 <com.google.android.material.tabs.TabItem

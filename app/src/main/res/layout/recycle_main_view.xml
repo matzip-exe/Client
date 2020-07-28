@@ -11,5 +11,6 @@
         android:layout_height="100dp"
         android:textSize="17sp"
         android:gravity="center"
+        android:fontFamily="@font/nanumsquareacb"
         android:layout_margin="8dp"/>
 </LinearLayout>
