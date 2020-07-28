@@ -70,26 +70,6 @@ class Detail: AppCompatActivity(), GetDataListener {
         initChart()
     }
 
-//    private fun requestToServer() {
-//        val bizDetail = myRetrofit.makeService().getBizDetail(region = region, bizName = name)
-//        bizDetail.enqueue(object: Callback<ModelBizDetail> {
-//            override fun onFailure(call: Call<ModelBizDetail>, t: Throwable) {
-//                Log.i("Detail Error", t.message!!)
-//            }
-//
-//            override fun onResponse(call: Call<ModelBizDetail>, response: Response<ModelBizDetail>) {
-//                try {
-//                    modelBizDetail = response.body()!!
-//                    item = ModelDetailList(modelBizDetail.items.telNum, modelBizDetail.items.address, modelBizDetail.items.roadAddress, modelBizDetail.items.monthlyVisits)
-//
-//                    initTempTexts()
-//                } catch (e: Exception) {
-//                    e.printStackTrace()
-//                }
-//            }
-//        })
-//    }
-
     private fun setDataListener() {
         AdminData.setOnGetDataListener(this)
     }
@@ -104,7 +84,6 @@ class Detail: AppCompatActivity(), GetDataListener {
         initTexts()
     }
 
-//    @SuppressLint("SetTextI18n")
     private fun initTexts() {
     val date = item.monthlyVisits[0].date.split("-")
 
@@ -136,43 +115,10 @@ class Detail: AppCompatActivity(), GetDataListener {
     }
     if (item.detailUrl != null) {
         wvWebView.loadUrl(item.detailUrl)
-    } else {
-        wvWebView.visibility = View.GONE
+        } else {
+            wvWebView.visibility = View.GONE
+        }
     }
-    }
-
-//        if (item.telNum != null) {
-//            tvTelNum.text = "전화번호: "+item.telNum
-//        } else {
-//            tvTelNum.visibility = View.GONE
-//        }
-//        if (item.bizHour != null) {
-//            tvBizHour.text = "영업시간: "+item.bizHour
-//        } else {
-//            tvBizHour.visibility = View.GONE
-//        }
-
-
-//    @SuppressLint("SetJavaScriptEnabled")
-//    private fun setGraph() {
-//        var htmlContent: String = ""
-//        webView = findViewById(R.id.detail_webView)
-//        val webSettings: WebSettings = webView.settings
-//        webSettings.javaScriptEnabled = true
-//        webView.settings.javaScriptCanOpenWindowsAutomatically = true
-//
-//        try{
-//            val inputStream = this.assets.open("html/graph.html")
-//            htmlContent = inputStream.bufferedReader().use {
-//                it.readText()
-//            }
-//        }
-//        catch (e: Exception){
-//            e.printStackTrace()
-//        }
-//
-//        webView.loadDataWithBaseURL("file:///android_asset/", htmlContent, "text/html", "utf-8", null)
-//    }
 
     private fun fragmentDetail(name: String, locatex: Double, locatey: Double){
         supportFragmentManager.beginTransaction().add(R.id.detail_map_layout, FragmentDetail(name, locatex, locatey)).commit()
@@ -188,7 +134,6 @@ class Detail: AppCompatActivity(), GetDataListener {
         detail_chart.axisLeft.setDrawGridLines(false)
         detail_chart.axisLeft.setDrawAxisLine(false)
         detail_chart.axisRight.setDrawGridLines(false)
-//        detail_chart.xAxis.setDrawLabels(false)
         detail_chart.xAxis.setDrawAxisLine(false)
         detail_chart.setTouchEnabled(false)
 
