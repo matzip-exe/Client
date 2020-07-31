@@ -9,6 +9,7 @@
         <item name="font">@color/colorWhite</item>
         <item name="actionMenuTextColor">@color/colorWhite</item>
         <item name="android:textColorPrimary">@color/colorWhite</item>
+        <item name="fontFamily">@font/nanumsquareacb</item>
     </style>
 
 </resources>
