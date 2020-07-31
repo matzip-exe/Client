@@ -55,6 +55,7 @@ class Detail : AppCompatActivity(), GetDataListener {
         setDataListener()
         getBizDetail()
         fragmentDetail(name, locatex, locatey)
+        initToolbar()
         initChart()
     }
 
@@ -81,6 +82,7 @@ class Detail : AppCompatActivity(), GetDataListener {
         detail_button.setOnClickListener {
             val intent = Intent(this, DetailWeb::class.java)
             intent.putExtra("url", item.detailUrl)
+            intent.putExtra("area", area)
             this.startActivity(intent)
         }
 
@@ -93,6 +95,12 @@ class Detail : AppCompatActivity(), GetDataListener {
     private fun fragmentDetail(name: String, locatex: Double, locatey: Double) {
         supportFragmentManager.beginTransaction()
             .add(R.id.detail_map_layout, FragmentDetail(name, locatex, locatey)).commit()
+    }
+
+    private fun initToolbar() {
+        setSupportActionBar(detail_toolbar)
+        supportActionBar!!.title = area
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun initChart() {
