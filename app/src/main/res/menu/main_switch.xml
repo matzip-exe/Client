@@ -4,7 +4,7 @@
     <item
         android:id="@+id/main_info"
         android:enabled="true"
-        android:icon="@drawable/ic_info_outline_black_24dp"
+        android:icon="@drawable/ic_info_outline_white_24dp"
         android:title=""
         app:showAsAction="ifRoom"
         />
