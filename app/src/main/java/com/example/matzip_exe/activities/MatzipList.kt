@@ -72,6 +72,7 @@ class MatzipList : AppCompatActivity(), GetDataListener {
     private fun initToolbar(){
         setSupportActionBar(activityMatzipListBinding.toolbarMatziplist)
         supportActionBar!!.title = area
+        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
