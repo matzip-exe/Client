@@ -3,13 +3,16 @@ package com.example.matzip_exe.activities
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.transition.Visibility
 import com.example.matzip_exe.R
 import com.example.matzip_exe.adapter.RecycleMainAdapter
 import com.example.matzip_exe.databinding.ActivityMainBinding
@@ -17,7 +20,9 @@ import com.example.matzip_exe.interfaces.GetDataListener
 import com.example.matzip_exe.model.ModelCheckRegion
 import com.example.matzip_exe.model.ModelRecycleMain
 import com.example.matzip_exe.utils.DataSynchronized
+import com.google.android.material.appbar.AppBarLayout
 import org.json.JSONObject
+import kotlin.math.abs
 
 class MainActivity : AppCompatActivity(), GetDataListener {
     private lateinit var activityMainBinding: ActivityMainBinding
@@ -46,6 +51,15 @@ class MainActivity : AppCompatActivity(), GetDataListener {
 
     private fun toolbarInit(){
         setSupportActionBar(activityMainBinding.toolbarMain)
+        supportActionBar!!.title = null
+        activityMainBinding.appbarMain.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (abs(verticalOffset) - appBarLayout.totalScrollRange == 0){
+                activityMainBinding.toolbarMain.visibility = View.VISIBLE
+            }
+            else{
+                activityMainBinding.toolbarMain.visibility = View.INVISIBLE
+            }
+        })
     }
 
     private fun recycleInit(){
