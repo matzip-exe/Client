@@ -21,13 +21,21 @@
                 app:contentScrim="?attr/colorPrimary"
 
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:toolbarId="@+id/toolbar">
+                app:toolbarId="@+id/toolbar_main">
 
+                <LinearLayout
+                    android:id="@+id/linear_main_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:orientation="horizontal"></LinearLayout>
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar_main"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
+                    android:layout_height="?attr/actionBarSize"
+
+                    app:layout_collapseMode="pin"/>
+
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
