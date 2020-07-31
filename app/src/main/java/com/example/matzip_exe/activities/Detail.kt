@@ -18,6 +18,9 @@ import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.naver.maps.map.MapFragment
+import com.naver.maps.map.NaverMapSdk
+import com.naver.maps.map.OnMapReadyCallback
 import kotlinx.android.synthetic.main.activity_detail.*
 
 
@@ -93,8 +96,14 @@ class Detail : AppCompatActivity(), GetDataListener {
     }
 
     private fun fragmentDetail(name: String, locatex: Double, locatey: Double) {
-        supportFragmentManager.beginTransaction()
-            .add(R.id.detail_map_layout, FragmentDetail(name, locatex, locatey)).commit()
+//        supportFragmentManager.beginTransaction()
+//            .add(R.id.detail_map_layout, FragmentDetail(name, locatex, locatey)).commit()
+        val fm = supportFragmentManager
+        val mapFragment = fm.findFragmentById(R.id.detail_map_layout) as MapFragment?
+            ?: MapFragment.newInstance().also {
+                fm.beginTransaction().add(R.id.detail_map_layout, it).commit()
+            }
+        mapFragment.getMapAsync(FragmentDetail(name, locatex, locatey))
     }
 
     private fun initToolbar() {
