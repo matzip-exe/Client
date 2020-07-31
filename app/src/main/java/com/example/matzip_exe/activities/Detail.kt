@@ -1,14 +1,8 @@
 package com.example.matzip_exe.activities
 
-import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.renderscript.Sampler
-import android.util.Log
-import android.view.View
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.matzip_exe.R
 import com.example.matzip_exe.fragments.FragmentDetail
@@ -23,16 +17,11 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import kotlinx.android.synthetic.main.activity_detail.*
-import org.w3c.dom.Text
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
-class Detail: AppCompatActivity(), GetDataListener {
+class Detail : AppCompatActivity(), GetDataListener {
     private lateinit var visitcount: String
     private lateinit var name: String
     private lateinit var type: String
@@ -44,7 +33,6 @@ class Detail: AppCompatActivity(), GetDataListener {
     private val myRetrofit = MyRetrofit()
     private lateinit var item: ModelDetailList
     private val AdminData = DataSynchronized()
-    private lateinit var webView: WebView
     private var avgCost: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,53 +68,36 @@ class Detail: AppCompatActivity(), GetDataListener {
 
     override fun getData(data: Any?) {
         modelBizDetail = data as ModelBizDetail?
-        item = ModelDetailList(modelBizDetail!!.items.address, modelBizDetail!!.items.roadAddress, modelBizDetail!!.items.monthlyVisits, modelBizDetail!!.items.detailUrl)
+        item = ModelDetailList(
+            modelBizDetail!!.items.address,
+            modelBizDetail!!.items.roadAddress,
+            modelBizDetail!!.items.monthlyVisits,
+            modelBizDetail!!.items.detailUrl
+        )
         initTexts()
     }
 
     private fun initTexts() {
-    val date = item.monthlyVisits[0].date.split("-")
-
-    val tvVisitcount = findViewById<TextView>(R.id.detail_visitcount)
-    val tvName = findViewById<TextView>(R.id.detail_name)
-    val tvType = findViewById<TextView>(R.id.detail_type)
-    val tvRoadAddress = findViewById<TextView>(R.id.detail_roadAddress)
-    val tvAddress = findViewById<TextView>(R.id.detail_address)
-    val tvAvgCost = findViewById<TextView>(R.id.detail_avgCost)
-    val wvWebView = findViewById<WebView>(R.id.detail_webview)
-
-    tvVisitcount.text = visitcount + "회"
-    tvName.text = name
-    tvType.text = type
-    if (item.roadAddress != null) {
-        tvRoadAddress.text = item.roadAddress
-    } else {
-        tvRoadAddress.visibility = View.GONE
-    }
-    if (item.address != null) {
-        tvAddress.text = "지번: " + item.address
-    } else {
-        tvAddress.visibility = View.GONE
-    }
-    tvAvgCost.text = "1인당 평균 " + avgCost.toString() + "원 사용"
-    wvWebView.apply {
-        settings.javaScriptEnabled = true
-        webViewClient = WebViewClient()
-    }
-    if (item.detailUrl != null) {
-        wvWebView.loadUrl(item.detailUrl)
-        } else {
-            wvWebView.visibility = View.GONE
+        detail_button.setOnClickListener {
+            val intent = Intent(this, DetailWeb::class.java)
+            intent.putExtra("url", item.detailUrl)
+            this.startActivity(intent)
         }
+
+        detail_visitcount.text = visitcount + "회"
+        detail_name.text = name
+        detail_type.text = type
+        detail_avgCost.text = "1인당 평균 " + avgCost.toString() + "원 사용"
     }
 
-    private fun fragmentDetail(name: String, locatex: Double, locatey: Double){
-        supportFragmentManager.beginTransaction().add(R.id.detail_map_layout, FragmentDetail(name, locatex, locatey)).commit()
+    private fun fragmentDetail(name: String, locatex: Double, locatey: Double) {
+        supportFragmentManager.beginTransaction()
+            .add(R.id.detail_map_layout, FragmentDetail(name, locatex, locatey)).commit()
     }
 
     private fun initChart() {
         val xAxis: XAxis = detail_chart.xAxis
-        val max: Int? = item.monthlyVisits.maxBy{it.count}?.count
+        val max: Int? = item.monthlyVisits.maxBy { it.count }?.count
 
 
         detail_chart.axisLeft.setDrawLabels(false)
@@ -171,14 +142,19 @@ class Detail: AppCompatActivity(), GetDataListener {
 
         data.let {
             var set: ILineDataSet? = data.getDataSetByIndex(0)
-                set = createSet()
-                data.addDataSet(set)
+            set = createSet()
+            data.addDataSet(set)
 
             for (i in item.monthlyVisits.indices) {
 //                val date = item.monthlyVisits[i].date.split("-")
 //                val dateFloat = "${date[0]}.${date[1]}".toFloat()
 //                println(dateFloat)
-                data.addEntry(Entry(set.entryCount.toFloat(), item.monthlyVisits[i].count.toFloat()), 0)
+                data.addEntry(
+                    Entry(
+                        set.entryCount.toFloat(),
+                        item.monthlyVisits[i].count.toFloat()
+                    ), 0
+                )
             }
             data.notifyDataChanged()
             detail_chart.apply {

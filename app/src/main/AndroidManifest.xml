@@ -28,6 +28,9 @@
         <activity android:name=".activities.Detail"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".activities.DetailWeb"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
