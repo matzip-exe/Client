@@ -3,6 +3,8 @@ package com.example.matzip_exe.activities
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.matzip_exe.R
 import com.example.matzip_exe.fragments.FragmentDetail
@@ -18,10 +20,12 @@ import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.google.android.material.appbar.AppBarLayout
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMapSdk
 import com.naver.maps.map.OnMapReadyCallback
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlin.math.abs
 
 
 class Detail : AppCompatActivity(), GetDataListener {
@@ -96,8 +100,6 @@ class Detail : AppCompatActivity(), GetDataListener {
     }
 
     private fun fragmentDetail(name: String, locatex: Double, locatey: Double) {
-//        supportFragmentManager.beginTransaction()
-//            .add(R.id.detail_map_layout, FragmentDetail(name, locatex, locatey)).commit()
         val fm = supportFragmentManager
         val mapFragment = fm.findFragmentById(R.id.detail_map_layout) as MapFragment?
             ?: MapFragment.newInstance().also {
@@ -108,8 +110,19 @@ class Detail : AppCompatActivity(), GetDataListener {
 
     private fun initToolbar() {
         setSupportActionBar(detail_toolbar)
-        supportActionBar!!.title = area
+        supportActionBar!!.title = null
+        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        detail_appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (abs(verticalOffset) - appBarLayout.totalScrollRange == 0){
+                detail_toolbar.visibility = View.VISIBLE
+                supportActionBar!!.title = area
+            }
+            else{
+                detail_toolbar.visibility = View.INVISIBLE
+                detail_collapsingtoolbar.title = null
+            }
+        })
     }
 
     private fun initChart() {

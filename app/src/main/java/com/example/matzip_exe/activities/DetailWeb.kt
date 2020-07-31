@@ -1,6 +1,7 @@
 package com.example.matzip_exe.activities
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +31,7 @@ class DetailWeb: AppCompatActivity() {
     private fun initToolbar() {
         setSupportActionBar(detailweb_toolbar)
         supportActionBar!!.title = area
+        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -44,5 +46,14 @@ class DetailWeb: AppCompatActivity() {
             detailweb_webview.visibility = View.GONE
 //            NEED FIX. TO NOTIFICATION.
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home->{
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

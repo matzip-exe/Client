@@ -20,7 +20,8 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="false"
             app:contentScrim="@color/colorMain"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@id/detail_toolbar">
 
             <!--            <fragment-->
             <!--                android:id="@+id/detail_map"-->
