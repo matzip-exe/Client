@@ -83,8 +83,10 @@ class Detail : AppCompatActivity(), GetDataListener {
         modelBizDetail = data as ModelBizDetail?
         item = ModelDetailList(
             modelBizDetail!!.items.monthlyVisits,
+            modelBizDetail!!.items.avgCost,
+            modelBizDetail!!.items.latlng,
             modelBizDetail!!.items.detailUrl,
-            modelBizDetail!!.items.recommend
+            modelBizDetail!!.items.recommendations
         )
         initTexts()
     }

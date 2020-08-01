@@ -1,4 +1,4 @@
 package com.example.matzip_exe.model
 
-data class ModelDetailList(val monthlyVisits: List<ModelBizDetail.MonthlyVisitsItems>, val detailUrl: String?, val recommend: List<ModelBizDetail.RecommendItems>) {
+data class ModelDetailList(val monthlyVisits: List<ModelBizDetail.MonthlyVisitsItems>, val avgCost: Int?, val latlng: ModelBizDetail.XY?, val detailUrl: String?, val recommendations: List<ModelBizDetail.RecommendItems>) {
 }
