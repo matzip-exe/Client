@@ -11,7 +11,7 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar_main"
-
+            app:elevation="0dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -28,7 +28,7 @@
                     android:id="@+id/linear_main_info"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:orientation="horizontal"></LinearLayout>
+                    android:orientation="horizontal"/>
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar_main"
