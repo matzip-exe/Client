@@ -17,8 +17,8 @@ data class ModelBizDetail(
         @SerializedName("count")val count: Int
     )
     inner class RecommendItems(
-        @SerializedName("bizType")val bizType: String,
-        @SerializedName("bizName")val bizName: String
+        @SerializedName("biz_name")val bizName: String,
+        @SerializedName("biz_type")val bizType: String
     )
     inner class XY(
         @SerializedName("x")val x: Double,
