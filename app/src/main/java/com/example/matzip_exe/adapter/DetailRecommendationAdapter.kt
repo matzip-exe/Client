@@ -12,9 +12,10 @@ import com.example.matzip_exe.R
 import com.example.matzip_exe.activities.Detail
 import com.example.matzip_exe.interfaces.NetworkConnectedListener
 import com.example.matzip_exe.model.ModelBizDetail
+import com.example.matzip_exe.model.ModelRecommendation
 import com.example.matzip_exe.receivers.NetworkReceiver
 
-class DetailRecommendationAdapter(private val itemList: ArrayList<ModelBizDetail.RecommendItems>,
+class DetailRecommendationAdapter(private val itemList: ArrayList<ModelRecommendation>,
                                   private var area: String, private var region: String):RecyclerView.Adapter<DetailRecommendationAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val v: View):RecyclerView.ViewHolder(v), NetworkConnectedListener{
@@ -35,6 +36,7 @@ class DetailRecommendationAdapter(private val itemList: ArrayList<ModelBizDetail
             intent.putExtra("area", area)
             intent.putExtra("region", region)
             intent.putExtra("name", itemList[adapterPosition].bizName)
+            intent.putExtra("type", splitType(itemList[adapterPosition].bizType))
 
             v.context.startActivity(intent)
             v.context.unregisterReceiver(networkReceiver)
@@ -96,4 +98,23 @@ class DetailRecommendationAdapter(private val itemList: ArrayList<ModelBizDetail
         return result
     }
 
+    private fun splitType(type: String?): String? {
+        val splitTypes = type?.split(">")
+        var result = ""
+        if (splitTypes != null) {
+            result = when (splitTypes.size) {
+                1 -> {
+                    splitTypes[0]
+                }
+                2 -> {
+                    splitTypes[1]
+                }
+                else -> {
+                    splitTypes[1]
+                }
+            }
+        }
+
+        return result
+    }
 }

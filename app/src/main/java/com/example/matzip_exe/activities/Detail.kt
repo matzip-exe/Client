@@ -1,18 +1,23 @@
 package com.example.matzip_exe.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matzip_exe.R
+import com.example.matzip_exe.adapter.DetailRecommendationAdapter
 import com.example.matzip_exe.fragments.FragmentDetail
 import com.example.matzip_exe.http.MyRetrofit
 import com.example.matzip_exe.interfaces.GetDataListener
 import com.example.matzip_exe.model.ModelBizDetail
 import com.example.matzip_exe.model.ModelDetailList
+import com.example.matzip_exe.model.ModelRecommendation
 import com.example.matzip_exe.utils.DataSynchronized
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
@@ -42,6 +47,9 @@ class Detail : AppCompatActivity(), GetDataListener {
     private lateinit var item: ModelDetailList
     private val AdminData = DataSynchronized()
     private var avgCost: Int = 0
+    private val recycleItem = ArrayList<ModelRecommendation>()
+    private lateinit var manager:LinearLayoutManager
+    private lateinit var adapter: DetailRecommendationAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,10 +68,13 @@ class Detail : AppCompatActivity(), GetDataListener {
     }
 
     private fun init() {
+        initToolbar()
+        initRecommendationSentence()
+        initRecyclerView()
+
         setDataListener()
         getBizDetail()
         fragmentDetail(name, locatex, locatey)
-        initToolbar()
         if (item.monthlyVisits.size > 1) {
             initChart()
         } else {
@@ -95,6 +106,13 @@ class Detail : AppCompatActivity(), GetDataListener {
         locatey = item.latlng.y
         visitcount = item.visitCount.toString()
         initTexts()
+        Log.i("item", item.toString())
+        for (i in item.recommendations){
+            recycleItem.add(ModelRecommendation(i.bizName, i.bizType))
+            adapter.notifyDataSetChanged()
+        }
+
+
     }
 
     private fun initTexts() {
@@ -248,6 +266,15 @@ class Detail : AppCompatActivity(), GetDataListener {
         return set
     }
 
+    @SuppressLint("WrongConstant")
+    private fun initRecyclerView(){
+        recycle_detail.setHasFixedSize(true)
+        manager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
+        recycle_detail.layoutManager = manager
+        adapter = DetailRecommendationAdapter(recycleItem, area, region)
+        recycle_detail.adapter = adapter
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
@@ -255,5 +282,9 @@ class Detail : AppCompatActivity(), GetDataListener {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun initRecommendationSentence(){
+        text_detail_recommendation_sentence.text = getString(R.string.recommendataion_sentence)
     }
 }
