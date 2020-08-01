@@ -64,7 +64,11 @@ class Detail : AppCompatActivity(), GetDataListener {
         getBizDetail()
         fragmentDetail(name, locatex, locatey)
         initToolbar()
-        initChart()
+        if (item.monthlyVisits.size > 1) {
+            initChart()
+        } else {
+            detail_chart.visibility = View.GONE
+        }
     }
 
     private fun setDataListener() {
