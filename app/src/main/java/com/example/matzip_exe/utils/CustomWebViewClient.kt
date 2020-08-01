@@ -12,8 +12,9 @@ class CustomWebViewClient: WebViewClient() {
             if(url.startsWith("tel:")){
                 val intent = Intent(Intent.ACTION_DIAL, Uri.parse(url))
                 view!!.context.startActivity(intent)
+                return true
             }
         }
-        return true
+        return super.shouldOverrideUrlLoading(view, url)
     }
 }
