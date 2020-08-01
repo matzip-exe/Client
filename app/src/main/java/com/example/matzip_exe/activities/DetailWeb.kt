@@ -6,6 +6,7 @@ import android.view.View
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.example.matzip_exe.R
+import com.example.matzip_exe.utils.CustomWebViewClient
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_detail_web.*
 
@@ -38,7 +39,7 @@ class DetailWeb: AppCompatActivity() {
     private fun setWebView() {
         detailweb_webview.apply {
             settings.javaScriptEnabled = true
-            webViewClient = WebViewClient()
+            webViewClient = CustomWebViewClient()
         }
         if (url != null) {
             detailweb_webview.loadUrl(url)
