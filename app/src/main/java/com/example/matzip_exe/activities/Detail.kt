@@ -47,14 +47,14 @@ class Detail : AppCompatActivity(), GetDataListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        visitcount = intent.getStringExtra("visitcount")!!
+//        visitcount = intent.getStringExtra("visitcount")!!
         name = intent.getStringExtra("name")!!
         type = intent.getStringExtra("type")!!
         area = intent.getStringExtra("area")!!
         region = intent.getStringExtra("region")!!
-        locatex = intent.getDoubleExtra("locatex", 0.0)
-        locatey = intent.getDoubleExtra("locatey", 0.0)
-        avgCost = intent.getIntExtra("avgCost", 0)
+//        locatex = intent.getDoubleExtra("locatex", 0.0)
+//        locatey = intent.getDoubleExtra("locatey", 0.0)
+//        avgCost = intent.getIntExtra("avgCost", 0)
 
         init()
     }
@@ -86,8 +86,14 @@ class Detail : AppCompatActivity(), GetDataListener {
             modelBizDetail!!.items.avgCost,
             modelBizDetail!!.items.latlng,
             modelBizDetail!!.items.detailUrl,
+            modelBizDetail!!.items.visitCount,
             modelBizDetail!!.items.recommendations
         )
+
+        avgCost = item.avgCost
+        locatex = item.latlng.x
+        locatey = item.latlng.y
+        visitcount = item.visitCount.toString()
         initTexts()
     }
 
@@ -120,11 +126,10 @@ class Detail : AppCompatActivity(), GetDataListener {
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         detail_appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-            if (abs(verticalOffset) - appBarLayout.totalScrollRange == 0){
+            if (abs(verticalOffset) - appBarLayout.totalScrollRange == 0) {
                 detail_toolbar.visibility = View.VISIBLE
                 supportActionBar!!.title = area
-            }
-            else{
+            } else {
                 detail_toolbar.visibility = View.INVISIBLE
                 detail_collapsingtoolbar.title = null
             }
@@ -244,8 +249,8 @@ class Detail : AppCompatActivity(), GetDataListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            android.R.id.home->{
+        when (item.itemId) {
+            android.R.id.home -> {
                 finish()
             }
         }

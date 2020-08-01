@@ -8,8 +8,9 @@ data class ModelBizDetail(
     inner class BizDetailItems(
         @SerializedName("monthlyVisits")val monthlyVisits: List<MonthlyVisitsItems>,
         @SerializedName("avgCost")val avgCost: Int,
-        @SerializedName("latlng")val latlng: XY?,
+        @SerializedName("latlng")val latlng: XY,
         @SerializedName("detailUrl")val detailUrl: String,
+        @SerializedName("visitCount")val visitCount: Int,
         @SerializedName("recommendations")val recommendations: List<RecommendItems>
     )
     inner class MonthlyVisitsItems(
