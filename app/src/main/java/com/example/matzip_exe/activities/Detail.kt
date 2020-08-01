@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.matzip_exe.R
@@ -63,7 +64,11 @@ class Detail : AppCompatActivity(), GetDataListener {
         getBizDetail()
         fragmentDetail(name, locatex, locatey)
         initToolbar()
-        initChart()
+        if (item.monthlyVisits.size > 1) {
+            initChart()
+        } else {
+            detail_chart.visibility = View.GONE
+        }
     }
 
     private fun setDataListener() {
@@ -235,5 +240,14 @@ class Detail : AppCompatActivity(), GetDataListener {
             setDrawValues(true)
         }
         return set
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home->{
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
