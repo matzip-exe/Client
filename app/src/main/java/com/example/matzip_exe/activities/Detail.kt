@@ -82,10 +82,9 @@ class Detail : AppCompatActivity(), GetDataListener {
     override fun getData(data: Any?) {
         modelBizDetail = data as ModelBizDetail?
         item = ModelDetailList(
-            modelBizDetail!!.items.address,
-            modelBizDetail!!.items.roadAddress,
             modelBizDetail!!.items.monthlyVisits,
-            modelBizDetail!!.items.detailUrl
+            modelBizDetail!!.items.detailUrl,
+            modelBizDetail!!.items.recommend
         )
         initTexts()
     }
