@@ -56,4 +56,14 @@ class DetailWeb: AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onBackPressed() {
+        if(detailweb_webview.canGoBack()) {
+            detailweb_webview.goBack()
+            println("can go back")
+        } else {
+            println("finish")
+            finish();
+        }
+    }
 }
