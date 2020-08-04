@@ -72,31 +72,31 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>,
         when(CheckType(itemList[position].type!!)){
             0-> {
                 //한식
-                holder.img_matziplist_type.setImageResource(R.drawable.han)
+                holder.img_matziplist_type.setImageResource(R.drawable.han_fixed)
             }
             1->{
                 //일식
-                holder.img_matziplist_type.setImageResource(R.drawable.jpn)
+                holder.img_matziplist_type.setImageResource(R.drawable.jpn_fixed)
             }
             2->{
                 //중식
-                holder.img_matziplist_type.setImageResource(R.drawable.chi)
+                holder.img_matziplist_type.setImageResource(R.drawable.chi_fixed)
             }
             3->{
                 //양식
-                holder.img_matziplist_type.setImageResource(R.drawable.wes)
+                holder.img_matziplist_type.setImageResource(R.drawable.wes_fixed)
             }
             4->{
                 //카페,디저트
-                holder.img_matziplist_type.setImageResource(R.drawable.caf)
+                holder.img_matziplist_type.setImageResource(R.drawable.caf_fixed)
             }
             5->{
                 //분식
-                holder.img_matziplist_type.setImageResource(R.drawable.bun)
+                holder.img_matziplist_type.setImageResource(R.drawable.bun_fixed)
             }
             6->{
                 //기타
-                holder.img_matziplist_type.setImageResource(R.drawable.etc)
+                holder.img_matziplist_type.setImageResource(R.drawable.etc_fixed)
             }
         }
         holder.text_matziplist_name.text = itemList[position].name
