@@ -70,26 +70,33 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.text_matziplist_seq.text = itemList[position].seq
         when(CheckType(itemList[position].type!!)){
-            0->{
+            0-> {
                 //한식
+                holder.img_matziplist_type.setImageResource(R.drawable.han)
             }
             1->{
                 //일식
+                holder.img_matziplist_type.setImageResource(R.drawable.jpn)
             }
             2->{
                 //중식
+                holder.img_matziplist_type.setImageResource(R.drawable.chi)
             }
             3->{
                 //양식
+                holder.img_matziplist_type.setImageResource(R.drawable.wes)
             }
             4->{
                 //카페,디저트
+                holder.img_matziplist_type.setImageResource(R.drawable.caf)
             }
             5->{
                 //분식
+                holder.img_matziplist_type.setImageResource(R.drawable.bun)
             }
             6->{
                 //기타
+                holder.img_matziplist_type.setImageResource(R.drawable.etc)
             }
         }
         holder.text_matziplist_name.text = itemList[position].name
@@ -97,13 +104,13 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>,
 
         when(itemList[position].seq.toInt()){
             1->{
-                holder.img_matziplist_grade.setImageResource(R.drawable.ic_horizontal_rule_24px)
+                holder.img_matziplist_grade.setImageResource(R.drawable.first)
             }
             2->{
-                holder.img_matziplist_grade.setImageResource(R.drawable.ic_horizontal_rule_24px)
+                holder.img_matziplist_grade.setImageResource(R.drawable.second)
             }
             3->{
-                holder.img_matziplist_grade.setImageResource(R.drawable.ic_horizontal_rule_24px)
+                holder.img_matziplist_grade.setImageResource(R.drawable.third)
             }
             else->{
                 holder.img_matziplist_grade.setImageDrawable(null)

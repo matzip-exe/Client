@@ -11,15 +11,15 @@ data class ModelBizDetail(
         @SerializedName("latlng")val latlng: XY,
         @SerializedName("detailUrl")val detailUrl: String,
         @SerializedName("visitCount")val visitCount: Int,
-        @SerializedName("recommendations")val recommendations: List<RecommendItems>
+        @SerializedName("recommendations")val recommendations: List<RecommendItems>?
     )
     inner class MonthlyVisitsItems(
         @SerializedName("date")val date: String,
         @SerializedName("count")val count: Int
     )
     inner class RecommendItems(
-        @SerializedName("biz_name")val bizName: String,
-        @SerializedName("biz_type")val bizType: String
+        @SerializedName("biz_name")val bizName: String?,
+        @SerializedName("biz_type")val bizType: String?
     )
     inner class XY(
         @SerializedName("x")val x: Double,

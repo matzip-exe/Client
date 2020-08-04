@@ -77,6 +77,7 @@ class Detail : AppCompatActivity(), GetDataListener {
         fragmentDetail(name, locatex, locatey)
         if (item.monthlyVisits.size > 1) {
             initChart()
+            detail_noChart.visibility = View.GONE
         } else {
             detail_chart.visibility = View.GONE
         }
@@ -107,8 +108,8 @@ class Detail : AppCompatActivity(), GetDataListener {
         visitcount = item.visitCount.toString()
         initTexts()
         Log.i("item", item.toString())
-        for (i in item.recommendations){
-            recycleItem.add(ModelRecommendation(i.bizName, i.bizType))
+        for (i in item.recommendations!!){
+            i.bizName?.let { i.bizType?.let { it1 -> ModelRecommendation(it, it1) } }?.let { recycleItem.add(it) }
             adapter.notifyDataSetChanged()
         }
 
@@ -123,10 +124,11 @@ class Detail : AppCompatActivity(), GetDataListener {
             this.startActivity(intent)
         }
 
-        detail_visitcount.text = visitcount + "회"
+        detail_visitcount.text = visitcount
         detail_name.text = name
         detail_type.text = type
-        detail_avgCost.text = "1인당 평균 " + avgCost.toString() + "원 사용"
+        detail_avgCost.text = avgCost.toString()
+        text_detail_recommendation_sentence.text = "${area}의 다른 음식점"
     }
 
     private fun fragmentDetail(name: String, locatex: Double, locatey: Double) {

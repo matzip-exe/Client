@@ -7,7 +7,8 @@
     <string name="cancel">취소</string>
     <string name="OSS">OSS Notice</string>
     <string name="AboutUs">Team No?Yes!</string>
-    <string name="recommendataion_sentence">이런 음식은 어떠신가요?</string>
+<!--    <string name="recommendataion_sentence">이런 음식은 어떠신가요?</string>-->
+    <string name="recommendataion_sentence">~~구의 다른 음식점</string>
     <string name="Apache">  "Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/

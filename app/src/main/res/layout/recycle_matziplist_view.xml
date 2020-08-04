@@ -81,7 +81,8 @@
             android:id="@+id/img_matziplist_grade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_horizontal_rule_24px"
-            android:layout_marginTop="4dp"/>
+            android:layout_gravity="center"
+            android:layout_marginTop="4dp"
+            app:srcCompat="@drawable/ic_horizontal_rule_24px" />
     </LinearLayout>
 </LinearLayout>
