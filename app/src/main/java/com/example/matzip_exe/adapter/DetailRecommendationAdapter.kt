@@ -61,24 +61,31 @@ class DetailRecommendationAdapter(private val itemList: ArrayList<ModelRecommend
         when(CheckType(itemList[position].bizType)){
             0->{
                 //한식
+                holder.img_detail_recommendation.setImageResource(R.drawable.han)
             }
             1->{
                 //일식
+                holder.img_detail_recommendation.setImageResource(R.drawable.jpn)
             }
             2->{
                 //중식
+                holder.img_detail_recommendation.setImageResource(R.drawable.chi)
             }
             3->{
                 //양식
+                holder.img_detail_recommendation.setImageResource(R.drawable.wes)
             }
             4->{
                 //카페,디저트
+                holder.img_detail_recommendation.setImageResource(R.drawable.caf)
             }
             5->{
                 //분식
+                holder.img_detail_recommendation.setImageResource(R.drawable.bun)
             }
             6->{
                 //기타
+                holder.img_detail_recommendation.setImageResource(R.drawable.etc)
             }
         }
         holder.text_detail_recommendation.text = itemList[position].bizName
