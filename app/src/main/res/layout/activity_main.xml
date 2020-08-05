@@ -28,7 +28,9 @@
                     android:id="@+id/linear_main_info"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:orientation="horizontal"/>
+                    android:orientation="horizontal">
+
+                </LinearLayout>
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar_main"
