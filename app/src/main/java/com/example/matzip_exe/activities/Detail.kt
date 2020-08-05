@@ -69,7 +69,6 @@ class Detail : AppCompatActivity(), GetDataListener {
 
     private fun init() {
         initToolbar()
-        initRecommendationSentence()
         initRecyclerView()
 
         setDataListener()
@@ -113,7 +112,8 @@ class Detail : AppCompatActivity(), GetDataListener {
             adapter.notifyDataSetChanged()
         }
 
-        linear_detail_recommendation.visibility
+//        initRecommendationSentence()
+
     }
 
     private fun initTexts() {
@@ -128,7 +128,7 @@ class Detail : AppCompatActivity(), GetDataListener {
         detail_name.text = name
         detail_type.text = type
         detail_avgCost.text = avgCost.toString()
-        text_detail_recommendation_sentence.text = "${area}의 다른 음식점"
+//        text_detail_recommendation_sentence.text = "${area}의 다른 음식점"
     }
 
     private fun fragmentDetail(name: String, locatex: Double, locatey: Double) {
@@ -154,6 +154,7 @@ class Detail : AppCompatActivity(), GetDataListener {
                 detail_toolbar.visibility = View.INVISIBLE
                 detail_collapsingtoolbar.title = null
                 linear_detail_recommendation.visibility = View.VISIBLE
+                initRecommendationSentence()
             }
             else {
                 detail_toolbar.visibility = View.INVISIBLE
@@ -293,6 +294,7 @@ class Detail : AppCompatActivity(), GetDataListener {
     }
 
     private fun initRecommendationSentence(){
-        text_detail_recommendation_sentence.text = getString(R.string.recommendataion_sentence)
+        val format = getString(R.string.recommendataion_sentence)
+        text_detail_recommendation_sentence.text = String.format(format, area, adapter.getTypeString(this))
     }
 }

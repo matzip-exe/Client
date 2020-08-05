@@ -1,6 +1,8 @@
 package com.example.matzip_exe.adapter
 
+import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.matzip_exe.R
 import com.example.matzip_exe.activities.Detail
 import com.example.matzip_exe.interfaces.NetworkConnectedListener
-import com.example.matzip_exe.model.ModelBizDetail
 import com.example.matzip_exe.model.ModelRecommendation
 import com.example.matzip_exe.receivers.NetworkReceiver
 
 class DetailRecommendationAdapter(private val itemList: ArrayList<ModelRecommendation>,
                                   private var area: String, private var region: String):RecyclerView.Adapter<DetailRecommendationAdapter.ViewHolder>() {
+    private val typeValue = arrayOf(0, 0, 0, 0, 0, 0, 0)
 
     inner class ViewHolder(private val v: View):RecyclerView.ViewHolder(v), NetworkConnectedListener{
         private val networkReceiver = NetworkReceiver()
@@ -105,6 +107,26 @@ class DetailRecommendationAdapter(private val itemList: ArrayList<ModelRecommend
         return result
     }
 
+    private fun whatType(): Int{
+        var result = 0
+
+        for (i in 0 until itemList.size){
+            val idx = CheckType(itemList[i].bizType)
+
+            if (i == 0){
+                result = idx
+                continue
+            }
+
+            if (result != idx){
+                result = 6
+                break
+            }
+        }
+
+        return result
+    }
+
     private fun splitType(type: String?): String? {
         val splitTypes = type?.split(">")
         var result = ""
@@ -123,5 +145,31 @@ class DetailRecommendationAdapter(private val itemList: ArrayList<ModelRecommend
         }
 
         return result
+    }
+
+    fun getTypeString(context: Context):String{
+        return when(whatType()){
+            0->{
+                context.getString(R.string.han)
+            }
+            1->{
+                context.getString(R.string.jpn)
+            }
+            2->{
+                context.getString(R.string.chn)
+            }
+            3->{
+                context.getString(R.string.west)
+            }
+            4->{
+                context.getString(R.string.cafe)
+            }
+            5->{
+                context.getString(R.string.bun)
+            }
+            else->{
+                ""
+            }
+        }
     }
 }

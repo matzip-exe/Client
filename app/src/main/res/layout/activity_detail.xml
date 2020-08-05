@@ -218,7 +218,6 @@
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="0dp"
                     android:fontFamily="@font/nanumsquareacr"
-                    android:text="추천문구"
                     android:textSize="18sp" />
 
             </LinearLayout>
