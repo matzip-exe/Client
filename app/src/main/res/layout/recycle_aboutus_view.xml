@@ -4,12 +4,12 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_margin="5dp">
+    android:layout_margin="6dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="5dp">
+        app:cardCornerRadius="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,33 +20,36 @@
                 android:id="@+id/text_aboutus_position"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_weight="1"
                 android:text="TextView"
-                android:textColor="#000000"
-                android:textSize="20sp" />
+                android:fontFamily="@font/nanumsquareacr"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/text_aboutus_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:layout_weight="1"
                 android:text="TextView"
-                android:textSize="18sp" />
+                android:textColor="#000000"
+                android:fontFamily="@font/nanumsquareacb"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/text_aboutus_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:layout_weight="1"
                 android:autoLink="email"
                 android:text="TextView"
-                android:textSize="18sp" />
+                android:fontFamily="@font/nanumsquareacr"
+                android:textSize="16sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
