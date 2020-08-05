@@ -38,14 +38,14 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>,
 
         override fun isConnected() {
             val intent = Intent(v.context, Detail::class.java)
-            intent.putExtra("visitcount", itemList[adapterPosition].visitcount.toString())
+//            intent.putExtra("visitcount", itemList[adapterPosition].visitcount.toString())
             intent.putExtra("name", text_matziplist_name.text)
             intent.putExtra("type", text_matziplist_type.text)
-            intent.putExtra("locatex", itemList[adapterPosition].latlng?.x)
-            intent.putExtra("locatey", itemList[adapterPosition].latlng?.y)
+//            intent.putExtra("locatex", itemList[adapterPosition].latlng?.x)
+//            intent.putExtra("locatey", itemList[adapterPosition].latlng?.y)
             intent.putExtra("area", area)
             intent.putExtra("region", region)
-            intent.putExtra("avgCost", itemList[adapterPosition].avgcost)
+//            intent.putExtra("avgCost", itemList[adapterPosition].avgcost)
 
             v.context.startActivity(intent)
 

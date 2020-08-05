@@ -10,12 +10,12 @@ data class ModelBizList(
         @SerializedName("bizName")val bizName: String,
         @SerializedName("bizType")val bizType: String?,
         @SerializedName("avgCost")val avgCost: Int,
-        @SerializedName("latlng")val latlng: XY?,
+//        @SerializedName("latlng")val latlng: XY?,
         @SerializedName("distance")val distance: Double?,
         @SerializedName("visitCount")val visitCount: Int
     )
-    inner class XY(
-        @SerializedName("x")val x: Double,
-        @SerializedName("y")val y: Double
-    )
+//    inner class XY(
+//        @SerializedName("x")val x: Double,
+//        @SerializedName("y")val y: Double
+//    )
 }
