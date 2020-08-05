@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.Splash"
-    android:background="@color/colorMain">
+    android:background="@color/colorWhite">
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:foregroundGravity="center"
         android:src="@drawable/logo"
         app:layout_constraintBottom_toBottomOf="parent"
