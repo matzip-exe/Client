@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(), GetDataListener {
             if (abs(verticalOffset) - appBarLayout.totalScrollRange == 0){
                 activityMainBinding.toolbarMain.visibility = View.VISIBLE
             }
-            else if (abs(verticalOffset) > appBarLayout.totalScrollRange * 14/15){
+            else if (abs(verticalOffset) > appBarLayout.totalScrollRange * 4/5){
                 activityMainBinding.toolbarMain.visibility = View.INVISIBLE
                 img_main_poster.visibility = View.GONE
             }
