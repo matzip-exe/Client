@@ -39,6 +39,9 @@ class DetailWeb: AppCompatActivity() {
     private fun setWebView() {
         detailweb_webview.apply {
             settings.javaScriptEnabled = true
+            settings.loadWithOverviewMode = true
+            settings.useWideViewPort = true
+            settings.domStorageEnabled = true
             webViewClient = CustomWebViewClient()
         }
         if (url != null) {
