@@ -222,13 +222,16 @@
                     android:textSize="18sp" />
 
             </LinearLayout>
+
             <LinearLayout
+                android:id="@+id/linear_detail_recommendation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:gravity="center">
+                android:visibility="gone">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycle_detail"
