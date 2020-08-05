@@ -113,7 +113,7 @@ class Detail : AppCompatActivity(), GetDataListener {
             adapter.notifyDataSetChanged()
         }
 
-
+        linear_detail_recommendation.visibility
     }
 
     private fun initTexts() {
@@ -149,7 +149,13 @@ class Detail : AppCompatActivity(), GetDataListener {
             if (abs(verticalOffset) - appBarLayout.totalScrollRange == 0) {
                 detail_toolbar.visibility = View.VISIBLE
                 supportActionBar!!.title = area
-            } else {
+            }
+            else if (abs(verticalOffset) - appBarLayout.totalScrollRange < 0 && abs(verticalOffset) > 0){
+                detail_toolbar.visibility = View.INVISIBLE
+                detail_collapsingtoolbar.title = null
+                linear_detail_recommendation.visibility = View.VISIBLE
+            }
+            else {
                 detail_toolbar.visibility = View.INVISIBLE
                 detail_collapsingtoolbar.title = null
             }
