@@ -21,6 +21,7 @@ import com.example.matzip_exe.model.ModelCheckRegion
 import com.example.matzip_exe.model.ModelRecycleMain
 import com.example.matzip_exe.utils.DataSynchronized
 import com.google.android.material.appbar.AppBarLayout
+import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import kotlin.math.abs
 
@@ -56,8 +57,13 @@ class MainActivity : AppCompatActivity(), GetDataListener {
             if (abs(verticalOffset) - appBarLayout.totalScrollRange == 0){
                 activityMainBinding.toolbarMain.visibility = View.VISIBLE
             }
+            else if (abs(verticalOffset) > appBarLayout.totalScrollRange * 14/15){
+                activityMainBinding.toolbarMain.visibility = View.INVISIBLE
+                img_main_poster.visibility = View.GONE
+            }
             else{
                 activityMainBinding.toolbarMain.visibility = View.INVISIBLE
+                img_main_poster.visibility = View.VISIBLE
             }
         })
     }
