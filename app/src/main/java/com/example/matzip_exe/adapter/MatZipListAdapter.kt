@@ -136,7 +136,7 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>,
     }
 
     private fun CheckType(type: String): Int{
-        val CheckList = arrayOf("한식", "일식", "중식", "양식", "카페,디저트", "분식")
+        val CheckList = arrayOf("한식", "일식", "중식", "양식", "카페", "분식")
         var result = 6
 
         for (i in CheckList.indices){
