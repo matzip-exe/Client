@@ -3,7 +3,12 @@ package com.example.matzip_exe.activities
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -295,6 +300,15 @@ class Detail : AppCompatActivity(), GetDataListener {
 
     private fun initRecommendationSentence(){
         val format = getString(R.string.recommendataion_sentence)
-        text_detail_recommendation_sentence.text = String.format(format, area, adapter.getTypeString(this))
+        val whatType = adapter.getTypeString(this)
+        val sentence = String.format(format, area, whatType)
+
+        val spannableString = SpannableString(sentence)
+        val start = sentence.indexOf(whatType)
+        val end = start + whatType.length
+
+        spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#21538E")),start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        text_detail_recommendation_sentence.text = spannableString
     }
 }

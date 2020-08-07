@@ -54,15 +54,10 @@ class MainActivity : AppCompatActivity(), GetDataListener {
         setSupportActionBar(activityMainBinding.toolbarMain)
         supportActionBar!!.title = null
         activityMainBinding.appbarMain.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-            if (abs(verticalOffset) - appBarLayout.totalScrollRange == 0){
-                activityMainBinding.toolbarMain.visibility = View.VISIBLE
-            }
-            else if (abs(verticalOffset) > appBarLayout.totalScrollRange * 4/5){
-                activityMainBinding.toolbarMain.visibility = View.INVISIBLE
+            if (abs(verticalOffset) > appBarLayout.totalScrollRange * 4/5){
                 img_main_poster.visibility = View.GONE
             }
             else{
-                activityMainBinding.toolbarMain.visibility = View.INVISIBLE
                 img_main_poster.visibility = View.VISIBLE
             }
         })
