@@ -110,6 +110,10 @@ class DetailRecommendationAdapter(private val itemList: ArrayList<ModelRecommend
     private fun whatType(): Int{
         var result = 0
 
+        if (itemList.size ==0){
+            return 6
+        }
+
         for (i in 0 until itemList.size){
             val idx = CheckType(itemList[i].bizType)
 
