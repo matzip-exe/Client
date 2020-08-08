@@ -3,7 +3,6 @@ package com.example.matzip_exe.activities
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -12,7 +11,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.transition.Visibility
 import com.example.matzip_exe.R
 import com.example.matzip_exe.adapter.RecycleMainAdapter
 import com.example.matzip_exe.databinding.ActivityMainBinding

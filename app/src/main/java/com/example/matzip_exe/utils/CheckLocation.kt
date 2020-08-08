@@ -4,17 +4,11 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationListener
 import android.location.LocationManager
-import android.os.Bundle
-import android.os.Handler
 import android.util.Log
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import java.lang.Exception
 
-class CheckLocation(val context: Context)/*: LocationListener*/{
+class CheckLocation(val context: Context){
     private lateinit var userLocationManager: LocationManager
     private var location: Location? = null
 
@@ -38,8 +32,6 @@ class CheckLocation(val context: Context)/*: LocationListener*/{
                 if (NetWork && location == null){
                     location = userLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
                     Log.i("NetWork", location.toString())
-//                    Toast.makeText(context, "NetWork ${location.toString()}", Toast.LENGTH_LONG).show()
-
                 }
             }
             else{
@@ -54,23 +46,4 @@ class CheckLocation(val context: Context)/*: LocationListener*/{
 
         return location
     }
-//    override fun onLocationChanged(location: Location?) {
-//
-//    }
-//
-//    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-//
-//    }
-//
-//    override fun onProviderEnabled(provider: String?) {
-//
-//    }
-//
-//    override fun onProviderDisabled(provider: String?) {
-//
-//    }
-
-//    fun stopCheckLocation(){
-//        userLocationManager.removeUpdates(this)
-//    }
 }

@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.matzip_exe.R
 import com.example.matzip_exe.adapter.DetailRecommendationAdapter
 import com.example.matzip_exe.fragments.FragmentDetail
-import com.example.matzip_exe.http.MyRetrofit
 import com.example.matzip_exe.interfaces.GetDataListener
 import com.example.matzip_exe.model.ModelBizDetail
 import com.example.matzip_exe.model.ModelDetailList
@@ -27,14 +26,14 @@ import com.example.matzip_exe.utils.DataSynchronized
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.google.android.material.appbar.AppBarLayout
 import com.naver.maps.map.MapFragment
-import com.naver.maps.map.NaverMapSdk
-import com.naver.maps.map.OnMapReadyCallback
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlin.math.abs
 
@@ -48,7 +47,6 @@ class Detail : AppCompatActivity(), GetDataListener {
     private var locatex: Double = 0.0
     private var locatey: Double = 0.0
     private var modelBizDetail: ModelBizDetail? = null
-    private val myRetrofit = MyRetrofit()
     private lateinit var item: ModelDetailList
     private val AdminData = DataSynchronized()
     private var avgCost: Int = 0
@@ -60,14 +58,10 @@ class Detail : AppCompatActivity(), GetDataListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-//        visitcount = intent.getStringExtra("visitcount")!!
         name = intent.getStringExtra("name")!!
         type = intent.getStringExtra("type")!!
         area = intent.getStringExtra("area")!!
         region = intent.getStringExtra("region")!!
-//        locatex = intent.getDoubleExtra("locatex", 0.0)
-//        locatey = intent.getDoubleExtra("locatey", 0.0)
-//        avgCost = intent.getIntExtra("avgCost", 0)
 
         init()
     }
@@ -116,9 +110,6 @@ class Detail : AppCompatActivity(), GetDataListener {
             i.bizName?.let { i.bizType?.let { it1 -> ModelRecommendation(it, it1) } }?.let { recycleItem.add(it) }
             adapter.notifyDataSetChanged()
         }
-
-//        initRecommendationSentence()
-
     }
 
     private fun initTexts() {
@@ -133,7 +124,6 @@ class Detail : AppCompatActivity(), GetDataListener {
         detail_name.text = name
         detail_type.text = type
         detail_avgCost.text = avgCost.toString()
-//        text_detail_recommendation_sentence.text = "${area}의 다른 음식점"
     }
 
     private fun fragmentDetail(name: String, locatex: Double, locatey: Double) {
@@ -182,10 +172,8 @@ class Detail : AppCompatActivity(), GetDataListener {
         detail_chart.setTouchEnabled(false)
 
         xAxis.apply {
-//            isEnabled = false
             position = XAxis.XAxisPosition.BOTTOM
             textSize = 9f
-//            setDrawGridLines(false)
             granularity = 1f
             axisMinimum = 0f
             isGranularityEnabled = true
@@ -219,9 +207,6 @@ class Detail : AppCompatActivity(), GetDataListener {
             data.addDataSet(set)
 
             for (i in item.monthlyVisits.indices) {
-//                val date = item.monthlyVisits[i].date.split("-")
-//                val dateFloat = "${date[0]}.${date[1]}".toFloat()
-//                println(dateFloat)
                 data.addEntry(
                     Entry(
                         set.entryCount.toFloat(),
