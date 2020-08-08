@@ -4,7 +4,6 @@ import com.example.matzip_exe.model.ModelBizDetail
 import com.example.matzip_exe.model.ModelBizList
 import com.example.matzip_exe.model.ModelCheckRegion
 import com.example.matzip_exe.model.ModelToken
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header

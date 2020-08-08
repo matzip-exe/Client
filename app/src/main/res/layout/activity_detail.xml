@@ -219,7 +219,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="0dp"
-                    android:fontFamily="@font/nanumsquareacr"
+                    android:fontFamily="@font/nanumsquareacb"
                     android:textSize="18sp" />
 
             </LinearLayout>

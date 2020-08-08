@@ -1,7 +1,6 @@
 package com.example.matzip_exe.utils
 
 import android.app.Activity
-import android.util.Log
 import com.example.matzip_exe.interfaces.CheckLocationSettingListener
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException

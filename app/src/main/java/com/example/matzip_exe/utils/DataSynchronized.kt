@@ -1,6 +1,5 @@
 package com.example.matzip_exe.utils
 
-import android.util.Log
 import com.example.matzip_exe.http.MyRetrofit
 import com.example.matzip_exe.interfaces.GetDataListener
 
@@ -95,6 +94,4 @@ class DataSynchronized() {
             }
         }
     }
-//    Detail 부분 inner class 로 추가
-
 }

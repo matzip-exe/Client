@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -20,12 +19,6 @@ import com.example.matzip_exe.receivers.NetworkReceiver
 import com.example.matzip_exe.utils.Auth
 import com.example.matzip_exe.utils.DataSynchronized
 import com.example.matzip_exe.utils.RequestLocationSetting
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.LocationSettingsRequest
-import com.google.android.gms.location.LocationSettingsStatusCodes
 
 class Splash : AppCompatActivity(), NetworkConnectedListener, GetDataListener, CheckLocationSettingListener {
     private val receiver = NetworkReceiver()
@@ -99,12 +92,6 @@ class Splash : AppCompatActivity(), NetworkConnectedListener, GetDataListener, C
     ) {
         when(requestCode){
             GPS_CODE->{
-//                if((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)){
-//                    Toast.makeText(this, "GPS 권한 부여됨", Toast.LENGTH_SHORT).show()
-//                }
-//                else{
-//                    Toast.makeText(this, "GPS 권한 부여 안됨", Toast.LENGTH_SHORT).show()
-//                }
                 this.registerReceiver(receiver, receiver.getFilter())
                 return
             }
@@ -161,6 +148,6 @@ class Splash : AppCompatActivity(), NetworkConnectedListener, GetDataListener, C
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 1000)
+        }, 500)
     }
 }

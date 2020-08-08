@@ -3,11 +3,9 @@ package com.example.matzip_exe.activities
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.example.matzip_exe.R
 import com.example.matzip_exe.utils.CustomWebViewClient
-import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_detail_web.*
 
 class DetailWeb: AppCompatActivity() {
