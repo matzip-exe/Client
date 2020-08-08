@@ -1,5 +1,6 @@
 package com.example.matzip_exe.activities
 
+import android.view.WindowManager.LayoutParams
 import android.content.DialogInterface
 import android.location.Location
 import android.os.Bundle
@@ -218,6 +219,9 @@ class MatzipList : AppCompatActivity(), GetDataListener {
 
     private fun helpAlertDialog(){
         val builder = AlertDialog.Builder(this)
+            .setPositiveButton("확인") { dialog, which ->
+
+        }
 
         builder.setItems(R.array.matzipListHelp, object : DialogInterface.OnClickListener{
             override fun onClick(dialog: DialogInterface?, which: Int) {
