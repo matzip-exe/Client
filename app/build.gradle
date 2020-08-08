@@ -7,7 +7,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.example.matzip_exe"
+        applicationId "com.team_no_yes.matzip_exe"
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1

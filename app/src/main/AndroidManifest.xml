@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.matzip_exe">
+    package="com.team_no_yes.matzip_exe">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -16,28 +16,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.AboutUs"
+        <activity android:name="com.team_no_yes.matzip_exe.activities.AboutUs"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"></activity>
-        <activity android:name=".activities.OSS"
+        <activity android:name="com.team_no_yes.matzip_exe.activities.OSS"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".activities.MatzipList"
+        <activity android:name="com.team_no_yes.matzip_exe.activities.MatzipList"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name=".activities.Detail"
+        <activity android:name="com.team_no_yes.matzip_exe.activities.Detail"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".activities.DetailWeb"
+        <activity android:name="com.team_no_yes.matzip_exe.activities.DetailWeb"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"/>
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="po5b4vwawx" />
+            android:value="iesksf28yj" />
 
         <receiver
-            android:name=".receivers.NetworkReceiver"
+            android:name="com.team_no_yes.matzip_exe.receivers.NetworkReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -45,7 +45,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activities.Splash"
+        <activity android:name="com.team_no_yes.matzip_exe.activities.Splash"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
@@ -54,7 +54,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MainActivity"
+        <activity android:name="com.team_no_yes.matzip_exe.activities.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"/>
     </application>
