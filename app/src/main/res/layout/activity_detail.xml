@@ -80,7 +80,7 @@
                         android:textColor="#000000"
                         android:textSize="26sp"
                         app:layout_constraintEnd_toStartOf="@+id/detail_visitcount"
-                        app:layout_constraintHorizontal_weight="7"
+                        app:layout_constraintHorizontal_weight="26"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -94,9 +94,9 @@
                         android:textColor="#000000"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toStartOf="@+id/detail_visitcount_adder"
+                        app:layout_constraintHorizontal_weight="4"
                         app:layout_constraintStart_toEndOf="@+id/detail_name"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintHorizontal_weight="1"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/detail_visitcount_adder"
@@ -109,7 +109,7 @@
                         android:textAlignment="textEnd"
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintHorizontal_weight="4"
                         app:layout_constraintStart_toEndOf="@+id/detail_visitcount"
                         app:layout_constraintTop_toTopOf="parent" />
 
