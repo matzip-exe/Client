@@ -25,6 +25,5 @@ class CustomWebViewClient: WebViewClient() {
 
         view!!.loadUrl("javascript:if (typeof(document.getElementsByClassName('order_flow_wrap')[0]) != 'undefined' && document.getElementsByClassName('order_flow_wrap')[0] != null){document.getElementsByClassName('order_flow_wrap')[0].style.display = 'none';} " +
                 "if (typeof(document.getElementsByClassName('_3EHfk')[3]) != 'undefined' && document.getElementsByClassName('_3EHfk')[3] != null){document.getElementsByClassName('_3EHfk')[3].style.display = 'none';} void 0")
-//        view!!.loadUrl("javascript:if (typeof(document.getElementsByClassName('_3EHfk')[3]) != 'undefined' && document.getElementsByClassName('_3EHfk')[3] != null){document.getElementsByClassName('_3EHfk')[3].style.display = 'none';} void 0")
     }
 }

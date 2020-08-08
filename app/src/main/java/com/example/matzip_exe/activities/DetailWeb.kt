@@ -1,11 +1,15 @@
 package com.example.matzip_exe.activities
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.matzip_exe.R
 import com.example.matzip_exe.utils.CustomWebViewClient
+import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_detail_web.*
 
 class DetailWeb: AppCompatActivity() {
@@ -50,10 +54,22 @@ class DetailWeb: AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val itemMain = menuInflater
+        itemMain.inflate(R.menu.detailweb_share, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             android.R.id.home->{
                 finish()
+            }
+            R.id.detailweb_share->{
+                val shareIntent = Intent(Intent.ACTION_SEND)
+                shareIntent.type = "text/*"
+                shareIntent.putExtra(Intent.EXTRA_TEXT, url)
+                startActivity(Intent.createChooser(shareIntent, getString(R.string.detailWeb_share)))
             }
         }
         return super.onOptionsItemSelected(item)

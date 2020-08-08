@@ -15,6 +15,7 @@
     <string name="cafe">"카페,디저트 "</string>
 <!--    <string name="recommendataion_sentence">이런 음식은 어떠신가요?</string>-->
     <string name="recommendataion_sentence">%s의 다른 %s음식점</string>
+    <string name="detailWeb_share">공유하기</string>
     <string name="Apache">  "Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
