@@ -11,8 +11,8 @@ import com.naver.maps.map.overlay.Align
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.MarkerIcons
 
-class FragmentDetail(private var name: String, private var locatex: Double,
-                     private var locatey: Double
+class FragmentDetailMap(private var name: String, private var locatex: Double,
+                        private var locatey: Double
 ): FragmentActivity(), OnMapReadyCallback {
     private lateinit var naverMap: NaverMap
     private lateinit var marker: Marker

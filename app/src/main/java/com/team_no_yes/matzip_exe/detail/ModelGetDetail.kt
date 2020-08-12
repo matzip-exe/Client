@@ -2,7 +2,7 @@ package com.team_no_yes.matzip_exe.detail
 
 import com.google.gson.annotations.SerializedName
 
-data class ModelBizDetail(
+data class ModelGetDetail(
     @SerializedName("item")val items: BizDetailItems
 ) {
     inner class BizDetailItems(

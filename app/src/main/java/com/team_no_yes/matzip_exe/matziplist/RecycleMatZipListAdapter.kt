@@ -13,9 +13,9 @@ import com.team_no_yes.matzip_exe.detail.Detail
 import com.team_no_yes.matzip_exe.network.NetworkConnectedListener
 import com.team_no_yes.matzip_exe.network.NetworkReceiver
 
-class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>,
-                        private var area: String, private var region: String
-):RecyclerView.Adapter<MatZipListAdapter.ViewHolder>() {
+class RecycleMatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>,
+                               private var area: String, private var region: String
+):RecyclerView.Adapter<RecycleMatZipListAdapter.ViewHolder>() {
     inner class ViewHolder(private val v:View):RecyclerView.ViewHolder(v),
         NetworkConnectedListener {
         private val networkReceiver = NetworkReceiver()

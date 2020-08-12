@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.team_no_yes.matzip_exe.R
 import com.team_no_yes.matzip_exe.databinding.ActivityMainBinding
 import com.team_no_yes.matzip_exe.interfaces.GetDataListener
-import com.team_no_yes.matzip_exe.utils.DataSynchronized
+import com.team_no_yes.matzip_exe.utils.ConnectData
 import com.google.android.material.appbar.AppBarLayout
 import com.team_no_yes.matzip_exe.main.aboutus.AboutUs
 import com.team_no_yes.matzip_exe.main.oss.OSS
@@ -30,8 +30,8 @@ class MainActivity : AppCompatActivity(), GetDataListener {
     private lateinit var adapterRecycleMain: RecycleMainAdapter
     private lateinit var manager: GridLayoutManager
 
-    private var modelCheckRegion: ModelCheckRegion? = null
-    private val AdminData = DataSynchronized()
+    private var modelGetRegion: ModelGetRegion? = null
+    private val AdminData = ConnectData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,26 +93,26 @@ class MainActivity : AppCompatActivity(), GetDataListener {
     }
 
     override fun getData(data: Any?) {
-        modelCheckRegion = data as ModelCheckRegion?
+        modelGetRegion = data as ModelGetRegion?
 
         when {
-            modelCheckRegion == null ->{
+            modelGetRegion == null ->{
                 Toast.makeText(this, "잠시 후 다시 시도해 주십시오.", Toast.LENGTH_SHORT).show()
                 finish()
             }
-            modelCheckRegion?.items == null -> {
+            modelGetRegion?.items == null -> {
                 Toast.makeText(this, "잠시 후 다시 시도해 주십시오.", Toast.LENGTH_SHORT).show()
             }
-            modelCheckRegion?.items!!.isEmpty() -> {
+            modelGetRegion?.items!!.isEmpty() -> {
                 Toast.makeText(this, "잠시 후 다시 시도해 주십시오.", Toast.LENGTH_SHORT).show()
             }
-            modelCheckRegion?.items != null -> {
-                for (i in modelCheckRegion!!.items.indices){
+            modelGetRegion?.items != null -> {
+                for (i in modelGetRegion!!.items.indices){
                     item.add(
                         ModelRecycleMain(
-                            regionJson.getString(modelCheckRegion!!.items[i].region),
-                            modelCheckRegion!!.items[i].isExist,
-                            modelCheckRegion!!.items[i].region
+                            regionJson.getString(modelGetRegion!!.items[i].region),
+                            modelGetRegion!!.items[i].isExist,
+                            modelGetRegion!!.items[i].region
                         )
                     )
                 }

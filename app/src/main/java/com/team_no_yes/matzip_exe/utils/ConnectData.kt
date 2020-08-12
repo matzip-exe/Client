@@ -3,7 +3,7 @@ package com.team_no_yes.matzip_exe.utils
 import com.team_no_yes.matzip_exe.http.MyRetrofit
 import com.team_no_yes.matzip_exe.interfaces.GetDataListener
 
-class DataSynchronized() {
+class ConnectData() {
     private val myRetrofit = MyRetrofit()
     private var mData: Any? = null
     private lateinit var getDataListener: GetDataListener

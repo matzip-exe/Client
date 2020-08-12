@@ -2,7 +2,7 @@ package com.team_no_yes.matzip_exe.matziplist
 
 import com.google.gson.annotations.SerializedName
 
-data class ModelBizList(
+data class ModelGetMatZipList(
     @SerializedName("item")val items: List<BizListItems>
 ) {
     inner class BizListItems(

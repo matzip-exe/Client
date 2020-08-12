@@ -2,7 +2,7 @@ package com.team_no_yes.matzip_exe.main.aboutus
 
 import com.google.gson.annotations.SerializedName
 
-data class ModelAboutUsJson(
+data class ModelGetAboutUs(
     @SerializedName("Item") val items:List<AboutUsItems>
 ) {
     inner class AboutUsItems(

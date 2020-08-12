@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.team_no_yes.matzip_exe.R
 import com.team_no_yes.matzip_exe.databinding.ActivityMatzipListBinding
 import com.team_no_yes.matzip_exe.interfaces.GetDataListener
-import com.team_no_yes.matzip_exe.utils.DataSynchronized
+import com.team_no_yes.matzip_exe.utils.ConnectData
 import com.google.android.material.tabs.TabLayout
 
 class MatzipList : AppCompatActivity(), GetDataListener {
@@ -27,10 +27,10 @@ class MatzipList : AppCompatActivity(), GetDataListener {
 
     private val item = ArrayList<ModelMatZipList>()
     private lateinit var manager: LinearLayoutManager
-    private lateinit var adapterMatzipList: MatZipListAdapter
+    private lateinit var adapterMatzipListRecycle: RecycleMatZipListAdapter
 
-    private var modelBizList: ModelBizList? = null
-    private val AdminData = DataSynchronized()
+    private var modelGetMatZipList: ModelGetMatZipList? = null
+    private val AdminData = ConnectData()
 
     private var userLocation: Location? = null
     private lateinit var checkLocation: CheckLocation
@@ -76,13 +76,13 @@ class MatzipList : AppCompatActivity(), GetDataListener {
         activityMatzipListBinding.recycleMatziplist.setHasFixedSize(true)
         manager = LinearLayoutManager(this)
         activityMatzipListBinding.recycleMatziplist.layoutManager = manager
-        adapterMatzipList =
-            MatZipListAdapter(
+        adapterMatzipListRecycle =
+            RecycleMatZipListAdapter(
                 item,
                 area,
                 region
             )
-        activityMatzipListBinding.recycleMatziplist.adapter = adapterMatzipList
+        activityMatzipListBinding.recycleMatziplist.adapter = adapterMatzipListRecycle
 
         activityMatzipListBinding.recycleMatziplist.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -92,7 +92,7 @@ class MatzipList : AppCompatActivity(), GetDataListener {
                 val itemSize = recyclerView.adapter!!.itemCount
 
                 //서버가 빈 배열을 끝내면 요청을 멈춘다
-                if (modelBizList?.items!!.isNotEmpty()){
+                if (modelGetMatZipList?.items!!.isNotEmpty()){
                     recyclerView.post(Runnable {
                         if (itemSize - lastViewPosition <= 3){
                             callCount++
@@ -174,37 +174,37 @@ class MatzipList : AppCompatActivity(), GetDataListener {
     }
 
     override fun getData(data: Any?) {
-        modelBizList = data as ModelBizList?
+        modelGetMatZipList = data as ModelGetMatZipList?
         Log.i("getData","getData")
         //빈 데이터 반환은 무조건 빈배열
         //서버 문제일 때는 null
         when {
-            modelBizList == null ->{
+            modelGetMatZipList == null ->{
                 Toast.makeText(this, "잠시 후 다시 시도해 주십시오.", Toast.LENGTH_SHORT).show()
             }
-            modelBizList?.items == null -> {
+            modelGetMatZipList?.items == null -> {
                 Toast.makeText(this, "잠시 후 다시 시도해 주십시오.", Toast.LENGTH_SHORT).show()
             }
-            modelBizList?.items!!.isEmpty() -> {
+            modelGetMatZipList?.items!!.isEmpty() -> {
 
             }
-            modelBizList?.items != null -> {
-                for (i in modelBizList!!.items.indices){
+            modelGetMatZipList?.items != null -> {
+                for (i in modelGetMatZipList!!.items.indices){
                     item.add(
                         ModelMatZipList(
                             (activityMatzipListBinding.recycleMatziplist.adapter!!.itemCount + 1).toString(),
-                            modelBizList!!.items[i].bizType,
-                            modelBizList!!.items[i].bizName,
+                            modelGetMatZipList!!.items[i].bizType,
+                            modelGetMatZipList!!.items[i].bizName,
                             /*modelBizList!!.items[i].latlng,*/
-                            modelBizList!!.items[i].distance,
-                            modelBizList!!.items[i].visitCount,
-                            modelBizList!!.items[i].avgCost,
+                            modelGetMatZipList!!.items[i].distance,
+                            modelGetMatZipList!!.items[i].visitCount,
+                            modelGetMatZipList!!.items[i].avgCost,
                             filterPosition
                         )
                     )
                 }
 
-                adapterMatzipList.notifyDataSetChanged()
+                adapterMatzipListRecycle.notifyDataSetChanged()
             }
 
 

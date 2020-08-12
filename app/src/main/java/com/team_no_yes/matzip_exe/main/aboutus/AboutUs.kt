@@ -16,7 +16,7 @@ class AboutUs : AppCompatActivity() {
     private lateinit var manager: LinearLayoutManager
     private lateinit var recycleAboutUsAdapter: RecycleAboutUsAdapter
 
-    private lateinit var aboutUsJson: ModelAboutUsJson
+    private lateinit var getAboutUs: ModelGetAboutUs
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +44,7 @@ class AboutUs : AppCompatActivity() {
                 it.readText()
             }
 
-            aboutUsJson = gson.fromJson(json, ModelAboutUsJson::class.java)
+            getAboutUs = gson.fromJson(json, ModelGetAboutUs::class.java)
             itemInit()
         }
         catch (e: Exception){
@@ -53,7 +53,7 @@ class AboutUs : AppCompatActivity() {
     }
 
     private fun itemInit(){
-        for (i in aboutUsJson.items){
+        for (i in getAboutUs.items){
             item.add(
                 ModelRecycleAboutUs(
                     i.Position,

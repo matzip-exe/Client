@@ -17,7 +17,7 @@ import com.team_no_yes.matzip_exe.interfaces.GetDataListener
 import com.team_no_yes.matzip_exe.network.NetworkConnectedListener
 import com.team_no_yes.matzip_exe.network.NetworkReceiver
 import com.team_no_yes.matzip_exe.utils.Auth
-import com.team_no_yes.matzip_exe.utils.DataSynchronized
+import com.team_no_yes.matzip_exe.utils.ConnectData
 
 class Splash : AppCompatActivity(),
     NetworkConnectedListener, GetDataListener, CheckLocationSettingListener {
@@ -26,8 +26,8 @@ class Splash : AppCompatActivity(),
     private val CODE_LOCATION = 707
     private var GPScheck = false
 
-    private val AdminData = DataSynchronized()
-    private var modelToken: ModelToken? = null
+    private val AdminData = ConnectData()
+    private var modelGetToken: ModelGetToken? = null
     private lateinit var requestLocationSetting: RequestLocationSetting
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,10 +66,10 @@ class Splash : AppCompatActivity(),
     }
 
     override fun getData(data: Any?) {
-        modelToken = data as ModelToken?
+        modelGetToken = data as ModelGetToken?
 
-        if (modelToken?.token != null){
-            Auth.token = modelToken!!.token
+        if (modelGetToken?.token != null){
+            Auth.token = modelGetToken!!.token
         }
     }
 

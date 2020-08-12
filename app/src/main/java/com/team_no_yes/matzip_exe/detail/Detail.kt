@@ -19,7 +19,7 @@ import com.team_no_yes.matzip_exe.R
 import com.team_no_yes.matzip_exe.detail.recommendation.DetailRecommendationAdapter
 import com.team_no_yes.matzip_exe.interfaces.GetDataListener
 import com.team_no_yes.matzip_exe.detail.recommendation.ModelRecommendation
-import com.team_no_yes.matzip_exe.utils.DataSynchronized
+import com.team_no_yes.matzip_exe.utils.ConnectData
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
@@ -44,9 +44,9 @@ class Detail : AppCompatActivity(), GetDataListener {
     private lateinit var region: String
     private var locatex: Double = 0.0
     private var locatey: Double = 0.0
-    private var modelBizDetail: ModelBizDetail? = null
+    private var modelGetDetail: ModelGetDetail? = null
     private lateinit var item: ModelDetailList
-    private val AdminData = DataSynchronized()
+    private val AdminData = ConnectData()
     private var avgCost: Int = 0
     private val recycleItem = ArrayList<ModelRecommendation>()
     private lateinit var manager:LinearLayoutManager
@@ -88,14 +88,14 @@ class Detail : AppCompatActivity(), GetDataListener {
     }
 
     override fun getData(data: Any?) {
-        modelBizDetail = data as ModelBizDetail?
+        modelGetDetail = data as ModelGetDetail?
         item = ModelDetailList(
-            modelBizDetail!!.items.monthlyVisits,
-            modelBizDetail!!.items.avgCost,
-            modelBizDetail!!.items.latlng,
-            modelBizDetail!!.items.detailUrl,
-            modelBizDetail!!.items.visitCount,
-            modelBizDetail!!.items.recommendations
+            modelGetDetail!!.items.monthlyVisits,
+            modelGetDetail!!.items.avgCost,
+            modelGetDetail!!.items.latlng,
+            modelGetDetail!!.items.detailUrl,
+            modelGetDetail!!.items.visitCount,
+            modelGetDetail!!.items.recommendations
         )
 
         avgCost = item.avgCost
@@ -136,7 +136,7 @@ class Detail : AppCompatActivity(), GetDataListener {
                 fm.beginTransaction().add(R.id.detail_map_layout, it).commit()
             }
         mapFragment.getMapAsync(
-            FragmentDetail(
+            FragmentDetailMap(
                 name,
                 locatex,
                 locatey

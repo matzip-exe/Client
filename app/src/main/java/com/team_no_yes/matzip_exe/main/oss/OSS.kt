@@ -16,7 +16,7 @@ class OSS : AppCompatActivity() {
     private lateinit var recycleOSSAdapter: RecycleOSSAdapter
     private lateinit var manager:LinearLayoutManager
 
-    private lateinit var ossJson: ModelOSSJson
+    private lateinit var getOss: ModelGetOSS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +45,7 @@ class OSS : AppCompatActivity() {
                 it.readText()
             }
 
-            ossJson = gson.fromJson(json, ModelOSSJson::class.java)
+            getOss = gson.fromJson(json, ModelGetOSS::class.java)
             itemInit()
         }
         catch (e: Exception){
@@ -54,7 +54,7 @@ class OSS : AppCompatActivity() {
     }
 
     private fun itemInit(){
-        for (i in ossJson.items){
+        for (i in getOss.items){
             item.add(
                 ModelRecycleOSS(
                     i.Name,

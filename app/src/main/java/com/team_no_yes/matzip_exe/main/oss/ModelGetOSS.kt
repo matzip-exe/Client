@@ -2,7 +2,7 @@ package com.team_no_yes.matzip_exe.main.oss
 
 import com.google.gson.annotations.SerializedName
 
-data class ModelOSSJson(
+data class ModelGetOSS(
     @SerializedName("Item")val items: List<OSSItems>) {
 
     inner class OSSItems(
