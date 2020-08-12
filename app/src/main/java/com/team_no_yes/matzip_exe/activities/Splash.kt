@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -73,7 +74,7 @@ class Splash : AppCompatActivity(), NetworkConnectedListener, GetDataListener, C
     }
 
     override fun isConnected() {
-        if (GPScheck){
+        if (!GPScheck){
             requestLocationSetting.requestGpsSettingChange()
         }
         else{
@@ -122,7 +123,6 @@ class Splash : AppCompatActivity(), NetworkConnectedListener, GetDataListener, C
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         when(requestCode){
             GPS_CODE->{
                 GPScheck = resultCode == Activity.RESULT_OK
