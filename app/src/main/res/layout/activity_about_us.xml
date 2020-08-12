@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            tools:context=".activities.AboutUs">
+            tools:context=".main.aboutus.AboutUs">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycle_aboutus"

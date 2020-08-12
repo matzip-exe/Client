@@ -1,9 +1,9 @@
 package com.team_no_yes.matzip_exe.http
 
-import com.team_no_yes.matzip_exe.model.ModelBizDetail
-import com.team_no_yes.matzip_exe.model.ModelBizList
-import com.team_no_yes.matzip_exe.model.ModelCheckRegion
-import com.team_no_yes.matzip_exe.model.ModelToken
+import com.team_no_yes.matzip_exe.detail.ModelBizDetail
+import com.team_no_yes.matzip_exe.matziplist.ModelBizList
+import com.team_no_yes.matzip_exe.main.ModelCheckRegion
+import com.team_no_yes.matzip_exe.splash.ModelToken
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
