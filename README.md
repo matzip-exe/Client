@@ -7,7 +7,7 @@
 # 공인식당
 서울시, 구 업무추진비 데이터를 기반으로 한 음식점 리스트🍱
 <br><br>
-![logo](https://user-images.githubusercontent.com/37128456/98647231-ee3d3080-2377-11eb-918e-3b40118a2892.png)
+![logo](https://user-images.githubusercontent.com/37128456/98647500-496f2300-2378-11eb-96e3-cc4916c17e16.png)
 
 **개발 프로젝트명: matzip-exe**
 <br><br>
