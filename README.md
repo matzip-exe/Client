@@ -1,3 +1,6 @@
+![logo](https://user-images.githubusercontent.com/37128456/98646823-4c1d4880-2377-11eb-8d24-a66b9207fe17.png)
+
+
 # Matzip-exe Client
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/matzip-exe/Client)
 ![GitHub last commit](https://img.shields.io/github/last-commit/matzip-exe/Client)
@@ -7,7 +10,6 @@
 # 공인식당
 서울시, 구 업무추진비 데이터를 기반으로 한 음식점 리스트🍱
 <br><br>
-![logo](https://user-images.githubusercontent.com/37128456/98646823-4c1d4880-2377-11eb-8d24-a66b9207fe17.png)
 
 
 **개발 프로젝트명: matzip-exe**
