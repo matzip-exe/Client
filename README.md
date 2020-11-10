@@ -1,6 +1,7 @@
 # Matzip-exe Client
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/matzip-exe/Client)
 ![GitHub last commit](https://img.shields.io/github/last-commit/matzip-exe/Client)
+<br>
 <a href='https://play.google.com/store/apps/details?id=com.team_no_yes.matzip_exe'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="70" width="180"/></a>
 
 # 공인식당
