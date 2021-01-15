@@ -63,7 +63,7 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.text_matziplist_seq.text = itemList[position].seq
-        when(CheckType(itemList[position].type!!)){
+        when(itemList[position].type?.let { CheckType(it) }){
             0-> {
                 //한식
                 holder.img_matziplist_type.setImageResource(R.drawable.han_fixed)
@@ -89,6 +89,10 @@ class MatZipListAdapter(private val itemList: ArrayList<ModelMatZipList>,
                 holder.img_matziplist_type.setImageResource(R.drawable.bun_fixed)
             }
             6->{
+                //기타
+                holder.img_matziplist_type.setImageResource(R.drawable.etc_fixed)
+            }
+            else->{
                 //기타
                 holder.img_matziplist_type.setImageResource(R.drawable.etc_fixed)
             }
