@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.team_no_yes.matzip_exe.R
@@ -99,7 +100,6 @@ class Detail : AppCompatActivity(), GetDataListener {
             modelBizDetail!!.items.visitCount,
             modelBizDetail!!.items.recommendations
         )
-
         avgCost = item.avgCost
         locatex = item.latlng.x
         locatey = item.latlng.y
@@ -114,10 +114,14 @@ class Detail : AppCompatActivity(), GetDataListener {
 
     private fun initTexts() {
         detail_button.setOnClickListener {
-            val intent = Intent(this, DetailWeb::class.java)
-            intent.putExtra("url", item.detailUrl)
-            intent.putExtra("area", area)
-            this.startActivity(intent)
+            if(item.detailUrl != null) {
+                val intent = Intent(this, DetailWeb::class.java)
+                intent.putExtra("url", item.detailUrl)
+                intent.putExtra("area", area)
+                this.startActivity(intent)
+            } else {
+                Toast.makeText(this, "현재 상세 정보 이용이 어렵습니다.\n서비스 이용에 불편을 드려 죄송합니다.", Toast.LENGTH_LONG).show()
+            }
         }
 
         detail_visitcount.text = visitcount
