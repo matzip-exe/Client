@@ -45,7 +45,7 @@ class DetailWeb: AppCompatActivity() {
             webViewClient = CustomWebViewClient()
         }
         if (url != null) {
-            detailweb_webview.loadUrl(url)
+            detailweb_webview.loadUrl(url!!)
         } else {
             detailweb_webview.visibility = View.GONE
 //            NEED FIX. TO NOTIFICATION.

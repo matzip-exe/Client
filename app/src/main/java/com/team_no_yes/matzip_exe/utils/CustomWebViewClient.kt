@@ -9,8 +9,8 @@ import android.webkit.WebViewClient
 class CustomWebViewClient: WebViewClient() {
 
     override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-        Log.i("url", url)
         if (url != null) {
+            Log.i("url", url)
             if(url.startsWith("tel:")){
                 val intent = Intent(Intent.ACTION_DIAL, Uri.parse(url))
                 view!!.context.startActivity(intent)

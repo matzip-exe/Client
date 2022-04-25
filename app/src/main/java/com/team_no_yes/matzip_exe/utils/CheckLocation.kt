@@ -40,7 +40,7 @@ class CheckLocation(val context: Context){
             }
         }
         catch (e:Exception){
-            Log.i("error", e.message)
+            e.message?.let { Log.i("error", it) }
             e.printStackTrace()
         }
 
